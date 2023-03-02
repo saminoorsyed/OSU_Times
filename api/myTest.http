@@ -1,0 +1,53 @@
+### Request 1: Delete a user
+Delete http://flip1.engr.oregonstate.edu:3981/users/73 HTTP/1.1
+content-type: application/json
+
+### Request 2: Get Users
+Get http://flip1.engr.oregonstate.edu:3981/users/ HTTP/1.1
+content-type: application/json
+
+
+### Request 2: Update a user
+Put http://flip1.engr.oregonstate.edu:3981/users/73 HTTP/1.1
+content-type: application/json
+
+{
+    "fname": "temp1",
+    "lname": "fakeLastName",
+    "username": "fakeUser",
+    "email": "theTest@gmail.com"
+}
+
+### Request 2: Create a user
+Post http://flip1.engr.oregonstate.edu:3981/users/ HTTP/1.1
+content-type: application/json
+
+{
+    "fname": "Tes1fname",
+    "lname": "Test1lname",
+    "username": "Test1usernmae",
+    "email": "Test1@gmail.com"
+}
+
+### Request 2: Create a user
+Post http://flip1.engr.oregonstate.edu:3981/users/ HTTP/1.1
+content-type: application/json
+
+{
+    "fname": "Tes2fname",
+    "lname": "Test2lname",
+    "username": "Test2usernmae",
+    "email": "Test2@gmail.com"
+}
+
+
+### Request 2: Create a user
+Post http://flip1.engr.oregonstate.edu:3981/users/ HTTP/1.1
+content-type: application/json
+
+{
+    "fname": "user2",
+    "lname": "user3",
+    "username": "user1",
+    "email": "user4"
+}
