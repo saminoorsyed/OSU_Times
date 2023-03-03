@@ -10,13 +10,17 @@ function DBUsersPage(){
     // set objects to populate tables
     const [columnNames, setColumnNames] = useState([]);
     const [dataObjects, setDataObjects] = useState([]);
-
+    let IdObjects = {
+        "user_id": [["Moral Officer",0],[ "Chief Engineer",1], ["Lead Botanist",2]],
+        "author_id": [["TheDoctor",0], ["Borg",1], ["Lieutenant",2]]
+    }
     // set objects for the filter
     const [query, setQuery] = useState('');
     const results = filterItems(dataObjects, query);
+    // set objects for passing state
 
-    const [newUserObj, setNewUserObj] = useState(origNewUserObj);
-    const [editUserObj, setEditUserObj] = useState(origEditUserObj)
+    const [newUserObj, setNewUserObj] = useState({});
+    const [editUserObj, setEditUserObj] = useState({})
 
     // functions for lifting up state
 
@@ -55,16 +59,19 @@ function DBUsersPage(){
     useEffect(() => {
         const fetchColumnNames = async () => {
             try {
-            const response = await fetch('http://flip3.engr.oregonstate.edu:4004/api/ReactionIcons/columns');
+            const response = await fetch('http://flip3.engr.oregonstate.edu:4004/api/users/columns');
             const data = await response.json();
             const names = data.map((column) => column.COLUMN_NAME);
             setColumnNames(names);
+
             } catch (error) {
                 console.error(error);
             }
         };
         fetchColumnNames();
-        }, []);
+        }, []
+    );
+   
     // fetch objects to populate tables upon component mount
     useEffect(() => {
         const fetchObjects = async () => {
@@ -77,10 +84,21 @@ function DBUsersPage(){
                 console.error(error);
             }
         };
-        
         fetchObjects();
-
-        }, []);
+        }, []
+    );
+    
+    // set initial state of new user object and edit user object based on columns from database
+    useEffect(() => {
+        // Create an object with initial values for each input
+        const ObjInitialState = {};
+        columnNames.forEach(title => {
+            ObjInitialState[title] = '';
+        });
+        setNewUserObj(ObjInitialState);
+        setEditUserObj(ObjInitialState);
+        }, [columnNames]
+    );
 
     return(
     <section>
@@ -100,7 +118,7 @@ function DBUsersPage(){
             IdObjects = {IdObjects}/>
         <br />
         {/* I want button to load original sql data in case person deletes everything */}
-        <button onClick={() => setUsers(fakeUsers)}>(Placeholder Future Functionality)</button>
+        {/* <button onClick={() => setUsers(fakeUsers)}>(Placeholder Future Functionality)</button> */}
     </section>
     );
 };

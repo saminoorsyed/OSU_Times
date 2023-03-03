@@ -9,7 +9,10 @@ router.route("/",)
      .get(cGetUsers)
      .post(cAddUser)
 
-router.route("/:id")
+router.route('/columns')
+     .get(cGetUsers)
+
+     router.route("/:id")
      .put(cUpdateUser)
      .delete(cDeleteUser)
 
