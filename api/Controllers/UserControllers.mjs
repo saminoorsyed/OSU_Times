@@ -1,13 +1,12 @@
-import express from 'express';
-import { getUsers, updateUser, deleteUser, addUser } from '../model.mjs';
+import { getUsers, updateUser, deleteUser, addUser } from '../models/usersModel.mjs';
 
-export const getAllUsers = async (req, res, next) => {
+export const cGetUsers = async (req, res, next) => {
     // console.log("Enter get method!!!")
     let data = await getUsers();
     res.send(data)
 };
 
-export const addOneUser = async (req, res, next) => {
+export const cAddUser = async (req, res, next) => {
     let numCreated = 0;
     let result;
     // console.log("Enter post method")   
@@ -21,4 +20,14 @@ export const addOneUser = async (req, res, next) => {
     }
     console.log("Enter send final result piece of post method")
     res.send(result);
+}
+
+export const cUpdateUser = async (req, res, next) => {
+    let result = await updateUser(req.params.id, req.body.username, req.body.fname, req.body.lname, req.body.email);
+    res.send(result);
+}
+
+export const cDeleteUser = async (req, res, next) => {
+    let result = await deleteUser(req.params.id);
+    res.json(result);
 }

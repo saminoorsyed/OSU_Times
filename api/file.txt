@@ -89,3 +89,4 @@ GET , /users
 GET , /users
 GET , /users
 GET , /users/
+GET , /users/
