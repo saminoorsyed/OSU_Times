@@ -61,7 +61,7 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use("/users", usersRoute);
+app.use("/api/users", usersRoute);
 
 app.listen(process.env.API_PORT, () => {
     console.log(`Express server is listening on port ${process.env.API_PORT}!`);

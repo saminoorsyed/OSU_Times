@@ -1,4 +1,4 @@
-import { getUsers, updateUser, deleteUser, addUser } from '../models/usersModel.mjs';
+import { getUsers, updateUser, deleteUser, addUser, GetUserColumns } from '../models/usersModel.mjs';
 
 export const cGetUsers = async (req, res, next) => {
     // console.log("Enter get method!!!")
