@@ -6,6 +6,11 @@ export const cGetUsers = async (req, res, next) => {
     res.send(data)
 };
 
+export const cGetUserColumns =  async (req, res)=>{
+    let userColumns = await GetUserColumns();
+    res.send(userColumns)
+}
+
 export const cAddUser = async (req, res, next) => {
     let numCreated = 0;
     let result;

@@ -5,8 +5,16 @@ import { pool } from './dbConnector.mjs';
 // interior data is json (array of user objects)
 
 export async function getUsers() {
-    const result = await pool.query("Select * from Users");
-    return result[0];
+    const [result] = await pool.query("Select * from Users");
+    return result;
+}
+
+// no inputs accepted
+// returns promise
+// interior data is json (array of user objects)
+export async function GetUserColumns(){
+    const [result] = await pool.query(`SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'Users';`)
+    return result;
 }
 
 // inputs:  (int/str, string, string, string, string)

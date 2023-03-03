@@ -7,73 +7,18 @@ import DBSearchFilter from "../../Components/DBComponents/DBSearchFilter";
 import { MdAlternateEmail } from "react-icons/md";
 
 function DBUsersPage(){
-    let fakeUsers = [
-        {
-            "user_id":6,
-            "username":"Fake1",
-            "fname":"Super Fake",
-            "lname":"SomeFake",
-            "email":"kjneway@voyager.com",
-        },{
-            "user_id":9,
-            "username":"Fake1",
-            "fname":"Super Fake",
-            "lname":"SomeFake",
-            "email":"kjneway@voyager.com",
-        }
-    ]
-    let dbUsers = [                
-        {
-            "user_id":0,
-            "username":"Captain",
-            "fname":"Kathryn",
-            "lname":"Janeway",
-            "email":"kjneway@voyager.com",
-        },
-        {
-            "user_id": 1,
-            "username":"Commander",
-            "fname": "Amal",
-            "lname": "Chakotay",
-            "email": "achakotay@makis.com",
-        },
-        {
-            "user_id":2,
-            "username":"Lieutenant",
-            "fname": "Tom",
-            "lname": "Paris",
-            "email":"tparis@starfleet.com",
-        }
-    ]
+    // set objects to populate tables
+    const [columnNames, setColumnNames] = useState([]);
+    const [dataObjects, setDataObjects] = useState([]);
 
-    
-    let dbColumns = ["user_id", "username", "fname", "lname", "email"];
-    let IdObjects = {}
-    let userObj = {};
-    for(let i = 0; i < dbColumns.length; i++){
-        userObj[dbColumns[i]] = "Chicago";
-    }
-
-    let origNewUserObj = {
-        fname: "Apple",
-        lname: "MSFT",
-        username: "Google",
-        email: "Shcwab@email.com"
-    };
-
-    let origEditUserObj = {
-        fname: "Apple",
-        lname: "MSFT",
-        username: "Google",
-        email: "Shcwab@email.com"
-    };
-
-    const [columns, setColumns] = useState(dbColumns);
-    const [users, setUsers] = useState(dbUsers);
+    // set objects for the filter
     const [query, setQuery] = useState('');
-    const results = filterItems(users, query);
+    const results = filterItems(dataObjects, query);
+
     const [newUserObj, setNewUserObj] = useState(origNewUserObj);
     const [editUserObj, setEditUserObj] = useState(origEditUserObj)
+
+    // functions for lifting up state
 
     function updatesNewUserObj(e){
 
@@ -94,7 +39,7 @@ function DBUsersPage(){
             }
         );
     }
-  
+
 
     function filterItems(items, query){
         return items.filter(item => item.username.includes(query))
@@ -106,25 +51,36 @@ function DBUsersPage(){
     }
 
 
-    
-    // runs continuously if enter state users instead of []
-    // function keeps re-running assuming it might be due to filter
+    // fetch column names upon component mount 
     useEffect(() => {
-        const getUsers = async() => {
+        const fetchColumnNames = async () => {
             try {
-                let response = await fetch("http://flip3.engr.oregonstate.edu:3981/users");
-                // console.log(response);
-                let data = await response.json();
-                console.log(data);
-                setUsers(data);
-            } catch(error){
-                console.log(error.stack);
+            const response = await fetch('http://flip3.engr.oregonstate.edu:4004/api/ReactionIcons/columns');
+            const data = await response.json();
+            const names = data.map((column) => column.COLUMN_NAME);
+            setColumnNames(names);
+            } catch (error) {
+                console.error(error);
             }
-        }
+        };
+        fetchColumnNames();
+        }, []);
+    // fetch objects to populate tables upon component mount
+    useEffect(() => {
+        const fetchObjects = async () => {
+            try {
+            const response = await fetch('http://flip3.engr.oregonstate.edu:4004/api/users/');
+            const data = await response.json()
+            setDataObjects(data);
+            console.log(data)
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        
+        fetchObjects();
 
-        getUsers();
-    }, [])
-    
+        }, []);
 
     return(
     <section>
@@ -140,7 +96,7 @@ function DBUsersPage(){
             handleCreateNewUser = {updatesNewUserObj}
             userObj = {newUserObj}
             objects = {results}
-            columns = {columns}
+            columns = {columnNames}
             IdObjects = {IdObjects}/>
         <br />
         {/* I want button to load original sql data in case person deletes everything */}
