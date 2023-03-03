@@ -1,10 +1,10 @@
 import express from 'express';
-import dotenv from 'dotenv';   
-import {userRoute} from './routes/users.mjs';
+import dotenv from 'dotenv';
+import { usersRoute } from './routes/usersRoutes.mjs';
 import cors from 'cors';
 import fs from 'fs';
 
-dotenv.config();  
+dotenv.config();
 
 const app = express();
 
@@ -33,35 +33,35 @@ export const corsOptions = {
 // app.options("*", cors()); // added
 app.use(express.static('public')); // for testing
 app.use(express.json())
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 
 app.use((req, res, next) => {
     let content = "";
 
-    if(req.method === 'GET'){
+    if (req.method === 'GET') {
         content = req.method + " , " + req.url + "\n";
     }
-    else if (req.method === 'DELETE'){
-        content = req.method  + ", " + req.url + "\n";
-    } else if (req.method === 'PUT'){
-        content = req.method  + ", " + req.url  + ", " + req.body.username + ", " + req.body.fname + ", " + req.body.lname + ", " + req.body.email + "\n";
-    } else if(req.method === "POST"){
-        content = req.method  + ", " + req.url  + ", " + req.body.username + ", " + req.body.fname + ", " + req.body.lname + ", " + req.body.email + "\n";
+    else if (req.method === 'DELETE') {
+        content = req.method + ", " + req.url + "\n";
+    } else if (req.method === 'PUT') {
+        content = req.method + ", " + req.url + ", " + req.body.username + ", " + req.body.fname + ", " + req.body.lname + ", " + req.body.email + "\n";
+    } else if (req.method === "POST") {
+        content = req.method + ", " + req.url + ", " + req.body.username + ", " + req.body.fname + ", " + req.body.lname + ", " + req.body.email + "\n";
     } else {
         content = req.method + " | " + req.url + " Unknown stuff " + "\n";
     }
 
     fs.appendFile('file.txt', content, err => {
         if (err) {
-          throw err
+            throw err
         }
         console.log('File is updated.')
     })
     next()
-  })
+})
 
-app.use("/users", userRoute);
+app.use("/users", usersRoute);
 
 app.listen(process.env.API_PORT, () => {
     console.log(`Express server is listening on port ${process.env.API_PORT}!`);
