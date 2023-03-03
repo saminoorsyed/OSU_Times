@@ -46,7 +46,6 @@ function DBTableRow({object, columns,IdObjects, editUserObj, editOnChange}){
 
     const updateUserInDatabase = async (id,editUserObj ) => {
         console.log("**********************  Method entry edit user ***************????")
-        alert("Help me!");
         let url = `http://flip3.engr.oregonstate.edu:4004/api/users/${id}`;
         const response = await fetch (url, {
             method:"PUT", 
@@ -56,7 +55,6 @@ function DBTableRow({object, columns,IdObjects, editUserObj, editOnChange}){
             },
         });
         console.log(response);
-        alert("Dying")
         if (response.status === 200){
             let temp = await response.json();
             console.log(temp);
