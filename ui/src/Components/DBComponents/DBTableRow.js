@@ -12,7 +12,7 @@ function DBTableRow({object, columns,IdObjects, editUserObj, editOnChange}){
        
         async function RemoveFromDatabase(){
             
-            let response = await fetch(`http://flip3.engr.oregonstate.edu:3981/users/${id}`,
+            let response = await fetch(`http://flip3.engr.oregonstate.edu:4004/api/users/${id}`,
             {
                 method:"DELETE"
             });
@@ -47,7 +47,7 @@ function DBTableRow({object, columns,IdObjects, editUserObj, editOnChange}){
     const updateUserInDatabase = async (id,editUserObj ) => {
         console.log("**********************  Method entry edit user ***************????")
         alert("Help me!");
-        let url = `http://flip3.engr.oregonstate.edu:3981/users/${id}`;
+        let url = `http://flip3.engr.oregonstate.edu:4004/api/users/${id}`;
         const response = await fetch (url, {
             method:"PUT", 
             body: JSON.stringify(editUserObj),

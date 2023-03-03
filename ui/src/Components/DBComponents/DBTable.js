@@ -10,14 +10,14 @@ function DBTable({objects, columns, IdObjects, userObj, handleCreateNewUser, edi
 
     function fake(e){
         e.preventDefault();
-        console.log("staring setup to create user")
+        console.log("starting setup to create user")
         createUser();
     }
 
     const createUser = async (e) => {
         console.log("**********************  Method entry add/create user ***************????")
         
-        let url = `http://flip3.engr.oregonstate.edu:3981/users/`;
+        let url = `http://flip3.engr.oregonstate.edu:4004/api/users/`;
         const response = await fetch (url, {
             method:"POST", 
             body: JSON.stringify(userObj),
