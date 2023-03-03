@@ -1,5 +1,5 @@
 import express from 'express';
-import { cAddUser, cDeleteUser, cUpdateUser, cGetUsers } from '../Controllers/UserControllers.mjs';
+import { cAddUser, cDeleteUser, cUpdateUser, cGetUsers, cGetUserColumns } from '../Controllers/UserControllers.mjs';
 
 
 const router = express.Router();
@@ -10,7 +10,7 @@ router.route("/",)
      .post(cAddUser)
 
 router.route('/columns')
-     .get(cGetUsers)
+     .get(cGetUserColumns)
 
      router.route("/:id")
      .put(cUpdateUser)

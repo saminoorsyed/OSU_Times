@@ -14,6 +14,7 @@ export async function getUsers() {
 // interior data is json (array of user objects)
 export async function GetUserColumns(){
     const [result] = await pool.query(`SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'Users';`)
+    console.log(result)
     return result;
 }
 

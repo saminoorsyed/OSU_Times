@@ -63,7 +63,7 @@ function DBUsersPage(){
             const data = await response.json();
             const names = data.map((column) => column.COLUMN_NAME);
             setColumnNames(names);
-
+            console.log(data)
             } catch (error) {
                 console.error(error);
             }
