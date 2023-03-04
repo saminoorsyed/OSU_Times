@@ -11,7 +11,6 @@ function DBTableRow({object, columns,IdObjects, editUserObj, editOnChange}){
         
        
         async function RemoveFromDatabase(){
-            
             let response = await fetch(`http://flip3.engr.oregonstate.edu:4004/api/users/${id}`,
             {
                 method:"DELETE"

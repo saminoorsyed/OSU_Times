@@ -1,10 +1,14 @@
 import React, { useEffect } from "react";
 import {useState} from 'react';
 
+// import api functions
+import { fetchColumnNames, fetchObjects } from "../../api/usersApi";
+
 // import components
 import DBTable from "../../Components/DBComponents/DBTable";
 import DBSearchFilter from "../../Components/DBComponents/DBSearchFilter";
 import { MdAlternateEmail } from "react-icons/md";
+
 
 function DBUsersPage(){
     // set objects to populate tables
@@ -55,36 +59,23 @@ function DBUsersPage(){
     }
 
 
-    // fetch column names upon component mount 
+    // mount column names for table
     useEffect(() => {
-        const fetchColumnNames = async () => {
-            try {
-            const response = await fetch('http://flip3.engr.oregonstate.edu:4004/api/users/columns');
-            const data = await response.json();
-            const names = data.map((column) => column.COLUMN_NAME);
-            setColumnNames(names);
-            console.log(data)
-            } catch (error) {
-                console.error(error);
+            async function getColumnNames(){
+                const names = await fetchColumnNames();
+                setColumnNames(names)
             }
-        };
-        fetchColumnNames();
+            getColumnNames();
         }, []
     );
    
     // fetch objects to populate tables upon component mount
     useEffect(() => {
-        const fetchObjects = async () => {
-            try {
-            const response = await fetch('http://flip3.engr.oregonstate.edu:4004/api/users/');
-            const data = await response.json()
-            setDataObjects(data);
-            console.log(data)
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchObjects();
+        async function getObjects(){
+            const objects = await fetchObjects();
+            setDataObjects(objects);
+        }
+        getObjects();
         }, []
     );
     
