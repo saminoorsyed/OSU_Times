@@ -1,4 +1,4 @@
-import { getComments, updateComment, deleteComment, addComment, getCommentColumns, getCommentIDList } from '../models/usersModel.mjs';
+import { getComments, updateComment, deleteComment, addComment, getCommentColumns, getCommentIDList } from '../models/commentsModel.mjs';
 
 export const cGetCommentsList = async (req, res, next) => {
     // console.log("Enter get method!!!")
@@ -13,7 +13,7 @@ export const cGetComments = async (req, res, next) => {
     res.send(data)
 };
 
-export const cGetCommentsColumns =  async (req, res)=>{
+export const cGetCommentColumns =  async (req, res)=>{
     let userColumns = await getCommentColumns();
     res.send(userColumns)
 }
@@ -24,7 +24,7 @@ export const cAddComment = async (req, res, next) => {
     // console.log("Enter post method")   
     try {
         console.log("Enter try piece of post method")
-        result = await addComment(req.body.post_id, req.body.user_id, req.body.comment_text, req.body.date_commented);
+        result = await addComment(req.body.post_id, req.body.user_id, req.body.comment_text);
     } catch (error) {
         console.log("Enter catch error piece of post method")
         res.send({ status: "unknown error that wasn't handled" })
@@ -35,11 +35,20 @@ export const cAddComment = async (req, res, next) => {
 }
 
 export const cUpdateComment = async (req, res, next) => {
-    let result = await updateComment(req.params.id, req.body.post_id, req.body.user_id, req.body.comment_text, date_commented);
-    res.send(result);
+    let result = await updateComment(req.params.id, req.body.post_id, req.body.user_id, req.body.comment_text);
+
+    if(result.numUpdated === 0){
+        res.status(400).send(result.status)
+    } else {
+        res.send(result);
+    }
 }
 
 export const cDeleteComment = async (req, res, next) => {
     let result = await deleteComment(req.params.id);
-    res.json(result);
+    if(result.numDeleted === 0){
+        res.status(400).send(result.status);
+    } else {
+        res.json(result);
+    }
 }
