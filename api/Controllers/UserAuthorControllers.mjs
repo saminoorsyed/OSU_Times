@@ -1,10 +1,4 @@
-import { getUsersAuthors, updateUsersAuthor, deleteUsersAuthors, addUsersAuthors, GetUsersAuthorsColumns, getUsersAuthorsIDList } from '../models/usersAuthorsModel.mjs';
-
-export const cGetUsersAuthorsList = async (req, res, next) => {
-    // console.log("Enter get method!!!")
-    let data = await getUserAuthorsIDList();
-    res.send(data)
-};
+import { getUsersAuthors, updateUsersAuthors, deleteUsersAuthors, addUsersAuthors, GetUsersAuthorsColumns } from '../models/usersAuthorsModel.mjs';
 
 
 export const cGetUsersAuthors = async (req, res, next) => {
@@ -14,8 +8,8 @@ export const cGetUsersAuthors = async (req, res, next) => {
 };
 
 export const cGetUsersAuthorsColumns =  async (req, res)=>{
-    let authorColumns = await GetUsersAuthorsColumns();
-    res.send(userColumns)
+    let usersAuthorsColumns = await GetUsersAuthorsColumns();
+    res.send(usersAuthorsColumns)
 }
 
 export const cAddUsersAuthors = async (req, res, next) => {
@@ -36,10 +30,20 @@ export const cAddUsersAuthors = async (req, res, next) => {
 
 export const cUpdateUsersAuthors = async (req, res, next) => {
     let result = await updateUsersAuthors(req.params.id, req.body.user_id, req.body.author_id);
-    res.send(result);
+    if(result.numAdded === 0){
+        res.status(400).send(result.status);
+    } else {
+        res.send(result);
+    }
+    
 }
 
 export const cDeleteUsersAuthors = async (req, res, next) => {
     let result = await deleteUsersAuthors(req.params.id);
-    res.json(result);
+    if(result.numberDeleted === 0){
+        res.status(400).send(result.status);
+    } else {
+        res.json(result);
+    }
+    
 }
