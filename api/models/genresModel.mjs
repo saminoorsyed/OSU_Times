@@ -4,31 +4,32 @@ import { pool } from './dbConnector.mjs';
 // returns promise
 // interior data is json (array of user objects)
 
-export async function getUsersIDList() {
-    const [result] = await pool.query(`Select user_id, full_name from Users2`);
-    return result;
+export async function getGenreNameList() {
+    const [result] = await pool.query(
+        `Select genre_id, genre_name from Genres2`);
+        return result;
 }
 
 // no inputs accepted
 // returns promise
 // interior data is json (array of user objects)
 
-export async function getUsers() {
+export async function getGenres() {
     const [result] = await pool.query(`
-    Select user_id, full_name, username, email
-    from Users2`);
+    Select genre_id, genre_name
+    from Genres2`);
+    
     return result;
 }
 
 // no inputs accepted
 // returns promise
 // interior data is json (array of user objects)
-export async function GetUserColumns(){
+export async function GetGenreColumns(){
     const [result] = await pool.query(
         `SELECT * 
         FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE TABLE_NAME = N'Users2';`)
-        console.log(result)
+        WHERE TABLE_NAME = N'Genres2';`)
     return result.map(({COLUMN_NAME}) => COLUMN_NAME);
 }
 
@@ -38,33 +39,32 @@ export async function GetUserColumns(){
 //          {numUsersUpdated: 1, status: updated user}
 //          {numUsersUpdated: 0, status: failed to update user}
 
-export async function updateUser(user_id, username, full_name, email) {
-    console.log("Enter update user (model) function")
-    const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
+export async function updateGenre(genre_id, genre_name) {
+    let numberRecordsUpdated = 0
     let result_set_header;
-    if(email === null || username === null ){
-        return { numUsersUpdated: 0, status: "null input issue" }; 
-    }
+    const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
+    const CODE_NULL_ERROR = 1048;
     try {
         result_set_header = await pool.query(`
-            update Users2
-            set username = ?, full_name = ?, email = ?
-            where user_id = ?`,
-            [username, full_name, email, user_id],
+            update Genres2
+            set genre_name = ?
+            where genre_id = ?`,
+            [genre_name, genre_id],
         )
     } catch (error) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
-            return { numUsersUpdated: 0, status: "null user id# issue" };
+            return { numUpdated: 0, status: "null genre id# issue" };
+        } else if(error.errno === CODE_NULL_ERROR) {
+            return { numUpdated: 0, status: "null admin id# issue" };
         }
-        console.log("(Model/User - Upcoming error")
         return error
     }
 
-    let numberRecordsUpdated = result_set_header[0].affectedRows;
+    numberRecordsUpdated = result_set_header[0].affectedRows;
     if (numberRecordsUpdated === 1) {
-        return { numUsersUpdated: numberRecordsUpdated, status: "updated user" };
+        return { numUpdated: numberRecordsUpdated, status: "updated genre" };
     } else {
-        return { numUsersUpdated: numberRecordsUpdated, status: "failed to update user" };
+        return { numUpdated: numberRecordsUpdated, status: "failed to update genre" };
     }
 }
 
@@ -74,19 +74,25 @@ export async function updateUser(user_id, username, full_name, email) {
 //       {numberDeleted: 0, status: "failed to delete user"}
 //       {numberDeleted: 1, status: "deleted user"}
 
-export async function deleteUser(user_id) {
-    
+export async function deleteGenre(genre_id) {
     let numberRecordsUpdated = 0
+
+    let num_delete_post = await pool.query(`
+        delete from Posts2
+        where genre_id = ?`,
+        [genre_id],
+    )
+
     let result_set_header = await pool.query(`
-        delete from Users2
-        where user_id = ?`,
-        [user_id],
+        delete from Genres2
+        where genre_id = ?`,
+        [genre_id],
     )
     numberRecordsUpdated = result_set_header[0].affectedRows;
     if (numberRecordsUpdated === 0) {
-        return { numberDeleted: numberRecordsUpdated, status: "failed to delete user" };
+        return { numberDeleted: numberRecordsUpdated, status: "failed to delete genre" };
     } else {
-        return { numberDeleted: numberRecordsUpdated, status: "deleted user" };
+        return { numberDeleted: numberRecordsUpdated, status: "deleted genre" };
     }
 
 
@@ -100,24 +106,23 @@ export async function deleteUser(user_id) {
 //    {numUsersAdded: 0, status: not unique user}
 // otherwise throws error
 
-export async function addUser(username, full_name, email) {
+export async function addGenre(genre_name) {
     const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
-    const CODE_NULL_ERROR = 1048;
+    let numberRecordsAdded;
     let result_set_header;
 
     try {
         result_set_header = await pool.query(`
-        insert into Users2 (username, full_name, email)
-                values(?, ?, ?)`, [username, full_name, email],
+        insert into Genres2 (genre_name)
+                values(?)`, [genre_name],
         )
     } catch (error) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
-            return { status: "not unique user" };
-        } else if(error.errno === CODE_NULL_ERROR){
-            return {status: "null input error"}
+            return { numUsersAdded: 0, status: "not unique genre" };
         }
         return error
     }
 
-    return { status: "user added" };
+    numberRecordsAdded = result_set_header[0].affectedRows;
+    return { numAdded: numberRecordsAdded, status: "genre added" };
 }

@@ -1,92 +1,66 @@
-GET , /users
-DELETE, /users/116
-GET , /users
-POST, /users/, daisy, rose, cardinal, pope
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-POST, /users/, blah1, user1b, Dwarf3, user4
-GET , /users
-GET , /users
-GET , /users
-DELETE, /users/118
-GET , /users
-GET , /users
-GET , /users
-POST, /users/, user1a, user2, user3, user4
-GET , /users
-PUT, /users/119, undefined, undefined, undefined, undefined
-GET , /users
-GET , /users
-POST, /users/, cat, tiger, chicwa, lion
-GET , /users
-PUT, /users/120, undefined, undefined, undefined, undefined
-GET , /users
-GET , /users
-DELETE, /users/119
-GET , /users
-GET , /users
-DELETE, /users/117
-GET , /users
-PUT, /users/120, undefined, undefined, undefined, undefined
-GET , /users
-DELETE, /users/120
-GET , /users
-POST, /users/, Snow, Ice, Flakes, Cold
-GET , /users
-GET , /users
-PUT, /users/121, Showboat, flower, dairy, VitaminD
-GET , /users
-GET , /
-GET , /favicon.ico
-GET , /users/
-GET , /users
-DELETE, /users/121
-GET , /users
-POST, /users/, Snowing, fake, lsls, lkslsl
-GET , /users
-DELETE, /users/122
-GET , /users
-GET , /users
-POST, /users/, GeniusTalkingToIdiot, NotUnderstand, One, Word
-GET , /users
-DELETE, /users/123
-GET , /users
-PUT, /users/82, LiftState, Dont, Look, UnderneathUI
-GET , /users
-POST, /users/, aa, aa, aa, aa
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-PUT, /users/124, blah1ee, eee, ee, ee
-GET , /users
-DELETE, /users/124
-GET , /users
-PUT, /users/82, gesges, ges, ges, gesse
-GET , /users
-GET , /users/
-GET , /users
-POST, /users/, Howdy, howdy, howdy, howdy
-GET , /users
-GET , /users/
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-GET , /users
-GET , /users/
-GET , /users/
+Session # url:      /users/
+method:   GET
+Params:   [object Object]
+Body:     [object Object]
+Query:    [object Object]
+Session # url:      /favicon.ico
+method:   GET
+Params:   [object Object]
+Body:     [object Object]
+Query:    [object Object]
+Session # url:      /users/
+method:   GET
+Params:   [object Object]
+Body:     [object Object]
+Query:    [object Object]
+Session # url:      /users/
+method:   GET
+Params:   [object Object]
+Body:     [object Object]
+Query:    [object Object]
+Session # url:      /users/
+method:   GET
+Params:   [object Object]
+Body:     [object Object]
+Query:    [object Object]
+Session # url:      /users/
+method:   GET
+Params:   [object Object]
+Body:     [object Object]
+Query:    [object Object]
+Session # url:      /users/name=JohnDoe&title=BeanCounter
+method:   GET
+Params:   [object Object]
+Body:     [object Object]
+Query:    [object Object]
+Session # url:      /users/?name=JohnDoe&title=BeanCounter
+method:   GET
+Params:   [object Object]
+Body:     [object Object]
+Query:    [object Object]
+Session # url:      /users/
+method:   GET
+Params:   [object Object]
+Body:     [object Object]
+Query:    [object Object]
+Session # url:      /users/
+method:   GET
+Params:   [object Object]
+Body:     [object Object]
+Query:    [object Object]
+Session # url:      /users/
+method:   POST
+Params:   [object Object]
+Body:     [object Object]
+Query:    [object Object]
+GET , /api/users/
+GET , /api/users/columns
+GET , /api/users/columns
+GET , /api/users/columns
+GET , /api/users/columns
+GET , /api/users/columns
+GET , /api/users/columns
+GET , /api/users/columns
+GET , /api/users/columns
+GET , /api/users/columns
+GET , /api/users/columns

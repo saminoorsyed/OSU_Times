@@ -2,17 +2,17 @@
 SET FOREIGN_KEY_CHECKS = 0;
 SET AUTOCOMMIT = 0;
 
-DROP TABLE IF EXISTS Reactions;
-DROP TABLE IF EXISTS Comments;
-DROP TABLE IF EXISTS Users_Authors;
-DROP TABLE IF EXISTS Posts;
-DROP TABLE IF EXISTS Genres;
-DROP TABLE IF EXISTS Authors;
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS Administrators;
-DROP TABLE IF EXISTS Reaction_Icons;
+DROP TABLE IF EXISTS Reactions2;
+DROP TABLE IF EXISTS Comments2;
+DROP TABLE IF EXISTS Users_Authors2;
+DROP TABLE IF EXISTS Posts2;
+DROP TABLE IF EXISTS Genres2;
+DROP TABLE IF EXISTS Authors2;
+DROP TABLE IF EXISTS Users2;
+DROP TABLE IF EXISTS Administrators2;
+DROP TABLE IF EXISTS Reaction_Icons2;
 
-CREATE TABLE Users
+CREATE TABLE Users2
 (
     user_id             INT(11) AUTO_INCREMENT PRIMARY KEY,
     fname               varchar(50) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE Users
         UNIQUE          (username)
 ) ENGINE=INNODB;
 
-CREATE TABLE Administrators
+CREATE TABLE Administrators2
 (
     admin_id            INT(11) AUTO_INCREMENT PRIMARY KEY,
     fname               varchar(50) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE Administrators
         UNIQUE          (email)
 ) ENGINE=INNODB;
 
-CREATE TABLE Authors
+CREATE TABLE Authors2
 (
     author_id           INT(11) AUTO_INCREMENT PRIMARY KEY,
     fname               varchar(50) NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE Authors
 ) ENGINE=INNODB;
 
 -- Follow table as an intersection table
-CREATE TABLE Users_Authors
+CREATE TABLE Users_Authors2
 (
     user_author_id      INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     user_id             INT(11) NOT NULL, 
@@ -75,13 +75,13 @@ CREATE TABLE Users_Authors
         UNIQUE          (user_id, author_id)
 ) ENGINE=INNODB;
 
-CREATE TABLE Genres
+CREATE TABLE Genres2
 (
     genre_id            INT(11) AUTO_INCREMENT PRIMARY KEY,
     genre_name          varchar(50) NOT NULL
 ) ENGINE=INNODB;
 
-CREATE TABLE Posts
+CREATE TABLE Posts2
 (
     post_id             INT(11) AUTO_INCREMENT PRIMARY KEY,
     author_id           INT(11) NOT NULL,
@@ -100,7 +100,7 @@ CREATE TABLE Posts
         UNIQUE          (title)
 ) ENGINE=INNODB;
 
-CREATE TABLE Comments
+CREATE TABLE Comments2
 (
     comment_id          INT(11) AUTO_INCREMENT PRIMARY KEY,
     post_id             INT(11) NOT NULL,
@@ -117,10 +117,9 @@ CREATE TABLE Comments
         ON DELETE       CASCADE
 ) ENGINE=INNODB;
 
-CREATE TABLE Reaction_Icons
+CREATE TABLE Reaction_Icons2
 (
     reaction_icon_id    INT(11) AUTO_INCREMENT PRIMARY KEY,
-    image_b64_str       BLOB NOT NULL,
     reaction_type       varchar(20) NOT NULL,
     CONSTRAINT          UN_Reaction_Icons_image_b64_str
         UNIQUE          (image_b64_str),
@@ -128,7 +127,7 @@ CREATE TABLE Reaction_Icons
         UNIQUE          (reaction_type)
 ) ENGINE=INNODB;
 
-CREATE TABLE Reactions
+CREATE TABLE Reactions2
 (
     reaction_id         INT(11) AUTO_INCREMENT PRIMARY KEY,
     user_id             INT(11) NOT NULL,

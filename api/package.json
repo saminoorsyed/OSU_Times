@@ -4,8 +4,8 @@
   "description": "",
   "main": "controller.mjs",
   "scripts": {
-    "dev-mode": "nodemon controller.mjs",
-    "start": "node controller.mjs",
+    "dev-mode": "nodemon server.mjs",
+    "start": "node server.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,6 +14,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
     "forever": "^4.0.3",
     "mysql": "^2.18.1",
     "mysql2": "^3.1.2"

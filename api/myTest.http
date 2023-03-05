@@ -51,3 +51,506 @@ content-type: application/json
     "username": "user1",
     "email": "user4"
 }
+
+
+
+
+
+##############################################################
+################################################################
+
+
+
+### Request 2: Get all user
+GET http://flip1.engr.oregonstate.edu:4004/api/users/ HTTP/1.1
+
+### Request 2: Create a user
+Post http://flip1.engr.oregonstate.edu:4004/api/users/ HTTP/1.1
+content-type: application/json
+
+{
+    "full_name": "Tes1fname",
+    "username": "Test1usernmae",
+    "email": "Test1@gmail.com"
+}
+
+### Request 2: Create a user   (properties out of order)
+Post http://flip1.engr.oregonstate.edu:4004/api/users/ HTTP/1.1
+content-type: application/json
+
+{
+    "full_name": "John S Doe",
+    "username": "TJohnusernmae",
+    "email": "Blitz1@gmail.com"
+}
+
+
+### Request 2: Get all user
+GET http://flip1.engr.oregonstate.edu:4004/api/users/ HTTP/1.1
+
+
+### Request 2: Badd attempt to create a user   (not unique)
+Post http://flip1.engr.oregonstate.edu:4004/api/users/ HTTP/1.1
+content-type: application/json
+
+{
+    "full_name": "Tes1fname",
+    "username": "Test1usernmae",
+    "email": "Test1@gmail.com"
+}
+
+### Request 2: Badd attempt to create a user   (null)
+Post http://flip1.engr.oregonstate.edu:4004/api/users/ HTTP/1.1
+content-type: application/json
+
+{
+    "full_name": null,
+    "username": "Test1usernmae",
+    "email": "Test1@gmail.com"
+}
+
+
+
+### Request 2: Bad attempt to create a user (extra comma)
+Post http://flip1.engr.oregonstate.edu:4004/api/users/ HTTP/1.1
+content-type: application/json
+
+{
+    "blah": "lslslsl",
+    "full_name": "Someday",
+    "username": "Test1usernmae",
+    "email": "Test1@gmail.com",
+    
+}
+
+
+### Request 2: Get all user
+GET http://flip1.engr.oregonstate.edu:4004/api/users/ HTTP/1.1
+
+### Request 2: attempt to edit a user 
+PUT http://flip1.engr.oregonstate.edu:4004/api/users/4 HTTP/1.1
+content-type: application/json
+
+{
+    "full_name": "Kathy 2Not Janeway",
+    "username": "Captai2nOblivous",
+    "email": "kJJj2neway@voyager.com"
+    
+}
+
+
+### Request 2: bad attempt to edit a user   (id not exist)
+PUT http://flip1.engr.oregonstate.edu:4004/api/users/1 HTTP/1.1
+content-type: application/json
+
+{
+    "full_name": "Kathy Not Janeway",
+    "username": "CaptainOblivous",
+    "email": "kJJjneway@voyager.com"
+    
+}
+
+### Request 2: bad attempt to edit a user   (null field)
+PUT http://flip1.engr.oregonstate.edu:4004/api/users/5 HTTP/1.1
+content-type: application/json
+
+{
+    "full_name": null,
+    "username": null,
+    "email": null
+    
+}
+
+
+
+### Request 2: Get all user
+GET http://flip1.engr.oregonstate.edu:4004/api/users/ HTTP/1.1
+
+
+### Request 2: Get user list (user_id, full_name)
+GET http://flip1.engr.oregonstate.edu:4004/api/users/namelist HTTP/1.1
+
+
+
+
+### Request 2: Get all user
+GET http://flip1.engr.oregonstate.edu:4004/api/users/ HTTP/1.1
+
+
+### Request 2: Delete User
+Delete http://flip1.engr.oregonstate.edu:4004/api/users/4 HTTP/1.1
+
+
+### Request 2: Delete User not exist
+Delete http://flip1.engr.oregonstate.edu:4004/api/users/987 HTTP/1.1
+
+
+
+### Request 2: Get all reaction icons
+GET http://flip1.engr.oregonstate.edu:4004/api/reactionicons/ HTTP/1.1
+
+### Request 2: Get columns reaction icons
+GET http://flip1.engr.oregonstate.edu:4004/api/reactionicons/columns HTTP/1.1
+
+### Request 2: Delete reaction icon
+Delete http://flip1.engr.oregonstate.edu:4004/api/reactionicons/1 HTTP/1.1
+
+### Request 2: Delete reaction icon  (bad #)
+Delete http://flip1.engr.oregonstate.edu:4004/api/reactionicons/999 HTTP/1.1
+
+### Request 2: Get all reaction icons
+GET http://flip1.engr.oregonstate.edu:4004/api/reactionicons/ HTTP/1.1
+
+### Request 2: Get reaction icons name list (reaction_id, reaction_type)
+GET http://flip1.engr.oregonstate.edu:4004/api/reactionicons/namelist HTTP/1.1
+
+
+
+
+### Request 2: Get all reaction icons
+GET http://flip1.engr.oregonstate.edu:4004/api/reactionicons/ HTTP/1.1
+
+
+### Request 2:  attempt to create a user   
+POST http://flip1.engr.oregonstate.edu:4004/api/reactionicons/ HTTP/1.1
+content-type: application/json
+
+{
+    "reaction_type": "giggling"
+    
+}
+
+### Request 2:  attempt to create a user  ((null) 
+POST http://flip1.engr.oregonstate.edu:4004/api/reactionicons/ HTTP/1.1
+content-type: application/json
+
+{
+    "reaction_type": null
+    
+}
+
+
+### Request 2:  attempt to edit reaction icon   
+PUT http://flip1.engr.oregonstate.edu:4004/api/reactionicons/9 HTTP/1.1
+content-type: application/json
+
+{
+    "reaction_type": "death_mask"
+    
+}
+
+### Request 2:  attempt to edit reaction icon   bad #  
+PUT http://flip1.engr.oregonstate.edu:4004/api/reactionicons/999 HTTP/1.1
+content-type: application/json
+
+{
+    "reaction_type": "death_mask"
+    
+}
+
+
+
+
+### Request 2: Get all administrators
+GET http://flip1.engr.oregonstate.edu:4004/api/administrators/ HTTP/1.1
+
+
+### Request 2: Get all administrators
+GET http://flip1.engr.oregonstate.edu:4004/api/administrators/namelist HTTP/1.1
+
+
+### Request 2: Delete admin
+DELETE http://flip1.engr.oregonstate.edu:4004/api/administrators/4 HTTP/1.1
+
+### Request 2: Delete Admin  (bad #)
+DELETE http://flip1.engr.oregonstate.edu:4004/api/administrators/999 HTTP/1.1
+
+
+### Request 2:  attempt to create an admin   
+POST http://flip1.engr.oregonstate.edu:4004/api/administrators/ HTTP/1.1
+content-type: application/json
+
+{
+    "username":  "giggsssling",
+    "full_name": "Johggesn DOe",
+    "email":     "Doeges12@email.com"
+    
+}
+
+### Request 2:  attempt to create an admin  (unique)   
+POST http://flip1.engr.oregonstate.edu:4004/api/administrators/ HTTP/1.1
+content-type: application/json
+
+{
+    "username":  "giggling",
+    "full_name": "John DOe",
+    "email":     "Doe12@email.com"
+    
+}
+
+
+### Request 2: Get admin names, and null
+GET http://flip1.engr.oregonstate.edu:4004/api/administrators/namelistwithnull HTTP/1.1
+
+
+
+### Request 2:  attempt to edit an admin   (unique field issue  
+PUT http://flip1.engr.oregonstate.edu:4004/api/administrators/5 HTTP/1.1
+content-type: application/json
+
+{
+    "username":  "giggling",
+    "full_name": "John DOe",
+    "email":     "Doe12@email.com"
+    
+}
+
+### Request 2:  attempt to edit an admin    
+PUT http://flip1.engr.oregonstate.edu:4004/api/administrators/5 HTTP/1.1
+content-type: application/json
+
+{
+    "username":  "lelmmlsls",
+    "full_name": "Johggn DOe",
+    "email":     "Doebbbbb12@email.com"
+    
+}
+
+### Request 2:  attempt to edit an admin    
+PUT http://flip1.engr.oregonstate.edu:4004/api/administrators/999 HTTP/1.1
+content-type: application/json
+
+{
+    "username":  "lelmmlgesgsls",
+    "full_name": "Johgesggn DOe",
+    "email":     "Doegesbbbbb12@email.com"
+    
+}
+
+
+### Request 2: Get all genres
+GET http://flip1.engr.oregonstate.edu:4004/api/genres/ HTTP/1.1
+
+### Request 2: Get columns genres
+GET http://flip1.engr.oregonstate.edu:4004/api/genres/columns HTTP/1.1
+
+### Request 2: Get  genres name list
+GET http://flip1.engr.oregonstate.edu:4004/api/genres/nameslist HTTP/1.1
+
+
+
+### Request 2:  attempt to edit a genre   
+PUT http://flip1.engr.oregonstate.edu:4004/api/genres/5 HTTP/1.1
+content-type: application/json
+
+{
+    "genre_name":  "evil days"
+    
+}
+
+### Request 2:  attempt to edit a genre   bad id#
+PUT http://flip1.engr.oregonstate.edu:4004/api/genres/999 HTTP/1.1
+content-type: application/json
+
+{
+    "genre_name":  "evil days"
+    
+}
+
+
+
+### Request 2:  attempt to create an genres    
+POST http://flip1.engr.oregonstate.edu:4004/api/genres/ HTTP/1.1
+content-type: application/json
+
+{
+    "genre_name":  "scary movies"
+    
+}
+
+
+### Request 2:  attempt to delete an genres    
+Delete http://flip1.engr.oregonstate.edu:4004/api/genres/8 HTTP/1.1
+content-type: application/json
+
+
+
+
+
+### Request 2:  get posts  
+GET http://flip1.engr.oregonstate.edu:4004/api/posts/ HTTP/1.1
+content-type: application/json
+
+
+
+### Request 2:  get posts name
+GET http://flip1.engr.oregonstate.edu:4004/api/posts/list HTTP/1.1
+content-type: application/json
+
+
+### Request 2:  get posts  columns
+GET http://flip1.engr.oregonstate.edu:4004/api/posts/columns HTTP/1.1
+content-type: application/json
+
+
+
+
+### Request 2:  attempt to create a post    
+POST http://flip1.engr.oregonstate.edu:4004/api/posts/ HTTP/1.1
+content-type: application/json
+
+{
+    "author_id":        1,
+    "genre_id":         3,
+    "title":            "geses Corinth dgesay",
+    "post_text":        "this is a placeholder for a post" 
+    
+}
+
+### Request 2:  attempt to create a post    
+POST http://flip1.engr.oregonstate.edu:4004/api/posts/ HTTP/1.1
+content-type: application/json
+
+{
+    "author_id":        1,
+    "genre_id":         3,
+    "title":            "geses Corinth dgesay",
+    "post_text":        "this is a placeholder for a post" 
+    
+}
+
+### Request 2:  attempt to edit a post    
+PUT http://flip1.engr.oregonstate.edu:4004/api/posts/8 HTTP/1.1
+content-type: application/json
+
+{
+    "author_id":        1,
+    "genre_id":         3,
+    "title":            "bes",
+    "post_text":        "this is a pssssssssssslaceholder for a post" 
+    
+}
+
+
+### Request 2:  attempt to edit a post    
+PUT http://flip1.engr.oregonstate.edu:4004/api/posts/9 HTTP/1.1
+content-type: application/json
+
+{
+    "author_id":        1,
+    "genre_id":         3,
+    "title":            "Today",
+    "post_text":        "this is a pssssssssssslaceholder for a post" 
+    
+}
+
+
+### Request 2:  get posts  
+GET http://flip1.engr.oregonstate.edu:4004/api/posts/ HTTP/1.1
+content-type: application/json
+
+
+### Request 2: Get Reactions
+Get http://flip1.engr.oregonstate.edu:4004/api/reactions/ HTTP/1.1
+content-type: application/json
+
+### Request 2: Get Reactions name list
+Get http://flip1.engr.oregonstate.edu:4004/api/reactions/namelist HTTP/1.1
+content-type: application/json
+
+### Request 2: Get Reactions Columns
+Get http://flip1.engr.oregonstate.edu:4004/api/reactions/columns HTTP/1.1
+content-type: application/json
+
+
+### Request 2:  attempt to create  a reaction    
+POST  http://flip1.engr.oregonstate.edu:4004/api/reactions/ HTTP/1.1
+content-type: application/json
+
+{
+    "user_id":              2,
+    "post_id":              2,
+    "reaction_icon_id":     3 
+}
+
+
+
+### Request 2: Get Reactions
+Get http://flip1.engr.oregonstate.edu:4004/api/reactions/ HTTP/1.1
+content-type: application/json
+
+### Request 2:  attempt to edit  a reaction    
+PUT  http://flip1.engr.oregonstate.edu:4004/api/reactions/1 HTTP/1.1
+content-type: application/json
+
+{
+    "user_id":              2,
+    "post_id":              2,
+    "reaction_icon_id":     3 
+}
+
+### Request 2:  attempt to edit  a reaction    
+PUT  http://flip1.engr.oregonstate.edu:4004/api/reactions/1 HTTP/1.1
+content-type: application/json
+
+{
+    "user_id":              2,
+    "post_id":              2,
+    "reaction_icon_id":     999 
+}
+
+
+### Request 2: Get Authors
+Get http://flip1.engr.oregonstate.edu:4004/api/authors/ HTTP/1.1
+content-type: application/json
+
+### Request 2: Get Authors Columns
+Get http://flip1.engr.oregonstate.edu:4004/api/authors/columns HTTP/1.1
+content-type: application/json
+
+### Request 2: Display Authors Names
+Get http://flip1.engr.oregonstate.edu:4004/api/authors/nameslist HTTP/1.1
+content-type: application/json
+
+
+
+### Request 2:  attempt to create author    
+POST  http://flip1.engr.oregonstate.edu:4004/api/authors/ HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":             "John Doe",
+    "username":              "John Doe Sr",
+    "email":                 "DoeFamily@gmail.com",
+    "admin_id":              null,
+    "admin_action":          null 
+}
+
+### Request 2:  attempt to create author    
+POST  http://flip1.engr.oregonstate.edu:4004/api/authors/ HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":             "John Doe",
+    "username":              "John Doe Sr",
+    "email":                 "DoeFamily@gmail.com",
+    "admin_id":              null,
+    "admin_action":          null 
+}
+
+
+### Request 2: Get Authors
+Get http://flip1.engr.oregonstate.edu:4004/api/authors/ HTTP/1.1
+content-type: application/json
+
+### Request 2:  attempt to create author    
+PUT  http://flip1.engr.oregonstate.edu:4004/api/authors/1 HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":             "John Doe",
+    "username":              "John Doe Junior",
+    "email":                 "DoeFamilyJunior@gmail.com",
+    "admin_id":              null,
+    "admin_action":          null 
+}
