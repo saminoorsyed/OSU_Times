@@ -1,6 +1,6 @@
 import { pool } from './dbConnector.mjs';
 
-// no inputs accepteds
+// no inputs accepted
 // returns promise
 // interior data is json (array of user objects)
 
