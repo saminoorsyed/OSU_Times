@@ -1,8 +1,9 @@
 --*********************************************USERS*********************************************
 -- create a new User:
-INSERT INTO Users (fname,lname, username, email)
+INSERT INTO Users (full_name, username, email)
     VALUES
-        (":fnameInput", ":lname_Input", ":username_Input", ":email_Input");
+        (":full_nameInput", ":username_Input", ":email_Input");
+
 -- Read all usernames from all users
 SELECT username FROM Users;
 -- Read all of a specific user's information
@@ -10,8 +11,7 @@ SELECT * FROM Users WHERE Users.username = ":username_from_dropdown_Input"
 --Update a user
 Update Users SET 
                 username = ":username_text_Input",
-                fname =  ":first_name_from_text_Input",
-                lname =  ":last_name_from_text_Input",
+                full_nameInput =  ":full_name_from_text_Input",
                 email =  ":email_from_text_Input"
             Where username = ":username_from_dropdown_Input"
 -- Delete a user from the data base based on username
@@ -19,9 +19,9 @@ DELETE FROM Users Where username = ":username_from_dropdown_Input";
 
 --*********************************************REACTION_ICONS*********************************************
 -- create a new reaction icon
-INSERT INTO Reaction_Icons (image_b64_str, reaction_type)
+INSERT INTO Reaction_Icons (reaction_type)
     VALUES
-        (":image_b64_st_Input",":reaction_type_Input");
+        (":reaction_type_Input");
 -- Read all reaction types from Reaction_icons Table
 SELECT reaction_type FROM Reaction_Icons;
 -- Read all info from a selected reaction icon
@@ -29,7 +29,6 @@ SELECT * FROM Reaction_Icons WHERE reaction_type = ":reaction_type_text_input"
 -- update a Reaction_Icons instance
 UPDATE Reaction_Icons SET
                         reaction_type = ":reaction_type_text_Input",
-                        image_b64_str =  ":image_b64_st_text_Input"
                     WHERE reaction_type = ":reaction_type_from_dropdown_Input";
 -- DELETE a Reaction Icon
 DELETE FROM Reaction_Icons WHERE reaction_type = ":reaction_type_from_dropdown_Input"
@@ -97,7 +96,7 @@ WHERE user_author_id IN
 -- *********************************
 
 -- Grab data for Posts Table
-select posts.post_id, posts.author_id, concat(authors.fname, " ", authors.lname) as "AuthorName", posts.genre_id, genres.genre_name, posts.title, posts.date_posted, posts.post_text, posts.image_b64_str
+select posts.post_id, posts.author_id, full_name, posts.genre_id, genres.genre_name, posts.title, posts.date_posted, posts.post_text
 from Posts
      Left Join authors on posts.author_id = authors.author_id
      Left Join genres on posts.genre_id = genres.genre_id
@@ -109,7 +108,7 @@ Order By posts.post_id ASC;
 -- upon update button click, update query
 
 -- get author names
-select concat(authors.fname, " ", authors.lname), author_id
+select full_name, author_id
 from authors;
 
 -- get genres needed
@@ -118,7 +117,7 @@ from genres;
 
 -- update post details
 update posts
-set author_id = ":author_name_dropdown", genre_id = ":genre_name_dropdown",  title = ":title_input", post_text = ":post_text_input", image_b64_str = ":image_str_input"
+set author_id = ":author_name_dropdown", genre_id = ":genre_name_dropdown",  title = ":title_input", post_text = ":post_text_input"
 where posts.post_id = ":posts.post_id_edit_button_icon_selection"
 
 -- Add Post
@@ -126,7 +125,7 @@ where posts.post_id = ":posts.post_id_edit_button_icon_selection"
 -- insert values / create data query
 
 -- get author names
-select concat(authors.fname, " ", authors.lname), author_id
+select full_name, author_id
 from authors;
 
 -- get genres needed
@@ -134,8 +133,8 @@ select genre_name, genre_id
 from genres;
 
 -- insert / create data query
-insert into posts (author_id, genre_id, title, post_text, image_b64_str)
-values (":author_name_dropdown", ":genre_desc_dropdown", ":title_input", ":post_text_input", ":image_str_input");
+insert into posts (author_id, genre_id, title, post_text)
+values (":author_name_dropdown", ":genre_desc_dropdown", ":title_input", ":post_text_input");
 
 
 -- Delete Post
@@ -170,7 +169,7 @@ delete from genres where genres.genre_id = ":genre_id_trashcan_icon";
 -- *********************************
 
 -- Grab data for Authors Page
-select authors.author_id, authors.username, authors.fname, authors.lname, authors.email, authors.admin_id, concat(administrators.fname, " ", administrators.lname) as "Admin Name", authors.admin_action  
+select authors.author_id, authors.username, authors.full_name, authors.email, authors.admin_id, administrators.full_name as "Admin Name", authors.admin_action  
 from authors
      left join Administrators on authors.admin_id = Administrators.admin_id
 Order By authors.author_id ASC;
@@ -180,12 +179,12 @@ Order By authors.author_id ASC;
 -- dropdown for admin_names populated using query of admin table
 
 -- get admin names
-select concat(fname, " ", lname) as "Name", admin_id
+select full_name, admin_id
 from administrators;
 
 -- update author info
 update authors
-set fname=":fname_input", lname=":lname_input", username=":username_input", email=":email_input", admin_id = "admin_name_dropdown"; admin_action = ":admin_text_input"
+set full_name =":full_name_input", username=":username_input", email=":email_input", admin_id = "admin_name_dropdown"; admin_action = ":admin_text_input"
 where authors.author_id = ":author_edit_icon";
 
 -- add author
@@ -193,12 +192,12 @@ where authors.author_id = ":author_edit_icon";
 -- dropdown for admin_names poulated using query of admin table
 
 -- get admin names
-select concat(fname, " ", lname) as "Name", admin_id
+select full_name, admin_id
 from administrators;
 
 -- insert value / create author
-insert into authors(fname, lname, username, email, admin_id, admin_action)
-values (":fname_input", ":lname_input", ":username_input", "email_input", "admin_name_dropdown", ":admin_text_input")
+insert into authors(full_name, username, email, admin_id, admin_action)
+values (":full_name_input", ":username_input", "email_input", "admin_name_dropdown", ":admin_text_input")
 
 -- Delete Author
 -- user clicks trashcan icon relating to row for an author therefore user doesn't have
@@ -212,17 +211,17 @@ delete from authors where author_id = ":author_delete_icon";
 -- *********************************
 
 -- Grab admin data for Administrator Page
-select admin_id, username, fname, lname, email
+select admin_id, username, full_name, email
 from administrators
 Order By administrators.admin_id ASC
 
 -- Add an Administrator
-insert into administrators (fname, lname, username, email)
-values (":fname_input", ":lname_input", "username_input", "email_input");
+insert into administrators (full_name, username, email)
+values (":full_name_input","username_input", "email_input");
 
 -- Edit an Administrator
 update administrators
-set fname = ":fname_input", lname = ":lname_input", username = ":username_input", email = ":email_input"
+set full_name = ":full_name_input", username = ":username_input", email = ":email_input"
 where admin_id = ":administrator_edit_icon_clicked";
 
 -- Delete an administrator
