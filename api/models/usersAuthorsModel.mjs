@@ -6,8 +6,11 @@ import { pool } from './dbConnector.mjs';
 
 export async function getUsersAuthors() {
     const [result] = await pool.query(
-        `Select user_author_id, user_id, author_id
-        from Users_Authors2`);
+        `Select user_author_id, Users_Authors2.user_id, Users2.full_name as 'User FullName', Users_Authors2.author_id, Authors2.full_name as 'Author FullName'
+        from Users_Authors2
+        left join Users2 on Users_Authors2.user_id = Users2.user_id
+        left join Authors2 on Users_Authors2.author_id = Authors2.author_id;
+        `);
     return result;
 }
 
@@ -18,8 +21,9 @@ export async function GetUsersAuthorsColumns(){
     const [result] = await pool.query(`
                         SELECT * 
                         FROM INFORMATION_SCHEMA.COLUMNS
-                        WHERE TABLE_NAME = N'UsersAuthors2';`)
-    return result;
+                        WHERE TABLE_NAME = N'Users_Authors2';`)
+    return result.map(({COLUMN_NAME}) => COLUMN_NAME);
+
 }
 
 // inputs:  (int/str, int/str, int/str)
@@ -28,28 +32,29 @@ export async function GetUsersAuthorsColumns(){
 //          {numUsersUpdated: 1, status: updated user}
 //          {numUsersUpdated: 0, status: failed to update user}
 
-export async function updateUserAuthors(user_author_id, user_id, admin_id) {
+export async function updateUsersAuthors(user_author_id, user_id, author_id) {
     let numberRecordsUpdated = 0
+    const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
     let result_set_header;
     try {
         result_set_header = await pool.query(`
-            update UserAuthors2
-            set user_id = ?, admin_id = ?
+            update Users_Authors2
+            set user_id = ?, author_id = ?
             where user_author_id = ?`,
-            [user_id, admin_id, user_author_id],
+            [user_id, author_id, user_author_id],
         )
     } catch (error) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
-            return { numUsersUpdated: 0, status: "null user author id# issue" };
+            return { numUpdated: 0, status: "null user author id# issue" };
         }
         return error
     }
 
     numberRecordsUpdated = result_set_header[0].affectedRows;
     if (numberRecordsUpdated === 1) {
-        return { numUsersUpdated: numberRecordsUpdated, status: "updated user author" };
+        return { numUpdated: numberRecordsUpdated, status: "updated user author" };
     } else {
-        return { numUsersUpdated: numberRecordsUpdated, status: "failed to update user author" };
+        return { numUpdated: numberRecordsUpdated, status: "failed to update user author" };
     }
 }
 
@@ -62,7 +67,7 @@ export async function updateUserAuthors(user_author_id, user_id, admin_id) {
 export async function deleteUsersAuthors(user_author_id) {
     let numberRecordsUpdated = 0
     let result_set_header = await pool.query(`
-        delete from UsersAuthors2
+        delete from Users_Authors2
         where user_author_id = ?`,
         [user_author_id],
     )
@@ -84,23 +89,23 @@ export async function deleteUsersAuthors(user_author_id) {
 //    {numUsersAdded: 0, status: not unique user}
 // otherwise throws error
 
-export async function addUsersAuthors(user_id, admin_id) {
+export async function addUsersAuthors(user_id, author_id) {
     const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
     let numberRecordsAdded;
     let result_set_header;
 
     try {
         result_set_header = await pool.query(`
-        insert into UserAuthors2(user_id, admin_id)
-                values(?, ?)`, [user_id, admin_id],
+        insert into Users_Authors2 (user_id, author_id)
+                values(?, ?)`, [user_id, author_id],
         )
     } catch (error) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
-            return { numUsersAdded: 0, status: "not unique user author" };
+            return { numAdded: 0, status: "not unique user author" };
         }
         return error
     }
 
     numberRecordsAdded = result_set_header[0].affectedRows;
-    return { authorsCreated: numberRecordsAdded, status: "user author added" };
+    return { numAdded: numberRecordsAdded, status: "user author added" };
 }
