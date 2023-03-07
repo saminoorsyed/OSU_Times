@@ -2,14 +2,7 @@ import React from "react";
 
 // import components
 import SelectOption from './DBSelectOption';
-function DBAddRow({colName, IdObjects, userObj, handleCreateNewUser}){
-
-    // console.log(userObj);  // works 
-    // console.log(colName);
-    // console.log(userObj[colName])
-
-
-    // console.log(userObj);
+function DBAddRow({colName, IdObjects, updateNewObject}){
 
     let isID = false;
     if (colName.slice(-3)=== "_id"){
@@ -34,7 +27,7 @@ function DBAddRow({colName, IdObjects, userObj, handleCreateNewUser}){
         }
         {!isID &&
             <label htmlFor = {colName}>{colName}
-                <input name={colName} onChange={handleCreateNewUser} type="text"/>
+                <input name={colName} onChange={updateNewObject} type="text"/>
                 {/* <input value={userObj[colName] || ""} onChange={handleCreateNewUser} type="text"/> */}
 
             </label>

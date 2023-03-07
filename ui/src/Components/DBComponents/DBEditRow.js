@@ -3,7 +3,7 @@ import React from "react";
 // import components
 import SelectOption from './DBSelectOption';
 
-function DBEditRow({object, colName, IdObjects, editUserObj, editOnChange}){
+function DBEditRow({dataObject, colName, IdObjects, updateEditRowObject}){
     let isID = false;
     if (colName.slice(-3)=== "_id"){
         isID = true;
@@ -27,7 +27,7 @@ function DBEditRow({object, colName, IdObjects, editUserObj, editOnChange}){
         {!isID &&
             <div className="editRow">
                 <label htmlFor = {colName}>{colName}
-                <input name={colName} onChange={editOnChange}   type="text" placeholder={object[colName]}/>
+                <input name={colName} onChange={updateEditRowObject}   type="text" placeholder={dataObject[colName]}/>
                 </label>
             </div>
         }
