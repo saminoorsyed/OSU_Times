@@ -31,8 +31,8 @@ export const cAddPost = async (req, res, next) => {
         // res.send("Unable to create user. Check fields for uniqueness")
     }
     console.log(result)
-    if(req.numPostsAdded === 0){
-        res.status(400).send(req.status);
+    if(result.numberPostsAdded === 0){
+        res.status(400).send(result.status);
     } else {
         res.status(200).send(result);
     }
@@ -51,5 +51,10 @@ export const cUpdatePost = async (req, res, next) => {
 
 export const cDeletePost = async (req, res, next) => {
     let result = await deletePost(req.params.id);
-    res.json(result);
+    if(result.numberDeleted === 0){
+        res.status(400).json(result);
+    } else {
+        res.status(200).json(result);
+    }
+   
 }

@@ -1,0 +1,97 @@
+
+### ******************************************************
+### ******************************************************
+### ******************************************************
+### ******************************************************
+
+### Valid Actions
+
+
+### Request 2: Get all posts
+GET http://flip1.engr.oregonstate.edu:4004/api/posts/ HTTP/1.1
+content-type: application/json
+
+### Request 2: Get columns
+GET http://flip1.engr.oregonstate.edu:4004/api/posts/columns HTTP/1.1
+content-type: application/json
+
+### Request 2: Create Post
+POST http://flip1.engr.oregonstate.edu:4004/api/posts/ HTTP/1.1
+content-type: application/json
+
+{
+    "author_id":     1,
+    "genre_id":      1,
+    "title":         "ExamplePost1",
+    "post_text":      "This is a fake post to test creation of a post"
+   
+}
+
+### Request 2: Update Post
+PUT http://flip1.engr.oregonstate.edu:4004/api/posts/18 HTTP/1.1
+content-type: application/json
+
+{
+    "author_id":     2,
+    "genre_id":      2,
+    "title":         "ExamplePost1B",
+    "post_text":      "This is a fake BB post to test creation of a post"
+   
+}
+
+### Request 2: Delete Post
+DELETE http://flip1.engr.oregonstate.edu:4004/api/posts/18 HTTP/1.1
+content-type: application/json
+
+### Request 2:  Post ID List
+GET http://flip1.engr.oregonstate.edu:4004/api/posts/list HTTP/1.1
+content-type: application/json
+
+
+
+### ******************************************************************************************
+### ******************************************************************************************
+### ******************************************************************************************
+
+### Testing for issues
+
+### Request 2: Create Post -- Unique Constraint (username/email) fails
+POST http://flip1.engr.oregonstate.edu:4004/api/posts/ HTTP/1.1
+content-type: application/json
+
+{
+    "author_id":     2,
+    "genre_id":      2,
+    "title":         "bes",
+    "post_text":      "This is a fake BB post to test creation of a post"
+   
+}
+
+### Request 2: Edit Post -- Post not exist
+PUT http://flip1.engr.oregonstate.edu:4004/api/posts/999 HTTP/1.1
+content-type: application/json
+
+{
+     "author_id":     2,
+    "genre_id":      2,
+    "title":         "Fake Post123",
+    "post_text":      "This is a fake BB post to test creation of a post"
+   
+}
+
+### Request 2: Edit Post -- Unique Constraint (email, username)
+PUT http://flip1.engr.oregonstate.edu:4004/api/posts/2 HTTP/1.1
+content-type: application/json
+
+{
+     "author_id":     2,
+    "genre_id":      2,
+    "title":         "Bes",
+    "post_text":      "This is a fake BB post to test creation of a post"
+   
+   
+}
+
+### Request 2: Delete user
+DELETE http://flip1.engr.oregonstate.edu:4004/api/posts/999 HTTP/1.1
+content-type: application/json

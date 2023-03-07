@@ -56,7 +56,7 @@ export async function updatePost(post_id, author_id, genre_id, title, post_text)
         )
     } catch (error) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
-            return { numUsersUpdated: 0, status: "null post id# issue" };
+            return { numUpdated: 0, status: "null post id# issue" };
         }
         return error
     }
@@ -115,11 +115,11 @@ export async function addPost(author_id, genre_id, title, post_text) {
     } catch (error) {
         console.log(` ${author_id}, ${genre_id}, ${title}, ${post_text}  `)
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
-            return { numPostsAdded: 0, status: "not unique user" };
+            return { numberPostsAdded: 0, status: "not unique post" };
         }
         return error
     }
 
     numberPostsAdded = result_set_header[0].affectedRows;
-    return { numAdded: numberPostsAdded, status: "user added" };
+    return { numAdded: numberPostsAdded, status: "post added" };
 }
