@@ -102,7 +102,7 @@ function DBGenresPage(){
     const results = filterItems(dataObjects, query)
     return(
     <section>
-        <h2>Welcome to the Users Table page</h2>
+        <h2>Welcome to the Genres Table page</h2>
         <DBSearchFilter
             query={query}
             onChange={handleChange}
