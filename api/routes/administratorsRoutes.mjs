@@ -1,5 +1,5 @@
 import express from 'express';
-import { cGetAdministrators, cAddAdministrator, cGetAdministratorColumns, cUpdateAdministrator, cDeleteAdministrator, cGetAdministratorsList } from '../Controllers/AdministratorsControllers.mjs';
+import { cGetAdministrators, cAddAdministrator, cGetAdministratorColumns, cUpdateAdministrator, cDeleteAdministrator, cGetAdministratorsListWithNull, cGetAdministratorsList } from '../Controllers/AdministratorsControllers.mjs';
 
 
 const router = express.Router();
@@ -16,8 +16,10 @@ router.route("/:id")
      .put(cUpdateAdministrator)
      .delete(cDeleteAdministrator)
 
+router.route('/namelist')
+     .get(cGetAdministratorsList)
 
 router.route('/namelistwithnull')
-     .get(cGetAdministratorsList)
+     .get(cGetAdministratorsListWithNull)
 
 export { router as adminsRoute };

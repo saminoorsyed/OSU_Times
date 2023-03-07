@@ -41,11 +41,13 @@ content-type: application/json
 DELETE http://flip1.engr.oregonstate.edu:4004/api/administrators/9 HTTP/1.1
 content-type: application/json
 
-### Request 2:  administrator ID List
-GET http://flip1.engr.oregonstate.edu:4004/api/administrators/namelistwithnull HTTP/1.1
+### Request 2:  administrator ID List with null
+GET http://flip3.engr.oregonstate.edu:4004/api/administrators/namelistwithnull HTTP/1.1
 content-type: application/json
 
-
+### Request 2:  administrator ID List
+GET http://flip3.engr.oregonstate.edu:4004/api/administrators/namelist HTTP/1.1
+content-type: application/json
 
 ### ******************************************************************************************
 ### ******************************************************************************************

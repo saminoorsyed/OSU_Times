@@ -4,15 +4,18 @@ import { pool } from './dbConnector.mjs';
 // returns promise
 // interior data is json (array of user objects)
 
-export async function getAdministratorsIDList() {
-    let [result] = await pool.query(
-        `Select admin_id, full_name from Administrators2`);
+export async function getAdministratorsIDListWithNull() {
+    let result = await getAdministratorsIDList()
     console.log(result);
-    console.log(result.length)
-    result.splice(result.length, 0, {admin_id: null, full_name: null});
+    result.push({admin_id: null, full_name: null});
     return result;
 }
 
+export async function getAdministratorsIDList() {
+    let [result] = await pool.query(
+        `Select admin_id, full_name from Administrators2`);
+    return result;
+}
 
 // no inputs accepted
 // returns promise

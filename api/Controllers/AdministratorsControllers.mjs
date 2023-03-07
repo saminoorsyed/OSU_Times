@@ -1,11 +1,16 @@
-import { getAdministrators, updateAdministrator, deleteAdministrator, addAdministrator, getAdministratorsColumns, getAdministratorsIDList } from '../models/administratorsModel.mjs';
+import { getAdministrators, updateAdministrator, deleteAdministrator, addAdministrator, getAdministratorsColumns, getAdministratorsIDListWithNull, getAdministratorsIDList } from '../models/administratorsModel.mjs';
+
+export const cGetAdministratorsListWithNull = async (req, res, next) => {
+    // console.log("Enter get method!!!")
+    let data = await getAdministratorsIDListWithNull();
+    res.send(data)
+};
 
 export const cGetAdministratorsList = async (req, res, next) => {
     // console.log("Enter get method!!!")
     let data = await getAdministratorsIDList();
     res.send(data)
 };
-
 
 export const cGetAdministrators = async (req, res, next) => {
     // console.log("Enter get method!!!")
