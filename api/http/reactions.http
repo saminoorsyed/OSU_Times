@@ -1,0 +1,70 @@
+
+### ******************************************************
+### ******************************************************
+### ******************************************************
+### ******************************************************
+
+### Valid Actions
+
+
+### Request 2: Get all reactions
+GET http://flip1.engr.oregonstate.edu:4004/api/reactions/ HTTP/1.1
+content-type: application/json
+
+### Request 2: Get columns
+GET http://flip1.engr.oregonstate.edu:4004/api/reactions/columns HTTP/1.1
+content-type: application/json
+
+### Request 2: Create reactions
+POST http://flip1.engr.oregonstate.edu:4004/api/reactions/ HTTP/1.1
+content-type: application/json
+
+{
+    "user_id":                  1,
+    "post_id":                  2,
+    "reaction_icon_id":         2
+   
+}
+
+### Request 2: Update reactions
+PUT http://flip1.engr.oregonstate.edu:4004/api/reactions/15 HTTP/1.1
+content-type: application/json
+
+{
+    "user_id":                  3,
+    "post_id":                  3,
+    "reaction_icon_id":         2
+   
+}
+
+### Request 2: Delete reactions
+DELETE http://flip1.engr.oregonstate.edu:4004/api/reactions/15 HTTP/1.1
+content-type: application/json
+
+### Request 2:  reactions ID List
+GET http://flip1.engr.oregonstate.edu:4004/api/reactions/namelist HTTP/1.1
+content-type: application/json
+
+
+
+### ******************************************************************************************
+### ******************************************************************************************
+### ******************************************************************************************
+
+### Testing for issues
+
+
+### Request 2: Edit reactions -- reaction not exist
+PUT http://flip1.engr.oregonstate.edu:4004/api/reactions/999 HTTP/1.1
+content-type: application/json
+
+{
+    "user_id":                  3,
+    "post_id":                  3,
+    "reaction_icon_id":         2
+   
+}
+
+### Request 2: Delete reactions
+DELETE http://flip1.engr.oregonstate.edu:4004/api/reactions/999 HTTP/1.1
+content-type: application/json

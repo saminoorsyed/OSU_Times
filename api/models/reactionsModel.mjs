@@ -85,7 +85,7 @@ export async function updateReaction(reaction_id, user_id, post_id, reaction_ico
 export async function deleteReaction(reaction_id) {
     let numberRecordsUpdated = 0
     let result_set_header = await pool.query(`
-        delete from Reactionss2
+        delete from Reactions2
         where reaction_id = ?`,
         [reaction_id],
     )

@@ -53,5 +53,10 @@ export const cUpdateReaction = async (req, res, next) => {
 
 export const cDeleteReaction = async (req, res, next) => {
     let result = await deleteReaction(req.params.id);
-    res.json(result);
+    if(result.numberDeleted === 0){
+        res.status(400).json(result);
+    } else {
+        res.json(result);
+    }
+    
 }
