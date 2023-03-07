@@ -19,4 +19,4 @@ router.route('/columns')
 router.route('/titlelist')
      .get(cGetCommentsList)
 
-export { router as usersRoute };
+export { router as commentsRoutes };

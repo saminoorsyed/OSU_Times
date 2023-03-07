@@ -10,6 +10,7 @@ import cors from 'cors';
 import fs from 'fs';
 import { authorsRoute } from './routes/authorsRoutes.mjs';
 import { userAuthorsRoutes } from './routes/usersAuthorsRoutes.mjs';
+import { commentsRoutes } from './routes/commentsRoutes.mjs';
 
 
 dotenv.config();
@@ -34,6 +35,8 @@ app.use("/api/posts", postRoute);
 app.use("/api/authors", authorsRoute)
 
 app.use("/api/usersauthors", userAuthorsRoutes);
+app.use("/api/comments", commentsRoutes)
+
 
 app.listen(process.env.API_PORT, () => {
     console.log(`Express server is listening on port ${process.env.API_PORT}!`);

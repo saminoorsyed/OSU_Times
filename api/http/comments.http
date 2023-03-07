@@ -1,0 +1,67 @@
+
+### ******************************************************
+### ******************************************************
+### ******************************************************
+### ******************************************************
+
+### Valid Actions
+
+
+### Request 2: Get all
+GET http://flip1.engr.oregonstate.edu:4004/api/comments/ HTTP/1.1
+content-type: application/json
+
+### Request 2: Get columns
+GET http://flip1.engr.oregonstate.edu:4004/api/comments/columns HTTP/1.1
+content-type: application/json
+
+### Request 2: Create Comment
+POST http://flip1.engr.oregonstate.edu:4004/api/comments/ HTTP/1.1
+content-type: application/json
+
+{
+    "post_id":       8,
+    "user_id":       1,
+    "comment_text":  "Worst post in the world"
+   
+}
+
+### Request 2: Update Comment
+PUT http://flip1.engr.oregonstate.edu:4004/api/comments/28 HTTP/1.1
+content-type: application/json
+
+{
+    "post_id":       1,
+    "user_id":       3,
+    "comment_text":  "Greatest post in the world"
+   
+}
+
+### Request 2: Delete Comment
+DELETE http://flip1.engr.oregonstate.edu:4004/api/comments/24 HTTP/1.1
+content-type: application/json
+
+### Request 2: Get Comment ID List
+GET http://flip1.engr.oregonstate.edu:4004/api/comments/titlelist HTTP/1.1
+content-type: application/json
+
+
+### ******************************************************************************************
+### ******************************************************************************************
+### ******************************************************************************************
+
+### Testing for issues
+
+
+### Request 2: Update Author -- user not exist
+PUT http://flip1.engr.oregonstate.edu:4004/api/comments/99  HTTP/1.1
+content-type: application/json
+
+
+{
+    "post_id":       1,
+    "user_id":       3,
+    "comment_text":  "Greatest post in the world"
+   
+}
+   
