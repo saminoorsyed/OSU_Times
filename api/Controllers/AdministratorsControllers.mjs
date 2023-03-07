@@ -15,7 +15,7 @@ export const cGetAdministrators = async (req, res, next) => {
 
 export const cGetAdministratorColumns =  async (req, res)=>{
     let administratorsColumns = await getAdministratorsColumns();
-    res.send(userColumns)
+    res.send(administratorsColumns)
 }
 
 export const cAddAdministrator = async (req, res, next) => {

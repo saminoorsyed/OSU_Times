@@ -46,7 +46,7 @@ export const cUpdateComment = async (req, res, next) => {
 
 export const cDeleteComment = async (req, res, next) => {
     let result = await deleteComment(req.params.id);
-    if(result.numDeleted === 0){
+    if(result.numberDeleted === 0){
         res.status(400).send(result.status);
     } else {
         res.json(result);

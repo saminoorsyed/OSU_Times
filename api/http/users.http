@@ -1,0 +1,91 @@
+
+### ******************************************************
+### ******************************************************
+### ******************************************************
+### ******************************************************
+
+### Valid Actions
+
+
+### Request 2: Get all users
+GET http://flip1.engr.oregonstate.edu:4004/api/users/ HTTP/1.1
+content-type: application/json
+
+### Request 2: Get columns
+GET http://flip1.engr.oregonstate.edu:4004/api/users/columns HTTP/1.1
+content-type: application/json
+
+### Request 2: Create User
+POST http://flip1.engr.oregonstate.edu:4004/api/users/ HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":     "User1",
+    "username":      "User1",
+    "email":         "User1@gmail.com"
+   
+}
+
+### Request 2: Update User
+PUT http://flip1.engr.oregonstate.edu:4004/api/users/11 HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":     "User1B",
+    "username":      "User1B",
+    "email":         "User1B@gmail.com"
+   
+}
+
+### Request 2: Delete user
+DELETE http://flip1.engr.oregonstate.edu:4004/api/users/11 HTTP/1.1
+content-type: application/json
+
+### Request 2:  user ID List
+GET http://flip1.engr.oregonstate.edu:4004/api/users/namelist HTTP/1.1
+content-type: application/json
+
+
+
+### ******************************************************************************************
+### ******************************************************************************************
+### ******************************************************************************************
+
+### Testing for issues
+
+### Request 2: Create User -- Unique Constraint (username/email) fails
+POST http://flip1.engr.oregonstate.edu:4004/api/users/ HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":     "User1B",
+    "username":      "Commander",
+    "email":         "User1B@gmail.com"
+   
+}
+
+### Request 2: Edit User -- User not exist
+PUT http://flip1.engr.oregonstate.edu:4004/api/users/999 HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":     "User1C",
+    "username":      "User1c",
+    "email":         "User1B@gmail.com"
+   
+}
+
+### Request 2: Edit User -- Unique Constraint (email, username)
+PUT http://flip1.engr.oregonstate.edu:4004/api/users/8 HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":     "User1D",
+    "username":      "User1E",
+    "email":         "achakotay@makis.com"
+   
+}
+
+### Request 2: Delete user
+DELETE http://flip1.engr.oregonstate.edu:4004/api/users/999 HTTP/1.1
+content-type: application/json

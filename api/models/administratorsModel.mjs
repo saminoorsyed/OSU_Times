@@ -33,7 +33,7 @@ export async function getAdministratorsColumns(){
                         SELECT * 
                         FROM INFORMATION_SCHEMA.COLUMNS
                         WHERE TABLE_NAME = N'Administrators2';`)
-    return result;
+    return result.map(({COLUMN_NAME}) => COLUMN_NAME);                    
 }
 
 // inputs:  (int/str, string, string, string, string)

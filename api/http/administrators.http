@@ -1,0 +1,91 @@
+
+### ******************************************************
+### ******************************************************
+### ******************************************************
+### ******************************************************
+
+### Valid Actions
+
+
+### Request 2: Get all users
+GET http://flip1.engr.oregonstate.edu:4004/api/administrators/ HTTP/1.1
+content-type: application/json
+
+### Request 2: Get columns
+GET http://flip1.engr.oregonstate.edu:4004/api/administrators/columns HTTP/1.1
+content-type: application/json
+
+### Request 2: Create Administrator
+POST http://flip1.engr.oregonstate.edu:4004/api/administrators/ HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":     "Admin1A",
+    "username":      "Admin1B",
+    "email":         "Admin1c@gmail.com"
+   
+}
+
+### Request 2: Update Administrator
+PUT http://flip1.engr.oregonstate.edu:4004/api/administrators/9 HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":     "Admin2A",
+    "username":      "Admin2B",
+    "email":         "Admin2C@gmail.com"
+   
+}
+
+### Request 2: Delete Administrator
+DELETE http://flip1.engr.oregonstate.edu:4004/api/administrators/9 HTTP/1.1
+content-type: application/json
+
+### Request 2:  administrator ID List
+GET http://flip1.engr.oregonstate.edu:4004/api/administrators/namelistwithnull HTTP/1.1
+content-type: application/json
+
+
+
+### ******************************************************************************************
+### ******************************************************************************************
+### ******************************************************************************************
+
+### Testing for issues
+
+### Request 2: Create Administrator -- Unique Constraint (username/email) fails
+POST http://flip1.engr.oregonstate.edu:4004/api/administrators/ HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":     "Admin3A",
+    "username":      "Moral Officer",
+    "email":         "Admin3B@gmail.com"
+   
+}
+
+### Request 2: Edit Admin -- Admin not exist
+PUT http://flip1.engr.oregonstate.edu:4004/api/administrators/999 HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":     "User1C",
+    "username":      "User1c",
+    "email":         "User1B@gmail.com"
+   
+}
+
+### Request 2: Edit Admin -- Unique Constraint (email, username)
+PUT http://flip1.engr.oregonstate.edu:4004/api/administrators/8 HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":     "User1D",
+    "username":      "Moral Officer",
+    "email":         "achakotay@makis.com"
+   
+}
+
+### Request 2: Delete user
+DELETE http://flip1.engr.oregonstate.edu:4004/api/administrators/999 HTTP/1.1
+content-type: application/json

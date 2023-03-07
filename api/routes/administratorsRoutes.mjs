@@ -12,7 +12,7 @@ router.route("/",)
 router.route('/columns')
      .get(cGetAdministratorColumns)
 
-     router.route("/:id")
+router.route("/:id")
      .put(cUpdateAdministrator)
      .delete(cDeleteAdministrator)
 

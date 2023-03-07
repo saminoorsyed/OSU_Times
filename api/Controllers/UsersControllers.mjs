@@ -23,7 +23,7 @@ export const cAddUser = async (req, res, next) => {
     let result;
     try {
         console.log("Enter try piece of post method")
-        result = await addUser(req.body.full_name, req.body.username, req.body.email);
+        result = await addUser(req.body.username, req.body.full_name,req.body.email);
     } catch (error) {
         console.log("Enter catch error piece of post method")
         res.status(500).send({ status: "Issue occured when trying to add user. ", error })
@@ -36,13 +36,13 @@ export const cUpdateUser = async (req, res, next) => {
     console.log("What is hapenning!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     let result;
     try {
-        result = await updateUser(req.params.id, req.body.full_name, req.body.username, req.body.email);
+        result = await updateUser(req.params.id, req.body.username, req.body.full_name, req.body.email);
     } catch(error){
         res.status(500).send("500 - Server Error");
     }
     
-    if (result.numUpdated === 0){
-        res.status(400).send("User not updated due to not being found.");
+    if (result.numUsersUpdated === 0){
+        res.status(400).send("User not updated.");
     } else {
         console.log(result);
         console.log("User created")
