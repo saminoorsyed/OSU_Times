@@ -45,25 +45,28 @@ export async function updateAuthor(author_id, username, full_name, email, admin_
     const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
     let result_set_header;
     try {
+        console.log(`username: ${username} , full_name: ${full_name}, email: ${email}, ${admin_id} ,  ${admin_action}   `)
         result_set_header = await pool.query(`
             update Authors2
             set username = ?, full_name = ?, email = ?, admin_id = ?, admin_action = ?
             where author_id = ?`,
             [username, full_name, email, admin_id, admin_action, author_id],
         )
+        numberRecordsUpdated = result_set_header[0].affectedRows;
+        if (numberRecordsUpdated === 1) {
+            return { numUsersUpdated: numberRecordsUpdated, status: "updated author" };
+        } else {
+            return { numUsersUpdated: numberRecordsUpdated, status: "failed to update author" };
+        }
+
     } catch (error) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
-            return { numUsersUpdated: 0, status: "null authorid# issue" };
+            return { numUsersUpdated: 0, status: "Unique input issue" };
         }
-        return error
+        return { numUsersUpdated: 0, status: "Input issue" };
     }
 
-    numberRecordsUpdated = result_set_header[0].affectedRows;
-    if (numberRecordsUpdated === 1) {
-        return { numUsersUpdated: numberRecordsUpdated, status: "updated author" };
-    } else {
-        return { numUsersUpdated: numberRecordsUpdated, status: "failed to update author" };
-    }
+    
 }
 
 // input str/int
@@ -97,23 +100,31 @@ export async function deleteAuthor(author_id) {
 //    {numUsersAdded: 0, status: not unique user}
 // otherwise throws error
 
-export async function addAuthor(username, full_name, email, admin_id, admin_action) {
+export async function addAuthor(full_name, username, email, admin_id, admin_action) {
     const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
     let numberRecordsAdded;
-    let result_set_header;
-
+    console.log(`username: ${username} , full_name: ${full_name}, email: ${email}, ${admin_id} ,  ${admin_action}   `)
     try {
-        result_set_header = await pool.query(`
-        insert into Authors2(username, full_name, email, admin_id, admin_action)
-                values(?, ?, ?, ?, ?)`, [username, full_name, email, admin_id, admin_action],
-        )
+        console.log("Enter try piece of Model / Add Author")
+
+        let insert_statement = "insert into Authors2 ";
+        let column_names =  "(full_name, username, email, admin_action, admin_id) "
+        let value_placeholders = "values (?,?, ?, ?, ?)"
+        let queryStr = insert_statement + column_names + value_placeholders;
+        console.log(queryStr);
+        
+        let result_set_header = await pool.query(queryStr, [full_name, username, email, admin_id, admin_action])
+        
+        console.log("about to calculate # records added")
+        numberRecordsAdded = result_set_header[0].affectedRows;
+        return { authorsCreated: numberRecordsAdded, status: "author added" };
     } catch (error) {
+        console.log("Model / Line 117")
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
-            return { numUsersAdded: 0, status: "not unique author" };
+            return { authorsCreated: 0, status: "not unique author" };
         }
-        return error
+        return { authorsCreated: 0, status: "Invalid input author" };
     }
 
-    numberRecordsAdded = result_set_header[0].affectedRows;
-    return { authorsCreated: numberRecordsAdded, status: "author added" };
+    
 }

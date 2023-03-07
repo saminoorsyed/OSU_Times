@@ -1,0 +1,84 @@
+
+### Request 2: Get all
+GET http://flip1.engr.oregonstate.edu:4004/api/usersauthors/ HTTP/1.1
+content-type: application/json
+
+### Request 2: Get Column Names
+GET http://flip1.engr.oregonstate.edu:4004/api/usersauthors/columns HTTP/1.1
+content-type: application/json
+
+### Request 2: Create User_Author
+POST http://flip1.engr.oregonstate.edu:4004/api/usersauthors/ HTTP/1.1
+content-type: application/json
+
+{
+    "user_id": 3,
+    "author_id": 9
+   
+}
+
+### Request 2: Update User_Author
+PUT http://flip1.engr.oregonstate.edu:4004/api/usersauthors/10 HTTP/1.1
+content-type: application/json
+
+{
+    "user_id":   2,
+    "author_id": 5
+   
+}
+
+### Request 2: Delete record
+DELETE http://flip1.engr.oregonstate.edu:4004/api/usersauthors/8 HTTP/1.1
+content-type: application/json
+
+
+### ******************************************************************************************
+### ******************************************************************************************
+### ******************************************************************************************
+
+### Testing for issues
+
+### Request 2: Create User_Author -- Unique Constraint fails
+POST http://flip1.engr.oregonstate.edu:4004/api/usersauthors/ HTTP/1.1
+content-type: application/json
+
+{
+    "user_id": 1,
+    "author_id": 3
+   
+}
+
+### Request 2: Create User_Author -- Comma wrong place
+POST http://flip1.engr.oregonstate.edu:4004/api/usersauthors/ HTTP/1.1
+content-type: application/json
+
+{
+    "user_id": 1,
+    "author_id": 3,
+   
+}
+
+
+### Request 2: Update User_Author  -- Not exist user author
+PUT http://flip1.engr.oregonstate.edu:4004/api/usersauthors/999 HTTP/1.1
+content-type: application/json
+
+{
+    "user_id": 3,
+    "author_id": 9
+   
+}
+
+### Request 2: Update User_Author  -- unique constraint issue
+PUT http://flip1.engr.oregonstate.edu:4004/api/usersauthors/5 HTTP/1.1
+content-type: application/json
+
+{
+    "user_id":   2,
+    "author_id": 2
+   
+}
+
+### Request 2: Delete record
+DELETE http://flip1.engr.oregonstate.edu:4004/api/usersauthors/999 HTTP/1.1
+content-type: application/json

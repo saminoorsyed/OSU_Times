@@ -1,5 +1,5 @@
 import express from 'express';
-import { cAddUsersAuthors, cDeleteUsersAuthors, cUpdateUsersAuthors, cGetUsersAuthors, cGetUsersAuthorsColumns, cGetUsersAuthorsList } from '../Controllers/UsersAuthorsControllers.mjs';
+import { cAddUsersAuthors, cDeleteUsersAuthors, cUpdateUsersAuthors, cGetUsersAuthors, cGetUsersAuthorsColumns } from '../Controllers/UserAuthorControllers.mjs';
 
 
 const router = express.Router();
@@ -12,11 +12,8 @@ router.route("/",)
 router.route('/columns')
      .get(cGetUsersAuthorsColumns)
 
-     router.route("/:id")
+router.route("/:id")
      .put(cUpdateUsersAuthors)
      .delete(cDeleteUsersAuthors)
 
-router.route('/followinglist')
-     .get(cGetUsersAuthorsList)
-
-export { router as usersRoute };
+export { router as userAuthorsRoutes };

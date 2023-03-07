@@ -1,0 +1,115 @@
+
+### ******************************************************
+### ******************************************************
+### ******************************************************
+### ******************************************************
+
+### Valid Actions
+
+
+### Request 2: Get all
+GET http://flip1.engr.oregonstate.edu:4004/api/authors/ HTTP/1.1
+content-type: application/json
+
+### Request 2: Get columns
+GET http://flip1.engr.oregonstate.edu:4004/api/authors/columns HTTP/1.1
+content-type: application/json
+
+### Request 2: Create Author
+POST http://flip1.engr.oregonstate.edu:4004/api/authors/ HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":     "Person1",
+    "username":      "Author1",
+    "email":         "Author1@gmail.com",
+    "admin_action":  "censure for 7 days",
+    "admin_id":      3
+   
+}
+
+### Request 2: Create Author
+POST http://flip1.engr.oregonstate.edu:4004/api/authors/ HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":    "Author2 SanDiego",
+    "username":     "Author2",
+    "email":       "Author2@gmail.com",
+    "admin_action":  null,
+    "admin_id":      null
+   
+}
+
+
+### Request 2: Update Author
+PUT http://flip1.engr.oregonstate.edu:4004/api/authors/20 HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":    "Temp SanDiego",
+    "username":     "TempJob",
+    "email":       "GigEconomy@gmail.com",
+    "admin_action":  null,
+    "admin_id":      null
+   
+}
+
+### Request 2: Delete author
+DELETE http://flip1.engr.oregonstate.edu:4004/api/authors/29 HTTP/1.1
+content-type: application/json
+
+### Request 2: Get author id list
+GET http://flip1.engr.oregonstate.edu:4004/api/authors/nameslist HTTP/1.1
+content-type: application/json
+
+
+
+### ******************************************************************************************
+### ******************************************************************************************
+### ******************************************************************************************
+
+### Testing for issues
+
+### Request 2: Create Author -- Unique Constraint (username/email) fails
+POST http://flip1.engr.oregonstate.edu:4004/api/authors/ HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":    "Winter ColdWeather",
+    "username":     "Borg",
+    "email":       "zzFrostBite@gmail.com",
+    "admin_action":  null,
+    "admin_id":      null
+   
+}
+
+### Request 2: Update Author -- user not exist
+PUT http://flip1.engr.oregonstate.edu:4004/api/authors/99  HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":    "Temp Author",
+    "username":     "FakeUsername07",
+    "email":       "Author125@gmail.com",
+    "admin_action":  null,
+    "admin_id":      null
+   
+}
+
+### Request 2: Update Author -- unique constraint issue (username/email)
+PUT http://flip1.engr.oregonstate.edu:4004/api/authors/3  HTTP/1.1
+content-type: application/json
+
+{
+    "full_name":    "Temp Author",
+    "username":     "Supreme Leader",
+    "email":       "Author125@gmail.com",
+    "admin_action":  null,
+    "admin_id":      null
+   
+}
+
+### Request 2: Delete author -- not exist
+DELETE http://flip1.engr.oregonstate.edu:4004/api/authors/999 HTTP/1.1
+content-type: application/json
