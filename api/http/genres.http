@@ -1,0 +1,65 @@
+
+### ******************************************************
+### ******************************************************
+### ******************************************************
+### ******************************************************
+
+### Valid Actions
+
+
+### Request 2: Get all
+GET http://flip1.engr.oregonstate.edu:4004/api/genres/ HTTP/1.1
+content-type: application/json
+
+### Request 2: Get columns
+GET http://flip1.engr.oregonstate.edu:4004/api/genres/columns HTTP/1.1
+content-type: application/json
+
+### Request 2: Create genres
+POST http://flip1.engr.oregonstate.edu:4004/api/genres/ HTTP/1.1
+content-type: application/json
+
+{
+    "genre_name": "Death Singing"
+   
+}
+
+
+### Request 2: Update genres
+PUT http://flip1.engr.oregonstate.edu:4004/api/genres/7 HTTP/1.1
+content-type: application/json
+
+{
+    "genre_name": "Laughter and Fun"
+   
+}
+
+### Request 2: Delete genres
+DELETE http://flip1.engr.oregonstate.edu:4004/api/genres/7 HTTP/1.1
+content-type: application/json
+
+### Request 2: Get genres id list
+GET http://flip1.engr.oregonstate.edu:4004/api/genres/nameslist HTTP/1.1
+content-type: application/json
+
+
+
+### ******************************************************************************************
+### ******************************************************************************************
+### ******************************************************************************************
+
+### Testing for issues
+
+
+### Request 2: Update genres -- genre not exist
+PUT http://flip1.engr.oregonstate.edu:4004/api/genres/99  HTTP/1.1
+content-type: application/json
+
+{
+    "genre_name": "Fake Genre and Fun"
+}
+
+
+### Request 2: Delete genres -- not exist
+DELETE http://flip1.engr.oregonstate.edu:4004/api/genres/999 HTTP/1.1
+content-type: application/json

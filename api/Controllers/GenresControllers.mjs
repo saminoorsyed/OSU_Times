@@ -47,5 +47,9 @@ export const cUpdateGenre = async (req, res, next) => {
 export const cDeleteGenre = async (req, res, next) => {
 
     let result = await deleteGenre(req.params.id);
-    res.json(result);
+    let statusCode = 200;
+    if(result.numberDeleted === 0){
+        statusCode = 400;
+    }
+    res.status(statusCode).json(result);
 }

@@ -1,0 +1,79 @@
+
+### ******************************************************
+### ******************************************************
+### ******************************************************
+### ******************************************************
+
+### Valid Actions
+
+
+### Request 2: Get all reaction icons
+GET http://flip1.engr.oregonstate.edu:4004/api/reactionicons/ HTTP/1.1
+content-type: application/json
+
+### Request 2: Get columns
+GET http://flip1.engr.oregonstate.edu:4004/api/reactionicons/columns HTTP/1.1
+content-type: application/json
+
+### Request 2: Create reaction icon type
+POST http://flip1.engr.oregonstate.edu:4004/api/reactionicons/ HTTP/1.1
+content-type: application/json
+
+{
+    "reaction_type":     "sighing person"
+}
+
+### Request 2: Update reaction icon
+PUT http://flip1.engr.oregonstate.edu:4004/api/reactionicons/7 HTTP/1.1
+content-type: application/json
+
+{
+    "reaction_type":     "laser tag"
+}
+
+### Request 2: Delete reaction icon
+DELETE http://flip1.engr.oregonstate.edu:4004/api/reactionicons/7 HTTP/1.1
+content-type: application/json
+
+### Request 2:  reaction icon ID List
+GET http://flip1.engr.oregonstate.edu:4004/api/reactionicons/namelist HTTP/1.1
+content-type: application/json
+
+
+
+### ******************************************************************************************
+### ******************************************************************************************
+### ******************************************************************************************
+
+### Testing for issues
+
+### Request 2: Create Reaction Icon -- Unique Constraint (reaction type) 
+POST http://flip1.engr.oregonstate.edu:4004/api/reactionicons/ HTTP/1.1
+content-type: application/json
+
+{
+    "reaction_type":     "light bulb"
+    
+}
+
+### Request 2: Edit reaction icons -- reaction icons not exist
+PUT http://flip1.engr.oregonstate.edu:4004/api/reactionicons/999 HTTP/1.1
+content-type: application/json
+
+{
+     "reaction_type":     "sun light bulb"
+   
+}
+
+### Request 2: Edit Admin -- Unique Constraint (email, username)
+PUT http://flip1.engr.oregonstate.edu:4004/api/reactionicons/2 HTTP/1.1
+content-type: application/json
+
+{
+     "reaction_type":     "giggling"
+   
+}
+
+### Request 2: Delete reaction icon -- not exist
+DELETE http://flip1.engr.oregonstate.edu:4004/api/reactionicons/999 HTTP/1.1
+content-type: application/json

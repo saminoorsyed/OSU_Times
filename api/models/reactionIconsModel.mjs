@@ -39,6 +39,8 @@ export async function GetReactionIconsColumns(){
 export async function updateReactionIcon(reaction_icon_id, reaction_type) {
     let numberRecordsUpdated = 0
     let result_set_header;
+    const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
+    const CODE_NULL_ERROR = 1048;
     try {
         result_set_header = await pool.query(`
             update Reaction_Icons2
