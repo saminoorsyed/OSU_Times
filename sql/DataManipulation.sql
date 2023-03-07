@@ -161,6 +161,7 @@ set genre_name = ":genre_name_input"
 where genre_id = ":genre_id_edit_icon"
 
 -- Delete Genre
+delete from posts where posts.genre_id = ":genre_id_transcan_icon";
 delete from genres where genres.genre_id = ":genre_id_trashcan_icon";
 
 
@@ -202,7 +203,7 @@ values (":full_name_input", ":username_input", "email_input", "admin_name_dropdo
 -- Delete Author
 -- user clicks trashcan icon relating to row for an author therefore user doesn't have
 --   to know the author's id#
-
+delete from Users_Authors where Users_Authors.author_id = ":author_delete_icon"
 delete from authors where author_id = ":author_delete_icon";
 
 
