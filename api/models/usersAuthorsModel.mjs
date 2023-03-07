@@ -133,6 +133,7 @@ export async function updateUsersAuthors(user_author_id, user_id, author_id) {
 
 export async function deleteUsersAuthors(user_author_id) {
     let numberRecordsUpdated = 0
+
     let result_set_header = await pool.query(`
         delete from Users_Authors2
         where user_author_id = ?`,

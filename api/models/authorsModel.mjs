@@ -7,7 +7,9 @@ import { pool } from './dbConnector.mjs';
 export async function getAuthorIDList() {
     const [result] = await pool.query(
         `Select author_id, full_name from Authors2`);
-    return result;
+    let result_with_null = result;
+    result_with_null.push({author_id: null, full_name: null})
+    return result_with_null;
 }
 
 
@@ -77,6 +79,13 @@ export async function updateAuthor(author_id, username, full_name, email, admin_
 
 export async function deleteAuthor(author_id) {
     let numberRecordsUpdated = 0
+    
+    let queryStr = `delete from Users_Authors2 where author_id = ${author_id};`;
+    console.log("Query String to delete User Author Dependencies for an Author");
+    console.log(queryStr);
+
+    const delete_author = await pool.query(queryStr)
+
     let result_set_header = await pool.query(`
         delete from Authors2
         where author_id = ?`,

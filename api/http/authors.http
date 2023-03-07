@@ -56,11 +56,11 @@ content-type: application/json
 }
 
 ### Request 2: Delete author
-DELETE http://flip1.engr.oregonstate.edu:4004/api/authors/29 HTTP/1.1
+DELETE http://flip3.engr.oregonstate.edu:4004/api/authors/28 HTTP/1.1
 content-type: application/json
 
 ### Request 2: Get author id list
-GET http://flip1.engr.oregonstate.edu:4004/api/authors/nameslist HTTP/1.1
+GET http://flip3.engr.oregonstate.edu:4004/api/authors/nameslist HTTP/1.1
 content-type: application/json
 
 

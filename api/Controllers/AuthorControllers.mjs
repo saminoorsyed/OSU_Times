@@ -1,7 +1,6 @@
 import { getAuthors, updateAuthor, deleteAuthor, addAuthor, GetAuthorColumns, getAuthorIDList } from '../models/authorsModel.mjs';
 
 export const cGetAuthorsList = async (req, res, next) => {
-    // console.log("Enter get method!!!")
     let data = await getAuthorIDList();
     res.send(data)
 };
