@@ -45,17 +45,17 @@ function DBAdminsPage(){
         );
     }
     async function updateDbRowObject(rowObject, columnNames){
-        const id = rowObject[columnNames[0]]
-        const updatedEditRowObject = {
-            ...editRowObject,
-            [columnNames[0]]: rowObject[columnNames[0]]
-        }
-        await updateDatabaseObject(id, updatedEditRowObject);
-        seDataObjects(await getObjects());
+    const id = rowObject[columnNames[0]]
+    const updatedEditRowObject = {
+        ...editRowObject,
+        [columnNames[0]]: rowObject[columnNames[0]]
     }
+    await updateDatabaseObject(id, updatedEditRowObject);
+    seDataObjects(await getObjects());
+}
 
     function filterItems(items, query){
-        return items.filter(item => item.full_name.includes(query))
+        return items.filter(item => item.username.includes(query))
     }
     function handleChange(e){
         setQuery(e.target.value);
@@ -98,7 +98,6 @@ function DBAdminsPage(){
         setEditRowObject(ObjInitialState);
         }, [columnNames]
     );
-    
     const results = filterItems(dataObjects, query)
     return(
     <section>
@@ -106,7 +105,7 @@ function DBAdminsPage(){
         <DBSearchFilter
             query={query}
             onChange={handleChange}
-            name={'full_name'}
+            name={"username"}
         />
         <DBTable
             dataObjects = {results}
@@ -122,7 +121,7 @@ function DBAdminsPage(){
             />
         <br />
         {/* I want button to load original sql data in case person deletes everything */}
-        {/* <button onClick={() => setUsers(fakeUsers)}>(Placeholder Future Functionality)</button> */}
+        {/* <button onClick={() => setAdmins(fakeAdmins)}>(Placeholder Future Functionality)</button> */}
     </section>
     );
 };
