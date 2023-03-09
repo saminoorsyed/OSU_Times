@@ -29,12 +29,11 @@ export async function getComments() {
 // returns promise
 // interior data is json (array of user objects)
 export async function getCommentColumns(){
-    const [result] = await pool.query(`
-                SELECT * 
-                FROM INFORMATION_SCHEMA.COLUMNS 
-                WHERE TABLE_NAME = N'Comments2';`)
-    return result.map(({COLUMN_NAME}) => COLUMN_NAME);
-}
+//     const [result] = await pool.query(`
+//                 SELECT * 
+//                 FROM INFORMATION_SCHEMA.COLUMNS 
+//                 WHERE TABLE_NAME = N'Comments2';`)
+//     return result.map(({COLUMN_NAME}) => COLUMN_NAME);
 
 // inputs:  (int/str, string, string, string, string)
 // output:  promise
