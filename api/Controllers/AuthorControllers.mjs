@@ -23,7 +23,7 @@ export const cAddAuthor = async (req, res, next) => {
     // console.log("Enter post method")   
     try {
         console.log(req.body.email)
-        result = await addAuthor(req.body['Author Full Name'], req.body['Author Username'], req.body.email, req.body.admin_action, req.body.admin_id);
+        result = await addAuthor(req.body['Author Full Name'], req.body['Author Username'], req.body.email, req.body.admin_id, req.body.admin_action);
         if (result.authorsCreated === 0) {
             console.log("Controllers / Add Author / Line 29")
             res.status(400).send(result.status);
