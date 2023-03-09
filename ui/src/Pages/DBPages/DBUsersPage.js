@@ -50,6 +50,7 @@ function DBUsersPage(){
         ...editRowObject,
         [columnNames[0]]: rowObject[columnNames[0]]
     }
+    console.log(id)
     await updateDatabaseObject(id, updatedEditRowObject);
     seDataObjects(await getObjects());
 }

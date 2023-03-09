@@ -13,13 +13,11 @@ function DBEditRow({dataObject, colName, IdObjects, updateEditRowObject}){
         {isID &&
             <div className="editRow">
                 <label htmlFor = {colName}>{colName.slice(0,-3)}
-                    <select type="text" id={colName}>
-                        {IdObjects[colName].map((IDobject, i)=>
-                            <SelectOption
-                            IdName = {IDobject[0]}
-                            IdNumber = {IDobject[1]}
-                            key = {i}
-                            />)}
+                    <select onChange={updateEditRowObject} name={colName} type="text" id={colName} >
+                        <option value="">Select an option</option>
+                        {IdObjects[colName].map((IdObject, i)=>
+                            <option key={i} value={IdObject[1]}>{IdObject[0]}</option>
+                            )}
                     </select>
                 </label>
             </div>

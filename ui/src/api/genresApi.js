@@ -51,7 +51,7 @@ export async function deleteObjects(id){
 
 export async function updateDatabaseObject(id, editObject){
     try {
-        let url = `http://flip3.engr.oregonstate.edu:4005/api/genres/${id}`;
+        let url = url+`genres/${id}`;
         const response = await fetch (url, {
             method:"PUT", 
             body: JSON.stringify(editObject),

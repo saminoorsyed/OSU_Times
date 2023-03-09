@@ -1,75 +1,136 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {useState} from 'react';
+
+// import api functions
+import { deleteObjects, getObjectColumnNames, getObjects, postObject, updateDatabaseObject, getIdObjects } from "../../api/authorsApi";
 
 // import components
 import DBTable from "../../Components/DBComponents/DBTable";
 import DBSearchFilter from "../../Components/DBComponents/DBSearchFilter";
+import { MdAlternateEmail } from "react-icons/md";
+
 
 function DBAuthorsPage(){
-    let dbAuthors = [                
-        {
-            "author_id":0,
-            "username":"TheDoctor",
-            "fname":"The",
-            "lname":"Doctor",
-            "email":"TheDoctor@Hologram.com",
-            "admin_id":"Lead Botanist",
-            "admin_action":"1) on 11.3.4060 Supreme Commander expressed concern on post content 2)Warned and put on probation on 11.4.4060"
-        },
-        {
-            "author_id": 1,
-            "username":"Borg",
-            "fname": "Seven",
-            "lname": "ofNine",
-            "email": "sevenofnine@borg.com",
-            "admin_id":"Chief Engineer",
-            "admin_action": "1)Promote her work to front page (Supreme commander expressed approval)"
-        },
-        {
-            "author_id":2,
-            "username":"Lieutenant",
-            "fname": "Tom",
-            "lname": "Paris",
-            "email":"tparis@starfleet.com",
-            "admin_id": "Chief Engineer",
-            "admin_action":"Null"
-        }
-    ]
-    let dbColumns = ["author_id", "username", "fname", "lname", "email", "admin_id", "admin_action"];
-    let dbIdObjects = {
-        "admin_id": [["Moral Officer",0], ["Chief Engineer",1], ["Lead Botanist",2], ["Null", null]]
-    } 
-    const [columns, setColumns] = useState(dbColumns);
-    const [authors, setAuthors] = useState(dbAuthors);
-    const [IdObjects, setIdObjects] = useState(dbIdObjects)
-
+    // set objects to populate tables
+    const [columnNames, setColumnNames] = useState([]);
+    const [dataObjects, seDataObjects] = useState([]);
+    const [IdObjects, setIdObjects] = useState({})
+    // set objects for the filter
     const [query, setQuery] = useState('');
-    const results = filterItems(authors, query);
+    
+    // set objects for lifting state
+    const [newRowObject, setNewRowObject] = useState({});
+    const [editRowObject, setEditRowObject] = useState({})
 
-    function filterItems(items, query){
-        return items.filter(item => item.username.includes(query))
+    // functions for lifting up state
+
+    function updateNewObject(e){
+        setNewRowObject(
+            {
+                ...newRowObject,
+                [e.target.name]: e.target.value
+            }
+        );
     }
 
+    function updateEditRowObject(e){
+        setEditRowObject(
+            {
+                ...editRowObject,
+                [e.target.name]: e.target.value
+            }
+        );
+    }
+    async function updateDbRowObject(rowObject, columnNames){
+        const id = rowObject[columnNames[0]]
+        const updatedEditRowObject = {
+            ...editRowObject,
+            [columnNames[0]]: rowObject[columnNames[0]]
+        }
+    console.log(id)
+    await updateDatabaseObject(id, updatedEditRowObject);
+    seDataObjects(await getObjects());
+}
 
+    function filterItems(items, query){
+        return items.filter(item => item["Author Username"].includes(query))
+    }
     function handleChange(e){
         setQuery(e.target.value);
     }
+    // functions to send send requests to databases
+    async function createRow(newRowObject){
+        await postObject(newRowObject)
+        seDataObjects(await getObjects());
+    };
+    async function removeRow(id){
+        await deleteObjects(id);
+        seDataObjects(await getObjects());
+    }
 
-
-
+    useEffect (()=>{
+        async function populateSelect(){
+            const nameList = await getIdObjects();
+            console.log(nameList)
+            setIdObjects({
+                "admin_id": nameList
+            }) 
+        }
+        populateSelect()
+    },[])
+    // mount column names for table
+    useEffect(() => {
+            async function getColumnNames(){
+                const names = await getObjectColumnNames();
+                setColumnNames(names)
+            }
+            getColumnNames();
+        }, []
+    );
+    // fetch objects to populate tables upon component mount
+    useEffect(() => {
+        async function populateObjects(){
+            const data = await getObjects();
+            seDataObjects(data);
+        }
+        populateObjects();
+        }, []
+    );
+    // set initial state of new user object and edit user object based on columns from database
+    useEffect(() => {
+        // Create an object with initial values for each input
+        const ObjInitialState = {};
+        columnNames.slice(1).forEach(title => {
+            ObjInitialState[title] = '';
+        });
+        setNewRowObject(ObjInitialState);
+        setEditRowObject(ObjInitialState);
+        }, [columnNames]
+    );
+    const results = filterItems(dataObjects, query)
     return(
     <section>
-        <h2>Welcome to the Authors table page</h2>
+        <h2>Welcome to the Users Table page</h2>
         <DBSearchFilter
             query={query}
             onChange={handleChange}
-            name={"username"}
+            name={"Author Username"}
         />
         <DBTable
-            objects = {results}
-            columns = {columns}
+            dataObjects = {results}
+            columns = {columnNames}
             IdObjects = {IdObjects}
+            editRowObject = {editRowObject}
+            updateEditRowObject = {updateEditRowObject}
+            updateDbRowObject = {updateDbRowObject}
+            newRowObject = {newRowObject}
+            updateNewObject={updateNewObject}
+            createRow = {createRow}
+            removeRow = {removeRow}
             />
+        <br />
+        {/* I want button to load original sql data in case person deletes everything */}
+        {/* <button onClick={() => setUsers(fakeUsers)}>(Placeholder Future Functionality)</button> */}
     </section>
     );
 };

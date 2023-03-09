@@ -7,10 +7,8 @@ import DBTableRow from "./DBTableRow";
 import DBAddRow from "./DBAddRow";
 
 function DBTable({dataObjects, columns, IdObjects, editRowObject, updateEditRowObject, updateDbRowObject, newRowObject, updateNewObject, createRow, removeRow, editRow}){
-
     function handleAddClick(e){
         e.preventDefault();
-        console.log(newRowObject)
         createRow(newRowObject);
     }
     return(

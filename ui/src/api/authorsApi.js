@@ -23,7 +23,6 @@ export async function getObjects (){
 
 export async function postObject(NewObject) {
     try {
-        console.log(url+`authors/`)
         const response = await fetch(url+`authors/`,
             {
                 method:"POST", 
@@ -50,9 +49,9 @@ export async function deleteObjects(id){
 }
 
 export async function updateDatabaseObject(id, editObject){
+    console.log(editObject)
     try {
-        let url = `http://flip3.engr.oregonstate.edu:4005/api/authors/${id}`;
-        const response = await fetch (url, {
+        const response = await fetch (url+`authors/${id}`, {
             method:"PUT", 
             body: JSON.stringify(editObject),
             headers: {
@@ -61,5 +60,16 @@ export async function updateDatabaseObject(id, editObject){
         });
     } catch (error) {
         console.log(error.message)
+    }
+}
+
+export async function getIdObjects(){
+    try {
+        const response = await fetch(url+'authors/nameslist');
+        const namesObject = await response.json();
+        const nameList = namesObject.map(item => [item.full_name, item.admin_id])
+        return nameList
+    } catch (error) {
+        console.error(error);
     }
 }
