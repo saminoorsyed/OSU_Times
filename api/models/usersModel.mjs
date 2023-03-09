@@ -23,15 +23,13 @@ export async function getUsers() {
 // no inputs accepted
 // returns promise
 // interior data is json (array of user objects)
-export async function getCommentColumns(){
-//     const [result] = await pool.query(`
-//                 SELECT * 
-//                 FROM INFORMATION_SCHEMA.COLUMNS 
-//                 WHERE TABLE_NAME = N'Comments2';`)
-//     return result.map(({COLUMN_NAME}) => COLUMN_NAME);
-
-    let result = ["comment_id", "post_id", "title", "user_id", "Users Full Name", "comment_text", "date_commented"]
-    return result;
+export async function GetUserColumns(){
+    const [result] = await pool.query(
+        `SELECT * 
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE TABLE_NAME = N'Users2';`)
+        console.log(result)
+    return result.map(({COLUMN_NAME}) => COLUMN_NAME);
 }
 
 // inputs:  (int/str, string, string, string, string)
