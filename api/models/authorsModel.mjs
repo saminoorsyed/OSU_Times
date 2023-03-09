@@ -110,7 +110,7 @@ export async function deleteAuthor(author_id) {
 export async function addAuthor(full_name, username, email, admin_id, admin_action) {
     const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
     let numberRecordsAdded;
-    console.log(`username: ${username} , full_name: ${full_name}, email: ${email}, ${admin_id} ,  ${admin_action}   `)
+    console.log(`username: ${username} , full_name: ${full_name}, email: ${email}, admin_id: ${admin_id} , admin_action: ${admin_action}   `)
     try {
         console.log("Enter try piece of Model / Add Author")
 
@@ -120,7 +120,7 @@ export async function addAuthor(full_name, username, email, admin_id, admin_acti
         let queryStr = insert_statement + column_names + value_placeholders;
         console.log(queryStr);
 
-        let result_set_header = await pool.query(queryStr, [full_name, username, email, admin_id, admin_action])
+        let result_set_header = await pool.query(queryStr, [full_name, username, email, admin_action, admin_id])
 
         console.log("about to calculate # records added")
         numberRecordsAdded = result_set_header[0].affectedRows;
