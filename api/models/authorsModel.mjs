@@ -45,7 +45,7 @@ export async function updateAuthor(author_id, username, full_name, email, admin_
     const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
     let result_set_header;
     try {
-        console.log(`username: ${username} , full_name: ${full_name}, email: ${email}, ${admin_id} ,  ${admin_action}   `)
+        console.log(`username: ${username} , full_name: ${full_name}, email: ${email}, admin_id: ${admin_id} , admin_action ${admin_action}`)
         result_set_header = await pool.query(`
             update Authors2
             set username = ?, full_name = ?, email = ?, admin_id = ?, admin_action = ?

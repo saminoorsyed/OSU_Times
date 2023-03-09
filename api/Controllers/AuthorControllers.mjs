@@ -39,7 +39,7 @@ export const cAddAuthor = async (req, res, next) => {
 }
 
 export const cUpdateAuthor = async (req, res, next) => {
-    let result = await updateAuthor(req.params.id, req.body['Author Full Name'], req.body['Author Username'], req.body.email, req.body.admin_action, req.body.admin_id);
+    let result = await updateAuthor(req.params.id, req.body['Author Full Name'], req.body['Author Username'], req.body.email, req.body.admin_id, req.body.admin_action);
     res.send(result);
 }
 
