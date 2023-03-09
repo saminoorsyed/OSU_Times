@@ -29,11 +29,13 @@ export async function getPosts() {
 // returns promise
 // interior data is json (array of user objects)
 export async function GetPostsColumns(){
-    const [result] = await pool.query(`
-                SELECT * 
-                FROM INFORMATION_SCHEMA.COLUMNS 
-                WHERE TABLE_NAME = N'Posts2';`)
-    return result.map(({COLUMN_NAME}) => COLUMN_NAME);
+    // const [result] = await pool.query(`
+    //             SELECT * 
+    //             FROM INFORMATION_SCHEMA.COLUMNS 
+    //             WHERE TABLE_NAME = N'Posts2';`)
+    // return result.map(({COLUMN_NAME}) => COLUMN_NAME);
+    let result = ["post_id", "author_id", "full_name", "genre_id", "genre_name", "title", "date_posted", "post_text"]
+    return 
 }
 
 // inputs:  (int/str, string, string, string, string)
