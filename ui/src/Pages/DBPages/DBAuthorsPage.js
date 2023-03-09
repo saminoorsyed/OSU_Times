@@ -7,21 +7,22 @@ import { deleteObjects, getObjectColumnNames, getObjects, postObject, updateData
 // import components
 import DBTable from "../../Components/DBComponents/DBTable";
 import DBSearchFilter from "../../Components/DBComponents/DBSearchFilter";
-import { MdAlternateEmail } from "react-icons/md";
+
 
 
 function DBAuthorsPage(){
     // set objects to populate tables
     const [columnNames, setColumnNames] = useState([]);
     const [dataObjects, seDataObjects] = useState([]);
-    const [IdObjects, setIdObjects] = useState({})
+    const [idObjects, setIdObjects] = useState({});
     // set objects for the filter
     const [query, setQuery] = useState('');
     
     // set objects for lifting state
     const [newRowObject, setNewRowObject] = useState({});
     const [editRowObject, setEditRowObject] = useState({})
-
+    // variables to ensure that objects have loaded
+    const [idObjectsLoad, setIdObjectsLoad] = useState(false)
     // functions for lifting up state
 
     function updateNewObject(e){
@@ -34,6 +35,7 @@ function DBAuthorsPage(){
     }
 
     function updateEditRowObject(e){
+        console.log({[e.target.name]: e.target.value})
         setEditRowObject(
             {
                 ...editRowObject,
@@ -47,7 +49,6 @@ function DBAuthorsPage(){
             ...editRowObject,
             [columnNames[0]]: rowObject[columnNames[0]]
         }
-    console.log(id)
     await updateDatabaseObject(id, updatedEditRowObject);
     seDataObjects(await getObjects());
 }
@@ -71,12 +72,13 @@ function DBAuthorsPage(){
     useEffect (()=>{
         async function populateSelect(){
             const nameList = await getIdObjects();
-            console.log(nameList)
             setIdObjects({
                 "admin_id": nameList
             }) 
+            setIdObjectsLoad(true)
         }
         populateSelect()
+
     },[])
     // mount column names for table
     useEffect(() => {
@@ -109,7 +111,9 @@ function DBAuthorsPage(){
     );
     const results = filterItems(dataObjects, query)
     return(
-    <section>
+    <>
+    {idObjectsLoad && 
+        <section>
         <h2>Welcome to the Users Table page</h2>
         <DBSearchFilter
             query={query}
@@ -119,7 +123,7 @@ function DBAuthorsPage(){
         <DBTable
             dataObjects = {results}
             columns = {columnNames}
-            IdObjects = {IdObjects}
+            idObjects = {idObjects}
             editRowObject = {editRowObject}
             updateEditRowObject = {updateEditRowObject}
             updateDbRowObject = {updateDbRowObject}
@@ -131,7 +135,8 @@ function DBAuthorsPage(){
         <br />
         {/* I want button to load original sql data in case person deletes everything */}
         {/* <button onClick={() => setUsers(fakeUsers)}>(Placeholder Future Functionality)</button> */}
-    </section>
+    </section>}
+    </>
     );
 };
 

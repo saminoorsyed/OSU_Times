@@ -6,7 +6,7 @@ import DBTableHeaders from "./DBTableHeaders";
 import DBTableRow from "./DBTableRow";
 import DBAddRow from "./DBAddRow";
 
-function DBTable({dataObjects, columns, IdObjects, editRowObject, updateEditRowObject, updateDbRowObject, newRowObject, updateNewObject, createRow, removeRow, editRow}){
+function DBTable({dataObjects, columns, idObjects, editRowObject, updateEditRowObject, updateDbRowObject, newRowObject, updateNewObject, createRow, removeRow, editRow}){
     function handleAddClick(e){
         e.preventDefault();
         createRow(newRowObject);
@@ -30,7 +30,7 @@ function DBTable({dataObjects, columns, IdObjects, editRowObject, updateEditRowO
                     <DBTableRow
                     dataObject = {dataObject}
                     columns = {columns}
-                    IdObjects = {IdObjects}
+                    idObjects = {idObjects}
                     editRowObject = {editRowObject}
                     updateEditRowObject = {updateEditRowObject}
                     removeRow ={removeRow}
@@ -48,12 +48,11 @@ function DBTable({dataObjects, columns, IdObjects, editRowObject, updateEditRowO
                 
                     <td colSpan={columns.length + 2}>
                         <form onSubmit={handleAddClick}>
-                            
                         {columns.slice(1).map((colName, i)=>
                                             <DBAddRow
                                                 updateNewObject =   {updateNewObject}
                                                 colName =           {colName}
-                                                IdObjects=          {IdObjects}
+                                                idObjects=          {idObjects}
                                                 key =               {i}
                                                 />
                                             )}

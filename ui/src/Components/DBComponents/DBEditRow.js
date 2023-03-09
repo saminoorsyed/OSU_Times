@@ -3,11 +3,12 @@ import React from "react";
 // import components
 import SelectOption from './DBSelectOption';
 
-function DBEditRow({dataObject, colName, IdObjects, updateEditRowObject}){
+function DBEditRow({dataObject, colName, idObjects, updateEditRowObject}){
     let isID = false;
     if (colName.slice(-3)=== "_id"){
         isID = true;
     }
+    console.log(idObjects)
     return(
         <>
         {isID &&
@@ -15,8 +16,8 @@ function DBEditRow({dataObject, colName, IdObjects, updateEditRowObject}){
                 <label htmlFor = {colName}>{colName.slice(0,-3)}
                     <select onChange={updateEditRowObject} name={colName} type="text" id={colName} >
                         <option value="">Select an option</option>
-                        {IdObjects[colName].map((IdObject, i)=>
-                            <option key={i} value={IdObject[1]}>{IdObject[0]}</option>
+                        {idObjects[colName].map((idObject, i)=>
+                            <option key={i} value={idObject[1]}>{idObject[0]}</option>
                             )}
                     </select>
                 </label>

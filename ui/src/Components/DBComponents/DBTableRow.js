@@ -5,7 +5,7 @@ import {MdOutlineClose, MdModeEditOutline, MdAlternateEmail} from 'react-icons/m
 import DBRowItem from "./DBRowItem";
 import DBEditRow from "./DBEditRow";
 
-function DBTableRow({dataObject, columns, IdObjects, updateEditRowObject, removeRow, updateDbRowObject}){
+function DBTableRow({dataObject, columns, idObjects, updateEditRowObject, removeRow, updateDbRowObject}){
     // toggle edit row render
     const [editClicked, setEditClicked] = useState(false);
     function handleSaveClick(e){
@@ -38,7 +38,7 @@ function DBTableRow({dataObject, columns, IdObjects, updateEditRowObject, remove
                                             updateEditRowObject =  {updateEditRowObject}
                                             dataObject =    {dataObject}
                                             colName =       {colName}
-                                            IdObjects=      {IdObjects}
+                                            idObjects=      {idObjects}
                                             key =           {i}
                                             />
                                             )}

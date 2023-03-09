@@ -14,7 +14,7 @@ function DBUsersPage(){
     // set objects to populate tables
     const [columnNames, setColumnNames] = useState([]);
     const [dataObjects, seDataObjects] = useState([]);
-    let IdObjects = {
+    let idObjects = {
         "user_id": [["Moral Officer",0],[ "Chief Engineer",1], ["Lead Botanist",2]],
         "author_id": [["TheDoctor",0], ["Borg",1], ["Lieutenant",2]]
     }
@@ -111,7 +111,7 @@ function DBUsersPage(){
         <DBTable
             dataObjects = {results}
             columns = {columnNames}
-            IdObjects = {IdObjects}
+            idObjects = {idObjects}
             editRowObject = {editRowObject}
             updateEditRowObject = {updateEditRowObject}
             updateDbRowObject = {updateDbRowObject}
