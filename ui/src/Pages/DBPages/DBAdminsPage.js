@@ -1,66 +1,124 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {useState} from 'react';
+
+// import api functions
+import { deleteObjects, getObjectColumnNames, getObjects, postObject, updateDatabaseObject } from "../../api/adminsApi";
 
 // import components
 import DBTable from "../../Components/DBComponents/DBTable";
 import DBSearchFilter from "../../Components/DBComponents/DBSearchFilter";
+import { MdAlternateEmail } from "react-icons/md";
+
 
 function DBAdminsPage(){
-    let dbAdmins = [                
-        {
-            "admin_id":0,
-            "username":"Moral Officer",
-            "fname":"Mister",
-            "lname":"Neelix",
-            "email":"mneelix@talax.com@voyager.com",
-        },
-        {
-            "admin_id": 1,
-            "username":"Chief Engineer",
-            "fname": "Belana",
-            "lname": "Torres",
-            "email": "btorres@makis.com",
-        },
-        {
-            "admin_id":2,
-            "username":"Lead Botanist",
-            "fname": "Kes",
-            "lname": "Ocampa",
-            "email":"kocampa@telepath.com",
-        }
-    ]
-    let dbColumns = ["admin_id", "username", "fname", "lname", "email"];
-    let dbIdObjects = {}
-    const [columns, setColumns] = useState(dbColumns);
-    const [admins, setAdmins] = useState(dbAdmins);
-    const [IdObjects, setIdObjects] = useState(dbIdObjects)
-
+    // set objects to populate tables
+    const [columnNames, setColumnNames] = useState([]);
+    const [dataObjects, seDataObjects] = useState([]);
+    let idObjects = { }
+    // set objects for the filter
     const [query, setQuery] = useState('');
-    const results = filterItems(admins, query);
+ 
+    // set objects for lifting state
+    const [newRowObject, setNewRowObject] = useState({});
+    const [editRowObject, setEditRowObject] = useState({})
+
+    // functions for lifting up state
+
+    function updateNewObject(e){
+        setNewRowObject(
+            {
+                ...newRowObject,
+                [e.target.name]: e.target.value
+            }
+        );
+    }
+
+    function updateEditRowObject(e){
+        setEditRowObject(
+            {
+                ...editRowObject,
+                [e.target.name]: e.target.value
+            }
+        );
+    }
+    async function updateDbRowObject(rowObject, columnNames){
+    const id = rowObject[columnNames[0]]
+    const updatedEditRowObject = {
+        ...editRowObject,
+        [columnNames[0]]: rowObject[columnNames[0]]
+    }
+    await updateDatabaseObject(id, updatedEditRowObject);
+    seDataObjects(await getObjects());
+}
 
     function filterItems(items, query){
         return items.filter(item => item.username.includes(query))
     }
-
-
     function handleChange(e){
         setQuery(e.target.value);
     }
-
-
-
+    // functions to send send requests to databases
+    async function createRow(newRowObject){
+        await postObject(newRowObject)
+        seDataObjects(await getObjects());
+    };
+    async function removeRow(id){
+        await deleteObjects(id);
+        seDataObjects(await getObjects());
+    }
+    // mount column names for table
+    useEffect(() => {
+            async function getColumnNames(){
+                const names = await getObjectColumnNames();
+                setColumnNames(names)
+            }
+            getColumnNames();
+        }, []
+    );
+    // fetch objects to populate tables upon component mount
+    useEffect(() => {
+        async function populateObjects(){
+            const data = await getObjects();
+            seDataObjects(data);
+        }
+        populateObjects();
+        }, []
+    );
+    // set initial state of new user object and edit user object based on columns from database
+    useEffect(() => {
+        // Create an object with initial values for each input
+        const ObjInitialState = {};
+        columnNames.slice(1).forEach(title => {
+            ObjInitialState[title] = '';
+        });
+        setNewRowObject(ObjInitialState);
+        setEditRowObject(ObjInitialState);
+        }, [columnNames]
+    );
+    const results = filterItems(dataObjects, query)
     return(
     <section>
-        <h2>Welcome to the Admins table page</h2>
+        <h2>Welcome to the Admins Table page</h2>
         <DBSearchFilter
             query={query}
             onChange={handleChange}
             name={"username"}
         />
         <DBTable
-            objects = {results}
-            columns = {columns}
-            IdObjects = {IdObjects}/>
+            dataObjects = {results}
+            columns = {columnNames}
+            idObjects = {idObjects}
+            editRowObject = {editRowObject}
+            updateEditRowObject = {updateEditRowObject}
+            updateDbRowObject = {updateDbRowObject}
+            newRowObject = {newRowObject}
+            updateNewObject={updateNewObject}
+            createRow = {createRow}
+            removeRow = {removeRow}
+            />
+        <br />
+        {/* I want button to load original sql data in case person deletes everything */}
+        {/* <button onClick={() => setAdmins(fakeAdmins)}>(Placeholder Future Functionality)</button> */}
     </section>
     );
 };

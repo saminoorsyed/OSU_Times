@@ -1,69 +1,145 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {useState} from 'react';
+
+// import api functions
+import { deleteObjects, getObjectColumnNames, getObjects, postObject, updateDatabaseObject, getIdObjectsPosts, getIdObjectsUsers } from "../../api/commentsApi";
 
 // import components
 import DBTable from "../../Components/DBComponents/DBTable";
 import DBSearchFilter from "../../Components/DBComponents/DBSearchFilter";
 
+
+
 function DBCommentsPage(){
-    let dbComments = [                
-        {
-            "comment_id":0,
-            "post_id":"An Anthropology of space faring",
-            "user_id":"Lead Botanist",
-            "date_commented":"3540-25-28 15:44:52.123",
-            "comment_text":"Great article Doctor</p>",
-        },
-        {
-            "comment_id":1,
-            "post_id":"The varied uses of flux capacitors",
-            "user_id":"Moral Officer",
-            "date_commented":"3540-25-28 15:44:52.123",
-            "comment_text":"Novel insight into the collective",
-        },
-        {
-            "comment_id": 2,
-            "post_id": "The varied uses of flux capacitors",
-            "user_id": "Moral Officer",
-            "date_commented": "3540-25-28 15:44:52.123",
-            "comment_text": "I hate the Borg!!!",
-        }
-    ]
-    let dbColumns = ["comment_id", "post_id", "user_id", "date_commented", "comment_text"];
-    let dbIdObjects = {
-        "user_id": [["Moral Officer",0],[ "Chief Engineer",1], ["Lead Botanist",2]],
-        "post_id": [["Ethics of the Collective",0],["An Anthropology of space faring",1], ["The varied uses of flux capacitors",2]]
-    } 
-    const [columns, setColumns] = useState(dbColumns);
-    const [comments, setComments] = useState(dbComments);
-    const [IdObjects, setIdObjects] = useState(dbIdObjects)
-
+    // set objects to populate tables
+    const [columnNames, setColumnNames] = useState([]);
+    const [dataObjects, seDataObjects] = useState([]);
+    const [idObjects, setIdObjects] = useState({});
+    // set objects for the filter
     const [query, setQuery] = useState('');
-    const results = filterItems(comments, query);
+    
+    // set objects for lifting state
+    const [newRowObject, setNewRowObject] = useState({});
+    const [editRowObject, setEditRowObject] = useState({})
+    // variables to ensure that objects have loaded
+    const [idObjectsLoad, setIdObjectsLoad] = useState(false)
+    // functions for lifting up state
 
-    function filterItems(items, query){
-        return items.filter(item => item.user_id.includes(query))
+    function updateNewObject(e){
+        setNewRowObject(
+            {
+                ...newRowObject,
+                [e.target.name]: e.target.value
+            }
+        );
     }
 
+    function updateEditRowObject(e){
+        console.log({[e.target.name]: e.target.value})
+        setEditRowObject(
+            {
+                ...editRowObject,
+                [e.target.name]: e.target.value
+            }
+        );
+    }
+    async function updateDbRowObject(rowObject, columnNames){
+        const id = rowObject[columnNames[0]]
+        const updatedEditRowObject = {
+            ...editRowObject,
+            [columnNames[0]]: rowObject[columnNames[0]]
+        }
+    await updateDatabaseObject(id, updatedEditRowObject);
+    seDataObjects(await getObjects());
+}
 
+    function filterItems(items, query){
+        return items.filter(item => item["user_id"].includes(query))
+    }
     function handleChange(e){
         setQuery(e.target.value);
     }
+    // functions to send send requests to databases
+    async function createRow(newRowObject){
+        await postObject(newRowObject)
+        seDataObjects(await getObjects());
+    };
+    async function removeRow(id){
+        await deleteObjects(id);
+        seDataObjects(await getObjects());
+    }
 
+    useEffect (()=>{
+        async function populateSelect(){
+            const postsNamesList = await getIdObjectsPosts();
+            const usersNamesList = await getIdObjectsUsers();
+            console.log({postsNamesList, usersNamesList})
+            setIdObjects({
+                "post_id": postsNamesList,
+                "user_id": usersNamesList
+            }) 
+            setIdObjectsLoad(true)
+        }
+        populateSelect()
 
+    },[])
+    // mount column names for table
+    useEffect(() => {
+            async function getColumnNames(){
+                const names = await getObjectColumnNames();
+                setColumnNames(names)
+            }
+            getColumnNames();
+        }, []
+    );
+    // fetch objects to populate tables upon component mount
+    useEffect(() => {
+        async function populateObjects(){
+            const data = await getObjects();
+            seDataObjects(data);
+        }
+        populateObjects();
+        }, []
+    );
+    // set initial state of new user object and edit user object based on columns from database
+    useEffect(() => {
+        // Create an object with initial values for each input
+        const ObjInitialState = {};
+        columnNames.slice(1).forEach(title => {
+            ObjInitialState[title] = '';
+        });
+        setNewRowObject(ObjInitialState);
+        setEditRowObject(ObjInitialState);
+        }, [columnNames]
+    );
+    const results = filterItems(dataObjects, query)
     return(
-    <section>
-        <h2>Welcome to the Comments table page</h2>
+    <>
+    {idObjectsLoad && 
+        <section>
+        <h2>Welcome to the Comments Table page</h2>
         <DBSearchFilter
             query={query}
             onChange={handleChange}
-            name={"user"}
+            name={"Users"}
         />
         <DBTable
-            objects = {results}
-            columns = {columns}
-            IdObjects = {IdObjects}/>
-    </section>
+            dataObjects = {results}
+            columns = {columnNames}
+            idObjects = {idObjects}
+            editRowObject = {editRowObject}
+            updateEditRowObject = {updateEditRowObject}
+            updateDbRowObject = {updateDbRowObject}
+            newRowObject = {newRowObject}
+            updateNewObject={updateNewObject}
+            createRow = {createRow}
+            removeRow = {removeRow}
+            />
+        <br />
+        {/* I want button to load original sql data in case person deletes everything */}
+        {/* <button onClick={() => setUsers(fakeUsers)}>(Placeholder Future Functionality)</button> */}
+    </section>}
+    </>
     );
 };
 

@@ -1,9 +1,9 @@
-// users api
+// comments api
 const url = process.env.REACT_APP_URL
 
 export async function getObjectColumnNames () {
     try {
-        const response = await fetch(url+'users/columns');
+        const response = await fetch(url+'comments/columns');
         const colNames = await response.json();
         return colNames
     } catch (error) {
@@ -13,7 +13,7 @@ export async function getObjectColumnNames () {
 
 export async function getObjects (){
     try {
-        const response = await fetch(url+'users/');
+        const response = await fetch(url+'comments/');
         const data = await response.json()
         return data
     } catch (error) {
@@ -23,8 +23,7 @@ export async function getObjects (){
 
 export async function postObject(NewObject) {
     try {
-        console.log(url+`users/`)
-        const response = await fetch(url+`users/`,
+        const response = await fetch(url+`comments/`,
             {
                 method:"POST", 
                 body: JSON.stringify(NewObject),
@@ -32,6 +31,8 @@ export async function postObject(NewObject) {
                     'Content-Type': 'application/JSON',
                 },
             });
+            alert(response.status);
+            console.log(NewObject)
     } catch (error) {
         alert(`Failed to create user, status code = ${error.message}`)
     }
@@ -40,7 +41,7 @@ export async function postObject(NewObject) {
 export async function deleteObjects(id){
     try {
         let response = await fetch(
-            url+`users/${id}`,
+            url+`comments/${id}`,
             {method:"DELETE"});
         let data = await response.json();
         alert(data.status);
@@ -52,14 +53,40 @@ export async function deleteObjects(id){
 export async function updateDatabaseObject(id, editObject){
     console.log(editObject)
     try {
-        const response = await fetch (url+ `users/${id}`, {
+        const response = await fetch (url+`comments/${id}`, {
             method:"PUT", 
             body: JSON.stringify(editObject),
             headers: {
                 'Content-Type': 'application/JSON',
             },
         });
+        let data = await response.json();
+        alert(data.status);
     } catch (error) {
         console.log(error.message)
+    }
+}
+
+export async function getIdObjectsPosts(){
+    try {
+        const response = await fetch(url+'posts/nameslist');
+        const namesObject = await response.json();
+        const namesList = namesObject.map(item => [item.title, item.post_id])
+        console.log(namesList)
+        return namesList
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export async function getIdObjectsUsers(){
+    try {
+        const response = await fetch(url+'users/nameslist');
+        const namesObject = await response.json();
+        const namesList = namesObject.map(item => [item.full_name, item.user_id])
+        console.log(namesList)
+        return namesList
+    } catch (error) {
+        console.error(error);
     }
 }

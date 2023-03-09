@@ -1,9 +1,9 @@
-// users api
+// administrators api
 const url = process.env.REACT_APP_URL
 
 export async function getObjectColumnNames () {
     try {
-        const response = await fetch(url+'users/columns');
+        const response = await fetch(url+'administrators/columns');
         const colNames = await response.json();
         return colNames
     } catch (error) {
@@ -13,7 +13,7 @@ export async function getObjectColumnNames () {
 
 export async function getObjects (){
     try {
-        const response = await fetch(url+'users/');
+        const response = await fetch(url+'administrators/');
         const data = await response.json()
         return data
     } catch (error) {
@@ -23,8 +23,8 @@ export async function getObjects (){
 
 export async function postObject(NewObject) {
     try {
-        console.log(url+`users/`)
-        const response = await fetch(url+`users/`,
+        console.log(url+`administrators/`)
+        const response = await fetch(url+`administrators/`,
             {
                 method:"POST", 
                 body: JSON.stringify(NewObject),
@@ -40,7 +40,7 @@ export async function postObject(NewObject) {
 export async function deleteObjects(id){
     try {
         let response = await fetch(
-            url+`users/${id}`,
+            url+`administrators/${id}`,
             {method:"DELETE"});
         let data = await response.json();
         alert(data.status);
@@ -50,9 +50,8 @@ export async function deleteObjects(id){
 }
 
 export async function updateDatabaseObject(id, editObject){
-    console.log(editObject)
     try {
-        const response = await fetch (url+ `users/${id}`, {
+        const response = await fetch (url+`administrators/${id}`, {
             method:"PUT", 
             body: JSON.stringify(editObject),
             headers: {

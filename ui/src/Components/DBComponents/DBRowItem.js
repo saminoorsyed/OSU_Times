@@ -1,11 +1,11 @@
 import React from 'react';
 
-function DBRowItem({object,colName}){
+function DBRowItem({dataObject, colName}){
 
     return(
 
         <td>
-            <div className="tableItem">{object[colName]}</div>
+            <div className="tableItem">{dataObject[colName]}</div>
         </td>
     )
 }
