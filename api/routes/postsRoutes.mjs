@@ -12,11 +12,11 @@ router.route("/",)
 router.route('/columns')
      .get(cGetPostColumns)
 
-     router.route("/:id")
+router.route("/:id")
      .put(cUpdatePost)
      .delete(cDeletePost)
 
-router.route('/list')
+router.route('/nameslist')
      .get(cGetPostsIDList)
 
 export { router as postRoute };
