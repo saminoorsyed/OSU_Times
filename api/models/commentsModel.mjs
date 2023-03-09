@@ -35,6 +35,10 @@ export async function getCommentColumns(){
 //                 WHERE TABLE_NAME = N'Comments2';`)
 //     return result.map(({COLUMN_NAME}) => COLUMN_NAME);
 
+    let result = ["comment_id", "post_id", "title", "user_id", "Users Full Name", "comment_text", "date_commented"]
+    return result;
+}
+
 // inputs:  (int/str, string, string, string, string)
 // output:  promise
 //          interior data is json
