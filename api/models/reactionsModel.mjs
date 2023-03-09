@@ -32,11 +32,13 @@ export async function getReactions() {
 // returns promise
 // interior data is json (array of user objects)
 export async function GetReactionColumns(){
-    const [result] = await pool.query(
-        `SELECT * 
-        FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE TABLE_NAME = N'Reactions2';`)
-    return result.map(({COLUMN_NAME}) => COLUMN_NAME);
+    let result = ["reaction_id", "user_id", "full_name", "post_id", "title", "reaction_icon_id", "Reaction Type", "date_reacted"];
+    return result;
+    // const [result] = await pool.query(
+    //     `SELECT * 
+    //     FROM INFORMATION_SCHEMA.COLUMNS
+    //     WHERE TABLE_NAME = N'Reactions2';`)
+    // return result.map(({COLUMN_NAME}) => COLUMN_NAME);
 }
 
 // inputs:  (int/str, string, string, string, string)
