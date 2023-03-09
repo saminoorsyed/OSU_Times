@@ -29,11 +29,13 @@ export async function getUsersAuthors() {
 // returns promise
 // interior data is json (array of user objects)
 export async function GetUsersAuthorsColumns(){
-    const [result] = await pool.query(`
-                        SELECT * 
-                        FROM INFORMATION_SCHEMA.COLUMNS
-                        WHERE TABLE_NAME = N'Users_Authors2';`)
-    return result.map(({COLUMN_NAME}) => COLUMN_NAME);
+    // const [result] = await pool.query(`
+    //                     SELECT * 
+    //                     FROM INFORMATION_SCHEMA.COLUMNS
+    //                     WHERE TABLE_NAME = N'Users_Authors2';`)
+    // return result.map(({COLUMN_NAME}) => COLUMN_NAME);
+    let result = ["user_author_id", "user_id", "User FullName", "author_id", "Author FullName"]
+    return result;
 
 }
 
