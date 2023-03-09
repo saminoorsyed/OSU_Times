@@ -12,11 +12,11 @@ router.route("/",)
 router.route('/columns')
      .get(cGetReactionsColumns)
 
-     router.route("/:id")
+router.route("/:id")
      .put(cUpdateReaction)
      .delete(cDeleteReaction)
 
-router.route('/namelist')
+router.route('/nameslist')
      .get(cGetReactionNameList)
 
 export { router as reactionRoutes };

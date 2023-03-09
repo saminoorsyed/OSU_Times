@@ -12,7 +12,7 @@ export const cGetAuthors = async (req, res, next) => {
     res.send(data)
 };
 
-export const cGetAuthorColumns =  async (req, res)=>{
+export const cGetAuthorColumns = async (req, res) => {
     let authorColumns = await GetAuthorColumns();
     res.send(authorColumns)
 }
@@ -23,8 +23,8 @@ export const cAddAuthor = async (req, res, next) => {
     // console.log("Enter post method")   
     try {
         console.log(req.body.email)
-        result = await addAuthor(req.body.full_name, req.body.username, req.body.email, req.body.admin_action, req.body.admin_id);
-        if(result.authorsCreated === 0){
+        result = await addAuthor(req.body['Author Full Name'], req.body['Author Username'], req.body.email, req.body.admin_action, req.body.admin_id);
+        if (result.authorsCreated === 0) {
             console.log("Controllers / Add Author / Line 29")
             res.status(400).send(result.status);
         } else {
@@ -39,7 +39,7 @@ export const cAddAuthor = async (req, res, next) => {
 }
 
 export const cUpdateAuthor = async (req, res, next) => {
-    let result = await updateAuthor(req.params.id, req.body.username, req.body.full_name, req.body.email, req.body.admin_action, req.body.admin_id);
+    let result = await updateAuthor(req.params.id, req.body['Author Full Name'], req.body['Author Username'], req.body.email, req.body.admin_action, req.body.admin_id);
     res.send(result);
 }
 

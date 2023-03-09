@@ -16,10 +16,10 @@ router.route("/:id")
      .put(cUpdateAdministrator)
      .delete(cDeleteAdministrator)
 
-router.route('/namelist')
+router.route('/nameslist')
      .get(cGetAdministratorsList)
 
-router.route('/namelistwithnull')
+router.route('/nameslistwithnull')
      .get(cGetAdministratorsListWithNull)
 
 export { router as adminsRoute };

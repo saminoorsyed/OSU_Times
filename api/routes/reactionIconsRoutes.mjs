@@ -12,11 +12,11 @@ router.route("/",)
 router.route('/columns')
      .get(cGetReactionIconsColumns)
 
-     router.route("/:id")
+router.route("/:id")
      .put(cUpdateReactionIcon)
      .delete(cDeleteReactionIcon)
 
-router.route('/namelist')
+router.route('/nameslist')
      .get(cGetReactionIconsNames)
 
 export { router as reactionIconRouter };

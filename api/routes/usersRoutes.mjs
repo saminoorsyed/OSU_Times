@@ -5,10 +5,10 @@ import { cAddUser, cDeleteUser, cUpdateUser, cGetUsers, cGetUserColumns, cGetUse
 const router = express.Router();
 
 // these routes return json
-router.route("/",) 
+router.route("/",)
      .get(cGetUsers)
      .post(cAddUser)
-     
+
 
 router.route('/columns')
      .get(cGetUserColumns)
@@ -18,7 +18,7 @@ router.route("/:id")
      .delete(cDeleteUser)
 
 // user_id, full_name
-router.route('/namelist')
+router.route('/nameslist')
      .get(cGetUsersIDList)
 
 

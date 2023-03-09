@@ -12,11 +12,11 @@ router.route("/",)
 router.route('/columns')
      .get(cGetCommentColumns)
 
-     router.route("/:id")
+router.route("/:id")
      .put(cUpdateComment)
      .delete(cDeleteComment)
 
-router.route('/titlelist')
+router.route('/titleslist')
      .get(cGetCommentsList)
 
 export { router as commentsRoutes };

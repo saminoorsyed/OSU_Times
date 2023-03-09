@@ -8,7 +8,7 @@ export async function getAuthorIDList() {
     const [result] = await pool.query(
         `Select author_id, full_name from Authors2`);
     let result_with_null = result;
-    result_with_null.push({author_id: null, full_name: null})
+    result_with_null.push({ author_id: null, full_name: null })
     return result_with_null;
 }
 
@@ -19,21 +19,19 @@ export async function getAuthorIDList() {
 
 export async function getAuthors() {
     const [result] = await pool.query(
-        `Select author_id, Authors2.full_name as 'Author Full Name', Authors2.username as 'Author Username', Authors2.email, admin_action, Authors2.admin_id, Administrators2.full_name
+        `Select author_id, Authors2.full_name as 'Author Full Name', Authors2.username as 'Author Username', Authors2.email, admin_action, Administrators2.full_name as 'admin_id'
         from Authors2
-        left join Administrators2 on Authors2.admin_id = Administrators2.admin_id`);
+        left join Administrators2 on Authors2.admin_id = Administrators2.admin_id;`);
     return result;
 }
 
 // no inputs accepted
 // returns promise
 // interior data is json (array of user objects)
-export async function GetAuthorColumns(){
-    const [result] = await pool.query(`
-                        SELECT * 
-                        FROM INFORMATION_SCHEMA.COLUMNS
-                        WHERE TABLE_NAME = N'Authors2';`)
-    return result.map(({COLUMN_NAME}) => COLUMN_NAME);                    
+export async function GetAuthorColumns() {
+    const result = ['author_id', 'Author Full Name', 'Author Username', 'email', 'admin_action', 'admin_id']
+    console.log(result)
+    return result;
 }
 
 // inputs:  (int/str, string, string, string, string)
@@ -68,7 +66,7 @@ export async function updateAuthor(author_id, username, full_name, email, admin_
         return { numUsersUpdated: 0, status: "Input issue" };
     }
 
-    
+
 }
 
 // input str/int
@@ -79,7 +77,7 @@ export async function updateAuthor(author_id, username, full_name, email, admin_
 
 export async function deleteAuthor(author_id) {
     let numberRecordsUpdated = 0
-    
+
     let queryStr = `delete from Users_Authors2 where author_id = ${author_id};`;
     console.log("Query String to delete User Author Dependencies for an Author");
     console.log(queryStr);
@@ -117,13 +115,13 @@ export async function addAuthor(full_name, username, email, admin_id, admin_acti
         console.log("Enter try piece of Model / Add Author")
 
         let insert_statement = "insert into Authors2 ";
-        let column_names =  "(full_name, username, email, admin_action, admin_id) "
+        let column_names = "(full_name, username, email, admin_action, admin_id) "
         let value_placeholders = "values (?,?, ?, ?, ?)"
         let queryStr = insert_statement + column_names + value_placeholders;
         console.log(queryStr);
-        
+
         let result_set_header = await pool.query(queryStr, [full_name, username, email, admin_id, admin_action])
-        
+
         console.log("about to calculate # records added")
         numberRecordsAdded = result_set_header[0].affectedRows;
         return { authorsCreated: numberRecordsAdded, status: "author added" };
@@ -135,5 +133,5 @@ export async function addAuthor(full_name, username, email, admin_id, admin_acti
         return { authorsCreated: 0, status: "Invalid input author" };
     }
 
-    
+
 }
