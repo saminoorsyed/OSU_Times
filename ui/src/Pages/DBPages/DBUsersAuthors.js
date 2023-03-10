@@ -35,7 +35,6 @@ function DBUsersAuthorsPage(){
     }
 
     function updateEditRowObject(e){
-        console.log({[e.target.name]: e.target.value})
         setEditRowObject(
             {
                 ...editRowObject,
@@ -54,7 +53,6 @@ function DBUsersAuthorsPage(){
 }
 
     function filterItems(items, query){
-        console.log(items)
         return items.filter(item => item["Author FullName"].includes(query))
     }
     function handleChange(e){
@@ -97,6 +95,7 @@ function DBUsersAuthorsPage(){
         async function populateObjects(){
             const data = await getObjects();
             seDataObjects(data);
+            console.log(data)
         }
         populateObjects();
         }, []
