@@ -53,7 +53,7 @@ function DBUsersAuthorsPage(){
 }
 
     function filterItems(items, query){
-        return items.filter(item => item["Author FullName"].includes(query))
+        return items.filter(item => item["author_id"].includes(query))
     }
     function handleChange(e){
         setQuery(e.target.value);
