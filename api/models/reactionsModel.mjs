@@ -18,7 +18,7 @@ export async function getReactionNameList() {
 
 export async function getReactions() {
     const [result] = await pool.query(`
-    Select Reactions2.reaction_id, Reactions2.user_id, Users2.full_name, Reactions2.post_id, Posts2.title, Reactions2.reaction_icon_id, Reaction_Icons2.reaction_type as 'Reaction Type', Reactions2.date_reacted
+    Select Reactions2.reaction_id, Users2.full_name as 'user_id', Posts2.title as 'post_id', Reaction_Icons2.reaction_type as 'reaction_icon_id', Reactions2.date_reacted
     from Reactions2 
     left join Users2 on Reactions2.user_id = Users2.user_id
     left join Posts2 on Reactions2.post_id = Posts2.post_id
@@ -32,7 +32,7 @@ export async function getReactions() {
 // returns promise
 // interior data is json (array of user objects)
 export async function GetReactionColumns(){
-    let result = ["reaction_id", "user_id", "full_name", "post_id", "title", "reaction_icon_id", "Reaction Type", "date_reacted"];
+    let result = ["reaction_id", "user_id", "post_id", "reaction_icon_id", "date_reacted"];
     return result;
     // const [result] = await pool.query(
     //     `SELECT * 
