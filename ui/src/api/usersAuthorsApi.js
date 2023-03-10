@@ -1,9 +1,9 @@
-// posts api
+// usersauthors api
 const url = process.env.REACT_APP_URL
 
 export async function getObjectColumnNames () {
     try {
-        const response = await fetch(url+'posts/columns');
+        const response = await fetch(url+'usersauthors/columns');
         const colNames = await response.json();
         return colNames
     } catch (error) {
@@ -13,7 +13,7 @@ export async function getObjectColumnNames () {
 
 export async function getObjects (){
     try {
-        const response = await fetch(url+'posts/');
+        const response = await fetch(url+'usersauthors/');
         const data = await response.json()
         return data
     } catch (error) {
@@ -23,7 +23,7 @@ export async function getObjects (){
 
 export async function postObject(NewObject) {
     try {
-        const response = await fetch(url+`posts/`,
+        const response = await fetch(url+`usersauthors/`,
             {
                 method:"POST", 
                 body: JSON.stringify(NewObject),
@@ -41,7 +41,7 @@ export async function postObject(NewObject) {
 export async function deleteObjects(id){
     try {
         let response = await fetch(
-            url+`posts/${id}`,
+            url+`usersauthors/${id}`,
             {method:"DELETE"});
         let data = await response.json();
         alert(data.status);
@@ -53,7 +53,7 @@ export async function deleteObjects(id){
 export async function updateDatabaseObject(id, editObject){
     console.log(editObject)
     try {
-        const response = await fetch (url+`posts/${id}`, {
+        const response = await fetch (url+`usersauthors/${id}`, {
             method:"PUT", 
             body: JSON.stringify(editObject),
             headers: {
