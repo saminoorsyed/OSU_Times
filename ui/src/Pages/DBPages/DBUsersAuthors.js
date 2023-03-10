@@ -54,7 +54,8 @@ function DBUsersAuthorsPage(){
 }
 
     function filterItems(items, query){
-        return items.filter(item => item["author_id"].includes(query))
+        console.log(items)
+        return items.filter(item => item["Author FullName"].includes(query))
     }
     function handleChange(e){
         setQuery(e.target.value);
@@ -116,11 +117,11 @@ function DBUsersAuthorsPage(){
     <>
     {idObjectsLoad && 
         <section>
-        <h2>Welcome to the Comments Table page</h2>
+        <h2>Welcome to the Users Authors Table page</h2>
         <DBSearchFilter
             query={query}
             onChange={handleChange}
-            name={"Author"}
+            name={"Author FullName"}
         />
         <DBTable
             dataObjects = {results}
