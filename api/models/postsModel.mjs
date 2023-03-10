@@ -20,7 +20,6 @@ export async function getPosts() {
     from Posts2 
       left join Authors2 on Posts2.author_id = Authors2.author_id
         inner join Genres2 on Posts2.genre_id = Genres2.genre_id;
-    
     `);
     return result;
 }
@@ -35,7 +34,7 @@ export async function GetPostsColumns(){
     //             WHERE TABLE_NAME = N'Posts2';`)
     // return result.map(({COLUMN_NAME}) => COLUMN_NAME);
     let result = ["post_id", "author_id", "full_name", "genre_id", "genre_name", "title", "date_posted", "post_text"]
-    return 
+    return result
 }
 
 // inputs:  (int/str, string, string, string, string)
