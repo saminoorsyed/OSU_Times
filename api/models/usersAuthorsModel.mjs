@@ -17,7 +17,7 @@ export async function getIDList() {
 
 export async function getUsersAuthors() {
     const [result] = await pool.query(
-        `Select user_author_id, Users_Authors2.user_id, Users2.full_name as 'User FullName', Users_Authors2.author_id, Authors2.full_name as 'Author FullName'
+        `Select user_author_id, Users2.full_name as 'user_id', Authors2.full_name as 'author_id'
         from Users_Authors2
         left join Users2 on Users_Authors2.user_id = Users2.user_id
         left join Authors2 on Users_Authors2.author_id = Authors2.author_id;
@@ -28,7 +28,7 @@ export async function getUsersAuthors() {
 // no inputs accepted
 // returns promise
 // interior data is json (array of user objects)
-export async function GetUsersAuthorsColumns(){
+export async function GetUsersAuthorsColumns() {
     // const [result] = await pool.query(`
     //                     SELECT * 
     //                     FROM INFORMATION_SCHEMA.COLUMNS
@@ -121,10 +121,10 @@ export async function updateUsersAuthors(user_author_id, user_id, author_id) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
             return { numUpdated: 0, status: "Unique Constraint issue" };
         }
-        return { numUpdated: 0, status: "Issue occured while trying to update." }; 
+        return { numUpdated: 0, status: "Issue occured while trying to update." };
     }
 
-    
+
 }
 
 // input str/int
