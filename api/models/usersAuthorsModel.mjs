@@ -6,7 +6,7 @@ import { pool } from './dbConnector.mjs';
 
 export async function getIDList() {
     const [result] = await pool.query(
-        `Select user_author_id, Users_Authors2.user_id, Users2.full_name as 'User FullName', Users_Authors2.author_id, Authors2.full_name as 'Author FullName'
+        `Select user_author_id, Users2.full_name as 'user_id', Authors2.full_name as 'author_id'
         from Users_Authors2
         left join Users2 on Users_Authors2.user_id = Users2.user_id
         left join Authors2 on Users_Authors2.author_id = Authors2.author_id;
@@ -34,7 +34,7 @@ export async function GetUsersAuthorsColumns(){
     //                     FROM INFORMATION_SCHEMA.COLUMNS
     //                     WHERE TABLE_NAME = N'Users_Authors2';`)
     // return result.map(({COLUMN_NAME}) => COLUMN_NAME);
-    let result = ["user_author_id", "user_id", "User FullName", "author_id", "Author FullName"]
+    let result = ["user_author_id", "user_id", "author_id"]
     return result;
 
 }
