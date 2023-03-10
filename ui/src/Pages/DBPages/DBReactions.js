@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import {useState} from 'react';
 
 // import api functions
-import { deleteObjects, getObjectColumnNames, getObjects, postObject, updateDatabaseObject, getIdObjectsUsers, getIdObjectsPosts } from "../../api/usersPostsApi";
+import { deleteObjects, getObjectColumnNames, getObjects, postObject, updateDatabaseObject, getIdObjectsUsers, getIdObjectsPosts, getIdObjectsReactionIcons } from "../../api/reactionsApi";
 
 // import components
 import DBTable from "../../Components/DBComponents/DBTable";
@@ -72,9 +72,11 @@ function DBUsersReactionsPage(){
         async function populateSelect(){
             const userNamesList = await getIdObjectsUsers();
             const postNamesList = await getIdObjectsPosts();
+            const reactionIconsNamesList = await getIdObjectsReactionIcons();
             setIdObjects({
                 "user_id": userNamesList,
-                "post_id": postNamesList
+                "post_id": postNamesList,
+                "reaction_icon_id": reactionIconsNamesList
             }) 
             setIdObjectsLoad(true)
         }

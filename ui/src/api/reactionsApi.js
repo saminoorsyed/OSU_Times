@@ -90,3 +90,15 @@ export async function getIdObjectsPosts(){
         console.error(error);
     }
 }
+
+export async function getIdObjectsReactionIcons(){
+    try {
+        const response = await fetch(url+'reactionicons/nameslist');
+        const namesObject = await response.json();
+        const namesList = namesObject.map(item => [item.reaction_type, item.reaction_icon_id])
+        console.log(namesList)
+        return namesList
+    } catch (error) {
+        console.error(error);
+    }
+}
