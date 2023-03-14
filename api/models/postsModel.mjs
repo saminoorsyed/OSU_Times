@@ -13,7 +13,6 @@ export async function getPostsList() {
 // no inputs accepted
 // returns promise
 // interior data is json (array of user objects)
-
 export async function getPosts() {
     const [result] = await pool.query(`
     Select post_id,  Authors2.full_name as 'post_id', Genres2.genre_name as 'genre_id', title, date_posted, post_text
