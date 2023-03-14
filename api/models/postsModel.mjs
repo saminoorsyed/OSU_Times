@@ -16,7 +16,7 @@ export async function getPostsList() {
 
 export async function getPosts() {
     const [result] = await pool.query(`
-    Select post_id, Posts2.author_id, Authors2.full_name, Posts2.genre_id, Genres2.genre_name, title, date_posted, post_text
+    Select post_id,  Authors2.full_name as 'post_id', Genres2.genre_name as 'genre_id', title, date_posted, post_text
     from Posts2 
       left join Authors2 on Posts2.author_id = Authors2.author_id
         inner join Genres2 on Posts2.genre_id = Genres2.genre_id;
@@ -33,7 +33,7 @@ export async function GetPostsColumns(){
     //             FROM INFORMATION_SCHEMA.COLUMNS 
     //             WHERE TABLE_NAME = N'Posts2';`)
     // return result.map(({COLUMN_NAME}) => COLUMN_NAME);
-    let result = ["post_id", "author_id", "full_name", "genre_id", "genre_name", "title", "date_posted", "post_text"]
+    let result = ["post_id", "author_id", "genre_id", "title", "date_posted", "post_text"]
     return result
 }
 
