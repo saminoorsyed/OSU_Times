@@ -15,7 +15,7 @@ export async function getPostsList() {
 // interior data is json (array of user objects)
 export async function getPosts() {
     const [result] = await pool.query(`
-    Select post_id,  Authors2.full_name as 'post_id', Genres2.genre_name as 'genre_id', title, date_posted, post_text
+    Select post_id,  Authors2.full_name as 'author_id', Genres2.genre_name as 'genre_id', title, date_posted, post_text
     from Posts2 
       left join Authors2 on Posts2.author_id = Authors2.author_id
         inner join Genres2 on Posts2.genre_id = Genres2.genre_id;
