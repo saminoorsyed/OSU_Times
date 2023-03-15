@@ -1,34 +1,30 @@
 import React from "react";
 
 // import components
-import SelectOption from './DBSelectOption';
+import IdInput from "./InputComponents/IdInput";
+import DateInput from "./InputComponents/DateInput";
+import TextInput from "./InputComponents/TextInput";
 
-function DBEditRow({dataObject, colName, idObjects, updateEditRowObject}){
-    let isID = false;
-    if (colName.slice(-3)=== "_id"){
-        isID = true;
-    }
-    console.log(idObjects)
+function DBEditRow({colName, idObjects, updateEditRowObject}){
+    let isID = colName.slice(-3) === "_id";
+    let isDate = colName.slice(0,4) === "date"
     return(
         <>
-        {isID &&
-            <div className="editRow">
-                <label htmlFor = {colName}>{colName.slice(0,-3)}
-                    <select onChange={updateEditRowObject} name={colName} type="text" id={colName} >
-                        <option value="">Select an option</option>
-                        {idObjects[colName].map((idObject, i)=>
-                            <option key={i} value={idObject[1]}>{idObject[0]}</option>
-                            )}
-                    </select>
-                </label>
-            </div>
+        {isID && <IdInput
+                        colName = {colName}
+                        updateFunction={updateEditRowObject}
+                        idObjects={idObjects}
+                        />
         }
-        {!isID &&
-            <div className="editRow">
-                <label htmlFor = {colName}>{colName}
-                <input name={colName} onChange={updateEditRowObject}   type="text" placeholder={dataObject[colName]}/>
-                </label>
-            </div>
+        {!isID && !isDate && <TextInput
+                                colName={colName}
+                                updateFunction = {updateEditRowObject}
+                                />
+        }
+        {isDate && <DateInput
+                        colName = {colName}
+                        updateFunction = {updateEditRowObject}
+                        />
         }
         </>
     )
