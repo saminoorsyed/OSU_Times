@@ -8,7 +8,7 @@ function DBAddRow({colName, idObjects, updateNewObject}){
     let isID = colName.slice(-3) === "_id";
     let isDate = colName.slice(0,4) === "date"
     return(   
-        <>
+        <div className="inputRow">
         {isID && <IdInput
                         colName = {colName}
                         updateFunction={updateNewObject}
@@ -25,7 +25,7 @@ function DBAddRow({colName, idObjects, updateNewObject}){
                         updateFunction = {updateNewObject}
                         />
         }
-        </>
+        </div>
     )
 }
 

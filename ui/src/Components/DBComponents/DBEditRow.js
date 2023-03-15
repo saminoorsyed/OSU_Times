@@ -9,7 +9,7 @@ function DBEditRow({colName, idObjects, updateEditRowObject}){
     let isID = colName.slice(-3) === "_id";
     let isDate = colName.slice(0,4) === "date"
     return(
-        <>
+        <div className="inputRow">
         {isID && <IdInput
                         colName = {colName}
                         updateFunction={updateEditRowObject}
@@ -26,7 +26,7 @@ function DBEditRow({colName, idObjects, updateEditRowObject}){
                         updateFunction = {updateEditRowObject}
                         />
         }
-        </>
+        </div>
     )
 }
 
