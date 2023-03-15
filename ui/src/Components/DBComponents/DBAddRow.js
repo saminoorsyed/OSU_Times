@@ -4,6 +4,7 @@ import React from "react";
 import SelectOption from './DBSelectOption';
 function DBAddRow({colName, idObjects, updateNewObject}){
     let isID = colName.slice(-3) === "_id";
+    let isDate = colName.slice(0,4) === "date"
     return(   
         <>
             {isID &&
@@ -17,12 +18,18 @@ function DBAddRow({colName, idObjects, updateNewObject}){
                 </label>
             </div>
         }
-        {!isID &&
+        {!isID && !isDate &&
             <label htmlFor = {colName}>{colName}
                 <input name={colName} onChange={updateNewObject} type="text"/>
                 {/* <input value={userObj[colName] || ""} onChange={handleCreateNewUser} type="text"/> */}
 
             </label>
+        }
+        {isDate &&
+           <label htmlFor = {colName}>{colName}
+                <input name={colName} onChange={updateNewObject} type="datetime-local" step="0.001"/>
+                {/* <input value={userObj[colName] || ""} onChange={handleCreateNewUser} type="text"/> */}
+            </label> 
         }
         </>
     )

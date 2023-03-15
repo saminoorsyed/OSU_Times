@@ -10,6 +10,7 @@ function DBTable({dataObjects, columns, idObjects, editRowObject, updateEditRowO
     function handleAddClick(e){
         e.preventDefault();
         createRow(newRowObject);
+        console.log(e.target.date_posted.value)
     }
     return(
         <>
