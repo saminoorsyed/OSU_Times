@@ -24,9 +24,15 @@ function DBTableRow({dataObject, columns, idObjects, updateEditRowObject, remove
                         />
                         )}
                 <td>
-                {/* object[columns[0]] is the Id of the object populating the row */}
-                <MdOutlineClose style={{color: "red",fontWeight: "bold" }} onClick={ () =>  removeRow(dataObject[columns[0]]) }/>
-                <MdModeEditOutline style={{color: "red",fontWeight: "bold" }} onClick={ ()=> setEditClicked(!editClicked) }/>
+                
+                <div className="icons">
+                    <button>
+                        <MdOutlineClose style={{color: "red",fontWeight: "bold" }} onClick={ () =>  removeRow(dataObject[columns[0]]) }/>
+                    </button>
+                    <button>
+                        <MdModeEditOutline style={{color: "red",fontWeight: "bold" }} onClick={ ()=> setEditClicked(!editClicked) }/>
+                    </button>
+                </div>
                 </td>
             </tr>
             {editClicked &&

@@ -314,6 +314,11 @@ object {}
   flex-direction: column;
 }
 
+.icons{
+  display: flex;
+  justify-content: space-evenly;
+}
+
 
 .floatright {}
 
