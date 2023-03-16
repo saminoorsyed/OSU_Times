@@ -117,7 +117,7 @@ function DBPostsPage(){
     <>
     {idObjectsLoad && 
         <section>
-        <h2>Welcome to the Comments Table page</h2>
+        <h2>Welcome to the Posts Table page</h2>
         <DBSearchFilter
             query={query}
             onChange={handleChange}

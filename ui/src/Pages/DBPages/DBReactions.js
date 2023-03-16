@@ -118,7 +118,7 @@ function DBUsersReactionsPage(){
     <>
     {idObjectsLoad && 
         <section>
-        <h2>Welcome to the Users Posts Table page</h2>
+        <h2>Welcome to the Reactions Table page</h2>
         <DBSearchFilter
             query={query}
             onChange={handleChange}
