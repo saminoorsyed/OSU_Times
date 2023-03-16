@@ -20,7 +20,6 @@ function DBUsersPage(){
  
     // set objects for lifting state
     const [newRowObject, setNewRowObject] = useState({});
-    // const [editRowObject, setEditRowObject] = useState({})
 
     // functions for lifting up state
 
@@ -46,23 +45,26 @@ function DBUsersPage(){
         console.log(id)
         await updateDatabaseObject(id, editedObject);
         seDataObjects(await getObjects());
-    }
+    };
 
     function filterItems(items, query){
         return items.filter(item => item.username.includes(query))
-    }
+    };
+
     function handleChange(e){
         setQuery(e.target.value);
-    }
+    };
     // functions to send send requests to databases
     async function createRow(newRowObject){
         await postObject(newRowObject)
         seDataObjects(await getObjects());
     };
+
     async function removeRow(id){
         await deleteObjects(id);
         seDataObjects(await getObjects());
-    }
+    };
+
     // mount column names for table
     useEffect(() => {
             async function getColumnNames(){
@@ -92,6 +94,7 @@ function DBUsersPage(){
         // setEditRowObject(ObjInitialState);
         }, [columnNames]
     );
+    
     const results = filterItems(dataObjects, query)
     return(
     <section>
