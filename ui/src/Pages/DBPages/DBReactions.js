@@ -20,7 +20,6 @@ function DBUsersReactionsPage(){
     
     // set objects for lifting state
     const [newRowObject, setNewRowObject] = useState({});
-    const [editRowObject, setEditRowObject] = useState({})
     // variables to ensure that objects have loaded
     const [idObjectsLoad, setIdObjectsLoad] = useState(false)
     // functions for lifting up state
@@ -34,23 +33,12 @@ function DBUsersReactionsPage(){
         );
     }
 
-    function updateEditRowObject(e){
-        setEditRowObject(
-            {
-                ...editRowObject,
-                [e.target.name]: e.target.value
-            }
-        );
-    }
-    async function updateDbRowObject(rowObject, columnNames){
-        const id = rowObject[columnNames[0]]
-        const updatedEditRowObject = {
-            ...editRowObject,
-            [columnNames[0]]: rowObject[columnNames[0]]
-        }
-    await updateDatabaseObject(id, updatedEditRowObject);
-    seDataObjects(await getObjects());
-}
+    async function updateDbObject(editedObject, columnNames){
+        const id = editedObject[columnNames[0]]
+        console.log(id)
+        await updateDatabaseObject(id, editedObject);
+        seDataObjects(await getObjects());
+    };
 
     function filterItems(items, query){
         return items.filter(item => item["post_id"].includes(query))
@@ -110,7 +98,6 @@ function DBUsersReactionsPage(){
             ObjInitialState[title] = '';
         });
         setNewRowObject(ObjInitialState);
-        setEditRowObject(ObjInitialState);
         }, [columnNames]
     );
     const results = filterItems(dataObjects, query)
@@ -128,9 +115,7 @@ function DBUsersReactionsPage(){
             dataObjects = {results}
             columns = {columnNames}
             idObjects = {idObjects}
-            editRowObject = {editRowObject}
-            updateEditRowObject = {updateEditRowObject}
-            updateDbRowObject = {updateDbRowObject}
+            updateDbObject = {updateDbObject}
             newRowObject = {newRowObject}
             updateNewObject={updateNewObject}
             createRow = {createRow}

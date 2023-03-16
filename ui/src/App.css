@@ -231,6 +231,7 @@ form {
   gap: 15px;
   margin: 10px;
   align-items: center;
+  justify-content: space-evenly;
 }
 
 fieldset {}
@@ -255,7 +256,9 @@ meter {}
 
 progress {}
 
-select {}
+select {
+  width:180px;
+}
 
 optgroup {}
 
