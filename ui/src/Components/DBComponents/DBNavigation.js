@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 export function DBNavigation() {
     const navigate = useNavigate();
-    const [url, setUrl] = useState("/");
+    const location = useLocation();
+    const [url, setUrl] = useState(location.pathname);
 
     const handleNavigation = (event) => {
         const newUrl = event.target.value;
@@ -14,7 +15,7 @@ export function DBNavigation() {
 return (
     <nav>
         <Link to='/'>Home page</Link>
-        <select onChange={handleNavigation}>
+        <select value = {{url}} onChange={handleNavigation}>
             <option value="/">Select a Table</option> 
             <option value="/DBUsers">Users Table</option>
             <option value="/DBAdmins">Admins Table</option>
