@@ -6,11 +6,10 @@ import DBTableHeaders from "./DBTableHeaders";
 import DBTableRow from "./DBTableRow";
 import DBAddRow from "./DBAddRow";
 
-function DBTable({dataObjects, columns, idObjects, editRowObject, updateEditRowObject, updateDbRowObject, newRowObject, updateNewObject, createRow, removeRow, editRow}){
+function DBTable({dataObjects, columns, idObjects, updateDbObject, newRowObject, updateNewObject, createRow, removeRow}){
     function handleAddClick(e){
         e.preventDefault();
         createRow(newRowObject);
-        console.log(e.target.date_posted.value)
     }
     return(
         <>
@@ -32,11 +31,8 @@ function DBTable({dataObjects, columns, idObjects, editRowObject, updateEditRowO
                     dataObject = {dataObject}
                     columns = {columns}
                     idObjects = {idObjects}
-                    editRowObject = {editRowObject}
-                    updateEditRowObject = {updateEditRowObject}
                     removeRow ={removeRow}
-                    editRow = {editRow}
-                    updateDbRowObject = {updateDbRowObject}
+                    updateDbObject = {updateDbObject}
                     key = {i}
                     />)}
                 </tbody>

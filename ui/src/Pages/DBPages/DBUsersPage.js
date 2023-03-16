@@ -20,7 +20,7 @@ function DBUsersPage(){
  
     // set objects for lifting state
     const [newRowObject, setNewRowObject] = useState({});
-    const [editRowObject, setEditRowObject] = useState({})
+    // const [editRowObject, setEditRowObject] = useState({})
 
     // functions for lifting up state
 
@@ -33,24 +33,20 @@ function DBUsersPage(){
         );
     }
 
-    function updateEditRowObject(e){
-        setEditRowObject(
-            {
-                ...editRowObject,
-                [e.target.name]: e.target.value
-            }
-        );
+//     function updateEditRowObject(e){
+//         setEditRowObject(
+//             {
+//                 ...editRowObject,
+//                 [e.target.name]: e.target.value
+//             }
+//         );
+//     }
+    async function updateDbObject(editedObject, columnNames){
+        const id = editedObject[columnNames[0]]
+        console.log(id)
+        await updateDatabaseObject(id, editedObject);
+        seDataObjects(await getObjects());
     }
-    async function updateDbRowObject(rowObject, columnNames){
-    const id = rowObject[columnNames[0]]
-    const updatedEditRowObject = {
-        ...editRowObject,
-        [columnNames[0]]: rowObject[columnNames[0]]
-    }
-    console.log(id)
-    await updateDatabaseObject(id, updatedEditRowObject);
-    seDataObjects(await getObjects());
-}
 
     function filterItems(items, query){
         return items.filter(item => item.username.includes(query))
@@ -93,7 +89,7 @@ function DBUsersPage(){
             ObjInitialState[title] = '';
         });
         setNewRowObject(ObjInitialState);
-        setEditRowObject(ObjInitialState);
+        // setEditRowObject(ObjInitialState);
         }, [columnNames]
     );
     const results = filterItems(dataObjects, query)
@@ -109,9 +105,8 @@ function DBUsersPage(){
             dataObjects = {results}
             columns = {columnNames}
             idObjects = {idObjects}
-            editRowObject = {editRowObject}
-            updateEditRowObject = {updateEditRowObject}
-            updateDbRowObject = {updateDbRowObject}
+            // updateEditRowObject = {updateEditRowObject}
+            updateDbObject = {updateDbObject}
             newRowObject = {newRowObject}
             updateNewObject={updateNewObject}
             createRow = {createRow}
