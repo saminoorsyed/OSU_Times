@@ -7,7 +7,6 @@ import { deleteObjects, getObjectColumnNames, getObjects, postObject, updateData
 // import components
 import DBTable from "../../Components/DBComponents/DBTable";
 import DBSearchFilter from "../../Components/DBComponents/DBSearchFilter";
-import { MdAlternateEmail } from "react-icons/md";
 
 
 function DBUsersPage(){

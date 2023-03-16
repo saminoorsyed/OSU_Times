@@ -7,7 +7,6 @@ import { deleteObjects, getObjectColumnNames, getObjects, postObject, updateData
 // import components
 import DBTable from "../../Components/DBComponents/DBTable";
 import DBSearchFilter from "../../Components/DBComponents/DBSearchFilter";
-import { MdAlternateEmail } from "react-icons/md";
 
 
 function DBGenresPage(){
@@ -20,7 +19,6 @@ function DBGenresPage(){
  
     // set objects for lifting state
     const [newRowObject, setNewRowObject] = useState({});
-    const [editRowObject, setEditRowObject] = useState({})
 
     // functions for lifting up state
 
@@ -33,23 +31,12 @@ function DBGenresPage(){
         );
     }
 
-    function updateEditRowObject(e){
-        setEditRowObject(
-            {
-                ...editRowObject,
-                [e.target.name]: e.target.value
-            }
-        );
-    }
-    async function updateDbRowObject(rowObject, columnNames){
-        const id = rowObject[columnNames[0]]
-        const updatedEditRowObject = {
-            ...editRowObject,
-            [columnNames[0]]: rowObject[columnNames[0]]
-        }
-        await updateDatabaseObject(id, updatedEditRowObject);
+    async function updateDbObject(editedObject, columnNames){
+        const id = editedObject[columnNames[0]]
+        console.log(id)
+        await updateDatabaseObject(id, editedObject);
         seDataObjects(await getObjects());
-    }
+    };
 
     function filterItems(items, query){
         return items.filter(item => item.genre_name.includes(query))
@@ -92,7 +79,6 @@ function DBGenresPage(){
             ObjInitialState[title] = '';
         });
         setNewRowObject(ObjInitialState);
-        setEditRowObject(ObjInitialState);
         }, [columnNames]
     );
     
@@ -109,9 +95,7 @@ function DBGenresPage(){
             dataObjects = {results}
             columns = {columnNames}
             idObjects = {idObjects}
-            editRowObject = {editRowObject}
-            updateEditRowObject = {updateEditRowObject}
-            updateDbRowObject = {updateDbRowObject}
+            updateDbObject = {updateDbObject}
             newRowObject = {newRowObject}
             updateNewObject={updateNewObject}
             createRow = {createRow}

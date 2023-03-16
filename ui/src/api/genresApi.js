@@ -51,14 +51,14 @@ export async function deleteObjects(id){
 
 export async function updateDatabaseObject(id, editObject){
     try {
-        let url = url+`genres/${id}`;
-        const response = await fetch (url, {
+        const response = await fetch (url+`genres/${id}`, {
             method:"PUT", 
             body: JSON.stringify(editObject),
             headers: {
                 'Content-Type': 'application/JSON',
             },
         });
+        alert(Response.message)
     } catch (error) {
         console.log(error.message)
     }
