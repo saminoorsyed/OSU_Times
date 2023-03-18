@@ -54,7 +54,7 @@ export async function updateComment(comment_id, post_id, user_id, comment_text, 
             update Comments
             set post_id = ?, user_id = ?, comment_text = ?, date_commented = ?
             where comment_id = ?`,
-            [post_id, user_id, comment_text, comment_id, date_commented],
+            [post_id, user_id, comment_text, date_commented, comment_id],
         )
     } catch (error) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
