@@ -42,17 +42,17 @@ export async function GetPostsColumns(){
 //          {numUsersUpdated: 1, status: updated user}
 //          {numUsersUpdated: 0, status: failed to update user}
 
-export async function updatePost(post_id, author_id, genre_id, title, post_text) {
+export async function updatePost(post_id, author_id, genre_id, title, post_text, date_posted) {
     let numberRecordsUpdated = 0
     const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
     let result_set_header;
-    console.log(` ${author_id}, ${genre_id}, ${title}, ${post_text}, ${post_id} `)
+    console.log(` ${author_id}, ${genre_id}, ${title}, ${post_text}, ${post_id} ${date_posted} `)
     try {
         result_set_header = await pool.query(`
             update Posts
-            set author_id = ?,  genre_id = ?, title = ?, post_text = ?
+            set author_id = ?,  genre_id = ?, title = ?, post_text = ?, date_posted = ?
             where post_id = ?`,
-            [author_id, genre_id, title, post_text, post_id],
+            [author_id, genre_id, title, post_text, post_id, date_posted],
         )
     } catch (error) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
