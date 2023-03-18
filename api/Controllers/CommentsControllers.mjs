@@ -24,7 +24,7 @@ export const cAddComment = async (req, res, next) => {
     // console.log("Enter post method")   
     try {
         console.log("Enter try piece of post method")
-        result = await addComment(req.body.post_id, req.body.user_id, req.body.comment_text);
+        result = await addComment(req.body.post_id, req.body.user_id, req.body.comment_text, req.body.date_commented);
     } catch (error) {
         console.log("Enter catch error piece of post method")
         res.send({ status: "unknown error that wasn't handled" })
@@ -35,7 +35,7 @@ export const cAddComment = async (req, res, next) => {
 }
 
 export const cUpdateComment = async (req, res, next) => {
-    let result = await updateComment(req.params.id, req.body.post_id, req.body.user_id, req.body.comment_text);
+    let result = await updateComment(req.params.id, req.body.post_id, req.body.user_id, req.body.comment_text, req.body.date_commented);
 
     if(result.numUpdated === 0){
         res.status(400).send(result.status)
