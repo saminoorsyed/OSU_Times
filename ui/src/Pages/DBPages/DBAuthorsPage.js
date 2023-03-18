@@ -59,6 +59,8 @@ function DBAuthorsPage(){
     useEffect (()=>{
         async function populateSelect(){
             const nameList = await getIdObjects();
+            nameList.push(["null",""])
+            console.log(nameList)
             setIdObjects({
                 "admin_id": nameList
             }) 

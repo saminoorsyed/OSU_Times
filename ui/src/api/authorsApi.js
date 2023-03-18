@@ -69,7 +69,7 @@ export async function updateDatabaseObject(id, editObject){
 
 export async function getIdObjects(){
     try {
-        const response = await fetch(url+'administrators/nameslistwithnull');
+        const response = await fetch(url+'administrators/nameslist');
         const namesObject = await response.json();
         const namesList = namesObject.map(item => [item.full_name, item.admin_id])
         console.log(namesList)
