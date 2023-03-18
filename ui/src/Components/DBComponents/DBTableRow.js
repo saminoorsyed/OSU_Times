@@ -10,27 +10,27 @@ function DBTableRow({dataObject, columns, idObjects, removeRow, updateDbObject})
     const [editClicked, setEditClicked] = useState(false);
     const [editObject, setEditObject] = useState(dataObject);
 
-    const findDefaultValues = ()=>{
-        Object.keys(dataObject).forEach((key, index)=>{
-            let defaultVal
-            console.log(key)
-            if (key.slice(-3) === "_id"){
-                console.log(typeof idObjects[key])
-                idObjects[key].forEach((idList, index)=>{
-                    if (idList[0] === dataObject[key]){
-                        defaultVal = idList[1]
-                    }
-                })
-                setEditObject({
-                    [key]: defaultVal
-                })
-            }
-        })
-    }
+    // const findDefaultValues = ()=>{
+    //     Object.keys(dataObject).forEach((key, index)=>{
+    //         let defaultVal
+    //         console.log(key)
+    //         if (key.slice(-3) === "_id"){
+    //             console.log(typeof idObjects[key])
+    //             idObjects[key].forEach((idList, index)=>{
+    //                 if (idList[0] === dataObject[key]){
+    //                     defaultVal = idList[1]
+    //                 }
+    //             })
+    //             setEditObject({
+    //                 [key]: defaultVal
+    //             })
+    //         }
+    //     })
+    // }
 
-    useEffect(() => {
-        findDefaultValues();
-    }, [])
+    // useEffect(() => {
+    //     findDefaultValues();
+    // }, [])
     
     function handleSaveClick(e){
         updateDbObject(editObject, columns)
