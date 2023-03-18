@@ -40,7 +40,7 @@ export const cAddPost = async (req, res, next) => {
 }
 
 export const cUpdatePost = async (req, res, next) => {
-    let result = await updatePost(req.params.id, req.body.author_id, req.body.genre_id, req.body.title, req.body.post_text);
+    let result = await updatePost(req.params.id, req.body.author_id, req.body.genre_id, req.body.title, req.body.post_text, req.body.date_posted);
     if (result.numUpdated === 1){
         res.status(200).send(result.status)
     } else {
