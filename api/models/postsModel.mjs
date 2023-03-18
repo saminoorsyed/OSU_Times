@@ -52,7 +52,7 @@ export async function updatePost(post_id, author_id, genre_id, title, post_text,
             update Posts
             set author_id = ?,  genre_id = ?, title = ?, post_text = ?, date_posted = ?
             where post_id = ?`,
-            [author_id, genre_id, title, post_text, post_id, date_posted],
+            [author_id, genre_id, title, post_text, date_posted, post_id],
         )
     } catch (error) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
