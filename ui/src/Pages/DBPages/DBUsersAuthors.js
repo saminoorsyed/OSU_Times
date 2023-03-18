@@ -35,7 +35,6 @@ function DBUsersAuthorsPage(){
 
  async function updateDbObject(editedObject, columnNames){
         const id = editedObject[columnNames[0]]
-        console.log(id)
         await updateDatabaseObject(id, editedObject);
         seDataObjects(await getObjects());
     }
@@ -84,7 +83,6 @@ function DBUsersAuthorsPage(){
         async function populateObjects(){
             const data = await getObjects();
             seDataObjects(data);
-            console.log(data)
         }
         populateObjects();
         }, []

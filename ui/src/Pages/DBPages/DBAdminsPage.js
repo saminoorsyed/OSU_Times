@@ -32,7 +32,6 @@ function DBAdminsPage(){
 
     async function updateDbObject(editedObject, columnNames){
         const id = editedObject[columnNames[0]]
-        console.log(id)
         await updateDatabaseObject(id, editedObject);
         seDataObjects(await getObjects());
     };

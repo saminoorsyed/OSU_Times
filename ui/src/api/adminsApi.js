@@ -23,7 +23,6 @@ export async function getObjects (){
 
 export async function postObject(NewObject) {
     try {
-        console.log(url+`administrators/`)
         const response = await fetch(url+`administrators/`,
             {
                 method:"POST", 
@@ -45,7 +44,6 @@ export async function deleteObjects(id){
         let data = await response.json();
         alert(data.status);
     } catch (error) {
-        console.log(error.message)
     }
 }
 
@@ -59,6 +57,5 @@ export async function updateDatabaseObject(id, editObject){
             },
         });
     } catch (error) {
-        console.log(error.message)
     }
 }

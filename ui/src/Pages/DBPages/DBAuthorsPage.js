@@ -35,7 +35,6 @@ function DBAuthorsPage(){
 
     async function updateDbObject(editedObject, columnNames){
         const id = editedObject[columnNames[0]]
-        console.log(id)
         await updateDatabaseObject(id, editedObject);
         seDataObjects(await getObjects());
     };
@@ -60,7 +59,6 @@ function DBAuthorsPage(){
         async function populateSelect(){
             const nameList = await getIdObjects();
             nameList.push(["null",""])
-            console.log(nameList)
             setIdObjects({
                 "admin_id": nameList
             }) 

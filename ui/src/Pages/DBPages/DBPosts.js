@@ -35,7 +35,6 @@ function DBPostsPage(){
 
     async function updateDbObject(editedObject, columnNames){
         const id = editedObject[columnNames[0]]
-        console.log(id)
         await updateDatabaseObject(id, editedObject);
         seDataObjects(await getObjects());
     };
@@ -60,7 +59,6 @@ function DBPostsPage(){
         async function populateSelect(){
             const genresNamesList = await getIdObjectsGenres();
             const authorNamesList = await getIdObjectsAuthors();
-            console.log({genresNamesList, authorNamesList})
             setIdObjects({
                 "genre_id": genresNamesList,
                 "author_id": authorNamesList

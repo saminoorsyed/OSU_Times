@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {MdOutlineClose, MdModeEditOutline, MdAlternateEmail} from 'react-icons/md'
 
 // import components
@@ -9,6 +9,29 @@ function DBTableRow({dataObject, columns, idObjects, removeRow, updateDbObject})
     // toggle edit row render
     const [editClicked, setEditClicked] = useState(false);
     const [editObject, setEditObject] = useState(dataObject);
+
+    const findDefaultValues = ()=>{
+        Object.keys(dataObject).forEach((key, index)=>{
+            let defaultVal
+            console.log(key)
+            if (key.slice(-3) === "_id"){
+                console.log(typeof idObjects[key])
+                idObjects[key].forEach((idList, index)=>{
+                    if (idList[0] === dataObject[key]){
+                        defaultVal = idList[1]
+                    }
+                })
+                setEditObject({
+                    [key]: defaultVal
+                })
+            }
+        })
+    }
+
+    useEffect(() => {
+        findDefaultValues();
+    }, [])
+    
     function handleSaveClick(e){
         updateDbObject(editObject, columns)
         e.preventDefault()

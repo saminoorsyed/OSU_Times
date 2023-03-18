@@ -30,18 +30,8 @@ function DBUsersPage(){
             }
         );
     }
-
-//     function updateEditRowObject(e){
-//         setEditRowObject(
-//             {
-//                 ...editRowObject,
-//                 [e.target.name]: e.target.value
-//             }
-//         );
-//     }
     async function updateDbObject(editedObject, columnNames){
         const id = editedObject[columnNames[0]]
-        console.log(id)
         await updateDatabaseObject(id, editedObject);
         seDataObjects(await getObjects());
     };
@@ -90,7 +80,6 @@ function DBUsersPage(){
             ObjInitialState[title] = '';
         });
         setNewRowObject(ObjInitialState);
-        // setEditRowObject(ObjInitialState);
         }, [columnNames]
     );
     
@@ -107,7 +96,6 @@ function DBUsersPage(){
             dataObjects = {results}
             columns = {columnNames}
             idObjects = {idObjects}
-            // updateEditRowObject = {updateEditRowObject}
             updateDbObject = {updateDbObject}
             newRowObject = {newRowObject}
             updateNewObject={updateNewObject}

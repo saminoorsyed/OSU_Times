@@ -32,7 +32,6 @@ export async function postObject(NewObject) {
                 },
             });
             alert(response.status);
-            console.log(NewObject)
     } catch (error) {
         alert(`Failed to create user, status code = ${error.message}`)
     }
@@ -46,12 +45,10 @@ export async function deleteObjects(id){
         let data = await response.json();
         alert(data.status);
     } catch (error) {
-        console.log(error.message)
     }
 }
 
 export async function updateDatabaseObject(id, editObject){
-    console.log(editObject)
     try {
         const response = await fetch (url+`posts/${id}`, {
             method:"PUT", 
@@ -63,7 +60,6 @@ export async function updateDatabaseObject(id, editObject){
         let data = await response.json();
         alert(data.status);
     } catch (error) {
-        console.log(error.message)
     }
 }
 
@@ -72,7 +68,6 @@ export async function getIdObjectsGenres(){
         const response = await fetch(url+'genres/nameslist');
         const namesObject = await response.json();
         const namesList = namesObject.map(item => [item.genre_name, item.genre_id])
-        console.log(namesList)
         return namesList
     } catch (error) {
         console.error(error);
@@ -84,7 +79,6 @@ export async function getIdObjectsAuthors(){
         const response = await fetch(url+'authors/nameslist');
         const namesObject = await response.json();
         const namesList = namesObject.map(item => [item.full_name, item.author_id])
-        console.log(namesList)
         return namesList
     } catch (error) {
         console.error(error);
