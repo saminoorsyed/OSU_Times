@@ -23,13 +23,13 @@ export async function getUsers() {
 // no inputs accepted
 // returns promise
 // interior data is json (array of user objects)
-export async function GetUserColumns(){
+export async function GetUserColumns() {
     const [result] = await pool.query(
         `SELECT * 
         FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE TABLE_NAME = N'Users;`)
-        console.log(result)
-    return result.map(({COLUMN_NAME}) => COLUMN_NAME);
+        WHERE TABLE_NAME = N'Users';`)
+    console.log(result)
+    return result.map(({ COLUMN_NAME }) => COLUMN_NAME);
 }
 
 // inputs:  (int/str, string, string, string, string)
@@ -42,8 +42,8 @@ export async function updateUser(user_id, username, full_name, email) {
     console.log("Enter update user (model) function")
     const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
     let result_set_header;
-    if(email === null || username === null ){
-        return { numUsersUpdated: 0, status: "null input issue" }; 
+    if (email === null || username === null) {
+        return { numUsersUpdated: 0, status: "null input issue" };
     }
     try {
         result_set_header = await pool.query(`
@@ -75,7 +75,7 @@ export async function updateUser(user_id, username, full_name, email) {
 //       {numberDeleted: 1, status: "deleted user"}
 
 export async function deleteUser(user_id) {
-    
+
     let numberRecordsUpdated = 0
     let result_set_header = await pool.query(`
         delete from Users
@@ -113,8 +113,8 @@ export async function addUser(username, full_name, email) {
     } catch (error) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
             return { status: "not unique user" };
-        } else if(error.errno === CODE_NULL_ERROR){
-            return {status: "null input error"}
+        } else if (error.errno === CODE_NULL_ERROR) {
+            return { status: "null input error" }
         }
         return error
     }
