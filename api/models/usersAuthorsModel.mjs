@@ -6,10 +6,10 @@ import { pool } from './dbConnector.mjs';
 
 export async function getIDList() {
     const [result] = await pool.query(
-        `Select user_author_id, Users2.full_name as 'user_id', Authors2.full_name as 'author_id'
-        from Users_Authors2
-        left join Users2 on Users_Authors2.user_id = Users2.user_id
-        left join Authors2 on Users_Authors2.author_id = Authors2.author_id;
+        `Select user_author_id, Users.full_name as 'user_id', Authors.full_name as 'author_id'
+        from Users_Authors
+        left join Users on Users_Authors.user_id = Users.user_id
+        left join Authors on Users_Authors.author_id = Authors.author_id;
         `);
     return result;
 }
@@ -17,10 +17,10 @@ export async function getIDList() {
 
 export async function getUsersAuthors() {
     const [result] = await pool.query(
-        `Select user_author_id, Users2.full_name as 'user_id', Authors2.full_name as 'author_id'
-        from Users_Authors2
-        left join Users2 on Users_Authors2.user_id = Users2.user_id
-        left join Authors2 on Users_Authors2.author_id = Authors2.author_id;
+        `Select user_author_id, Users.full_name as 'user_id', Authors.full_name as 'author_id'
+        from Users_Authors
+        left join Users on Users_Authors.user_id = Users.user_id
+        left join Authors on Users_Authors.author_id = Authors.author_id;
         `);
     return result;
 }
@@ -58,7 +58,7 @@ export async function addUsersAuthors(user_id, author_id) {
         console.log(`Model UserAuthor Add Method -- Try statement`);
 
         result_set_header = await pool.query(`
-        insert into Users_Authors2 (user_id, author_id)
+        insert into Users_Authors (user_id, author_id)
                 values(?, ?)`, [user_id, author_id],
         )
     } catch (error) {
@@ -94,7 +94,7 @@ export async function updateUsersAuthors(user_author_id, user_id, author_id) {
         console.log(`user_id: ${user_id}   author_id ${author_id}   user_author_Id: ${user_author_id}`);
 
         let result_set_header = await pool.query(`
-            update Users_Authors2
+            update Users_Authors
             set user_id = ?, author_id = ?
             where user_author_id = ?`,
             [user_id, author_id, user_author_id],
@@ -137,7 +137,7 @@ export async function deleteUsersAuthors(user_author_id) {
     let numberRecordsUpdated = 0
 
     let result_set_header = await pool.query(`
-        delete from Users_Authors2
+        delete from Users_Authors
         where user_author_id = ?`,
         [user_author_id],
     )

@@ -6,7 +6,7 @@ import { pool } from './dbConnector.mjs';
 
 export async function getPostsList() {
     const [result] = await pool.query(
-        `Select post_id, title from Posts2`);
+        `Select post_id, title from Posts`);
     return result;
 }
 
@@ -15,10 +15,10 @@ export async function getPostsList() {
 // interior data is json (array of user objects)
 export async function getPosts() {
     const [result] = await pool.query(`
-    Select post_id,  Authors2.full_name as 'author_id', Genres2.genre_name as 'genre_id', title, date_posted, post_text
-    from Posts2 
-      left join Authors2 on Posts2.author_id = Authors2.author_id
-        inner join Genres2 on Posts2.genre_id = Genres2.genre_id;
+    Select post_id,  Authors.full_name as 'author_id', Genres.genre_name as 'genre_id', title, date_posted, post_text
+    from Posts
+      left join Authors on Posts.author_id = Authors.author_id
+        inner join Genres on Posts.genre_id = Genres.genre_id;
     `);
     return result;
 }
@@ -49,7 +49,7 @@ export async function updatePost(post_id, author_id, genre_id, title, post_text)
     console.log(` ${author_id}, ${genre_id}, ${title}, ${post_text}, ${post_id} `)
     try {
         result_set_header = await pool.query(`
-            update Posts2
+            update Posts
             set author_id = ?,  genre_id = ?, title = ?, post_text = ?
             where post_id = ?`,
             [author_id, genre_id, title, post_text, post_id],
@@ -79,7 +79,7 @@ export async function updatePost(post_id, author_id, genre_id, title, post_text)
 export async function deletePost(post_id) {
     let numberRecordsUpdated = 0
     let result_set_header = await pool.query(`
-        delete from Posts2
+        delete from Posts
         where post_id = ?`,
         [post_id],
     )
@@ -109,7 +109,7 @@ export async function addPost(author_id, genre_id, title, post_text) {
     console.log("Entering Model / Create Post")
     try {
         result_set_header = await pool.query(`
-        insert into Posts2(author_id, genre_id, title, post_text)
+        insert into Posts(author_id, genre_id, title, post_text)
                 values(?, ?, ?, ?)`, [author_id, genre_id, title, post_text],
         )
     } catch (error) {

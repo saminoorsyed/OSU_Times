@@ -6,7 +6,7 @@ import { pool } from './dbConnector.mjs';
 
 export async function getAuthorIDList() {
     const [result] = await pool.query(
-        `Select author_id, full_name from Authors2`);
+        `Select author_id, full_name from Authors`);
     let result_with_null = result;
     result_with_null.push({ author_id: null, full_name: null })
     return result_with_null;
@@ -19,9 +19,9 @@ export async function getAuthorIDList() {
 
 export async function getAuthors() {
     const [result] = await pool.query(
-        `Select author_id, Authors2.full_name as 'Author Full Name', Authors2.username as 'Author Username', Authors2.email, admin_action, Administrators2.full_name as 'admin_id'
-        from Authors2
-        left join Administrators2 on Authors2.admin_id = Administrators2.admin_id;`);
+        `Select author_id, Authors.full_name as 'Author Full Name', Authors.username as 'Author Username', Authors.email, admin_action, Administrators.full_name as 'admin_id'
+        from Authors
+        left join Administrators on Authors.admin_id = Administrators.admin_id;`);
     return result;
 }
 
@@ -44,10 +44,11 @@ export async function updateAuthor(author_id, username, full_name, email, admin_
     let numberRecordsUpdated = 0
     const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
     let result_set_header;
+    if(admin_id === ""){admin_id = null};
     try {
         console.log(`username: ${username} , full_name: ${full_name}, email: ${email}, admin_id: ${admin_id} , admin_action: ${admin_action}`)
         result_set_header = await pool.query(`
-            update Authors2
+            update Authors
             set username = ?, full_name = ?, email = ?, admin_id = ?, admin_action = ?
             where author_id = ?`,
             [username, full_name, email, admin_id, admin_action, author_id],
@@ -78,14 +79,14 @@ export async function updateAuthor(author_id, username, full_name, email, admin_
 export async function deleteAuthor(author_id) {
     let numberRecordsUpdated = 0
 
-    let queryStr = `delete from Users_Authors2 where author_id = ${author_id};`;
+    let queryStr = `delete from Users_Authors where author_id = ${author_id};`;
     console.log("Query String to delete User Author Dependencies for an Author");
     console.log(queryStr);
 
     const delete_author = await pool.query(queryStr)
 
     let result_set_header = await pool.query(`
-        delete from Authors2
+        delete from Authors
         where author_id = ?`,
         [author_id],
     )
@@ -111,10 +112,11 @@ export async function addAuthor(full_name, username, email, admin_id, admin_acti
     const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
     let numberRecordsAdded;
     console.log(`username: ${username} , full_name: ${full_name}, email: ${email}, admin_id: ${admin_id} , admin_action: ${admin_action}   `)
+    if(admin_id === ""){admin_id = null};
     try {
         console.log("Enter try piece of Model / Add Author")
 
-        let insert_statement = "insert into Authors2 ";
+        let insert_statement = "insert into Authors";
         let column_names = "(full_name, username, email, admin_action, admin_id) "
         let value_placeholders = "values (?,?, ?, ?, ?)"
         let queryStr = insert_statement + column_names + value_placeholders;

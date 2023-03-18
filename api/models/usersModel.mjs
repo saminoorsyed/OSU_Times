@@ -5,7 +5,7 @@ import { pool } from './dbConnector.mjs';
 // interior data is json (array of user objects)
 
 export async function getUsersIDList() {
-    const [result] = await pool.query(`Select user_id, full_name from Users2`);
+    const [result] = await pool.query(`Select user_id, full_name from Users`);
     return result;
 }
 
@@ -16,7 +16,7 @@ export async function getUsersIDList() {
 export async function getUsers() {
     const [result] = await pool.query(`
     Select user_id, full_name, username, email
-    from Users2`);
+    from Users`);
     return result;
 }
 
@@ -27,7 +27,7 @@ export async function GetUserColumns(){
     const [result] = await pool.query(
         `SELECT * 
         FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE TABLE_NAME = N'Users2';`)
+        WHERE TABLE_NAME = N'Users;`)
         console.log(result)
     return result.map(({COLUMN_NAME}) => COLUMN_NAME);
 }
@@ -47,7 +47,7 @@ export async function updateUser(user_id, username, full_name, email) {
     }
     try {
         result_set_header = await pool.query(`
-            update Users2
+            update Users
             set username = ?, full_name = ?, email = ?
             where user_id = ?`,
             [username, full_name, email, user_id],
@@ -78,7 +78,7 @@ export async function deleteUser(user_id) {
     
     let numberRecordsUpdated = 0
     let result_set_header = await pool.query(`
-        delete from Users2
+        delete from Users
         where user_id = ?`,
         [user_id],
     )
@@ -107,7 +107,7 @@ export async function addUser(username, full_name, email) {
 
     try {
         result_set_header = await pool.query(`
-        insert into Users2 (username, full_name, email)
+        insert into Users (username, full_name, email)
                 values(?, ?, ?)`, [username, full_name, email],
         )
     } catch (error) {

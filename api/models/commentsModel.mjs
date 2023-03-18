@@ -7,7 +7,7 @@ import { pool } from './dbConnector.mjs';
 export async function getCommentIDList() {
     const [result] = await pool.query(
         `Select comment_id, comment_text
-        From Comments2`);
+        From Comments`);
     return result;
 }
 
@@ -17,11 +17,11 @@ export async function getCommentIDList() {
 
 export async function getComments() {
     const [result] = await pool.query(`
-    Select Comments2.comment_id, Posts2.title as 'post_id',
-    Users2.full_name as 'user_id', comment_text, date_commented
-    from Comments2
-    left join Posts2 on Comments2.post_id = Posts2.post_id
-    left join Users2 on Comments2.user_id = Users2.user_id;`);
+    Select Comments.comment_id, Posts.title as 'post_id',
+    Users.full_name as 'user_id', comment_text, date_commented
+    from Comments
+    left join Posts on Comments.post_id = Posts.post_id
+    left join Users on Comments.user_id = Users.user_id;`);
     return result;
 }
 
@@ -51,7 +51,7 @@ export async function updateComment(comment_id, post_id, user_id, comment_text) 
     let result_set_header;
     try {
         result_set_header = await pool.query(`
-            update Comments2
+            update Comments
             set post_id = ?, user_id = ?, comment_text = ?
             where comment_id = ?`,
             [post_id, user_id, comment_text, comment_id],
@@ -81,7 +81,7 @@ export async function updateComment(comment_id, post_id, user_id, comment_text) 
 export async function deleteComment(comment_id) {
     let numberRecordsUpdated = 0
     let result_set_header = await pool.query(`
-        delete from Comments2
+        delete from Comments
         where comment_id = ?`,
         [comment_id],
     )
@@ -110,7 +110,7 @@ export async function addComment(post_id, user_id, comment_text) {
 
     try {
         result_set_header = await pool.query(`
-                insert into Comments2(post_id, user_id, comment_text)
+                insert into Comments(post_id, user_id, comment_text)
                 values(?, ?, ?)`, [post_id, user_id, comment_text],
         )
     } catch (error) {

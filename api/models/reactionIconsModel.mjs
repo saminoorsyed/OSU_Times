@@ -15,7 +15,7 @@ export async function getReactionIconsNames() {
 export async function getReactionIcons() {
     const [result] = await pool.query(`
     Select reaction_icon_id, reaction_type
-    from Reaction_Icons2`);
+    from Reaction_Icons`);
     return result;
 }
 
@@ -26,7 +26,7 @@ export async function GetReactionIconsColumns(){
     const [result] = await pool.query(
         `SELECT * 
         FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE TABLE_NAME = N'Reaction_Icons2';`)
+        WHERE TABLE_NAME = N'Reaction_Icons';`)
     return result;
 }
 
@@ -43,7 +43,7 @@ export async function updateReactionIcon(reaction_icon_id, reaction_type) {
     const CODE_NULL_ERROR = 1048;
     try {
         result_set_header = await pool.query(`
-            update Reaction_Icons2
+            update Reaction_Icons
             set reaction_type = ?
             where reaction_icon_id = ?`,
             [reaction_type, reaction_icon_id],
@@ -72,7 +72,7 @@ export async function updateReactionIcon(reaction_icon_id, reaction_type) {
 export async function deleteReactionIcon(reaction_icon_id) {
     let numberRecordsUpdated = 0
     let result_set_header = await pool.query(`
-        delete from Reaction_Icons2
+        delete from Reaction_Icons
         where reaction_icon_id = ?`,
         [reaction_icon_id],
     )
@@ -104,7 +104,7 @@ export async function addReactionIcon(reaction_type) {
     try {
         console.log(`Reaction Type: ${reaction_type}  `)
         result_set_header = await pool.query(`
-        insert into Reaction_Icons2 (reaction_type)
+        insert into Reaction_Icons (reaction_type)
                 values(?)`, [reaction_type],
         )
 

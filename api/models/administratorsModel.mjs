@@ -13,7 +13,7 @@ export async function getAdministratorsIDListWithNull() {
 
 export async function getAdministratorsIDList() {
     let [result] = await pool.query(
-        `Select admin_id, full_name from Administrators2`);
+        `Select admin_id, full_name from Administrators`);
     return result;
 }
 
@@ -24,7 +24,7 @@ export async function getAdministratorsIDList() {
 export async function getAdministrators() {
     const [result] = await pool.query(
         `Select admin_id, full_name, username, email
-        from Administrators2`);
+        from Administrators`);
     return result;
 }
 
@@ -35,7 +35,7 @@ export async function getAdministratorsColumns(){
     const [result] = await pool.query(`
                         SELECT * 
                         FROM INFORMATION_SCHEMA.COLUMNS
-                        WHERE TABLE_NAME = N'Administrators2';`)
+                        WHERE TABLE_NAME = N'Administrators';`)
     return result.map(({COLUMN_NAME}) => COLUMN_NAME);                    
 }
 
@@ -53,7 +53,7 @@ export async function updateAdministrator(admin_id, full_name, username, email) 
     console.log("Model/Admin update start function")
     try {
         result_set_header = await pool.query(`
-            update Administrators2
+            update Administrators
             set full_name = ?, username = ?, email = ?
             where admin_id = ?`,
             [full_name, username, email, admin_id],
@@ -86,7 +86,7 @@ export async function updateAdministrator(admin_id, full_name, username, email) 
 export async function deleteAdministrator(admin_id) {
     let numberRecordsUpdated = 0
     let result_set_header = await pool.query(`
-        delete from Administrators2
+        delete from Administrators
         where admin_id = ?`,
         [admin_id],
     )
@@ -115,7 +115,7 @@ export async function addAdministrator(full_name, username, email) {
 
     try {
         result_set_header = await pool.query(`
-        insert into Administrators2(full_name, username, email)
+        insert into Administrators(full_name, username, email)
                 values(?, ?, ?)`, [full_name, username, email],
         )
     } catch (error) {

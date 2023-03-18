@@ -6,7 +6,7 @@ import { pool } from './dbConnector.mjs';
 
 export async function getGenreNameList() {
     const [result] = await pool.query(
-        `Select genre_id, genre_name from Genres2`);
+        `Select genre_id, genre_name from Genres`);
         return result;
 }
 
@@ -17,7 +17,7 @@ export async function getGenreNameList() {
 export async function getGenres() {
     const [result] = await pool.query(`
     Select genre_id, genre_name
-    from Genres2`);
+    from Genres`);
     
     return result;
 }
@@ -29,7 +29,7 @@ export async function GetGenreColumns(){
     const [result] = await pool.query(
         `SELECT * 
         FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE TABLE_NAME = N'Genres2';`)
+        WHERE TABLE_NAME = N'Genres';`)
     return result.map(({COLUMN_NAME}) => COLUMN_NAME);
 }
 
@@ -46,7 +46,7 @@ export async function updateGenre(genre_id, genre_name) {
     const CODE_NULL_ERROR = 1048;
     try {
         result_set_header = await pool.query(`
-            update Genres2
+            update Genres
             set genre_name = ?
             where genre_id = ?`,
             [genre_name, genre_id],
@@ -78,13 +78,13 @@ export async function deleteGenre(genre_id) {
     let numberRecordsUpdated = 0
 
     let num_delete_post = await pool.query(`
-        delete from Posts2
+        delete from Posts
         where genre_id = ?`,
         [genre_id],
     )
 
     let result_set_header = await pool.query(`
-        delete from Genres2
+        delete from Genres
         where genre_id = ?`,
         [genre_id],
     )
@@ -113,7 +113,7 @@ export async function addGenre(genre_name) {
 
     try {
         result_set_header = await pool.query(`
-        insert into Genres2 (genre_name)
+        insert into Genres (genre_name)
                 values(?)`, [genre_name],
         )
     } catch (error) {

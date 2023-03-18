@@ -6,8 +6,8 @@ import { pool } from './dbConnector.mjs';
 
 export async function getReactionNameList() {
     const [result] = await pool.query(
-        `Select Reactions2.reaction_id, Reaction_Icons2.reaction_type 
-        from Reactions2 left join Reaction_Icons2 on Reactions2.reaction_icon_id = Reaction_Icons2.reaction_icon_id
+        `Select Reactions.reaction_id, Reaction_Icons.reaction_type 
+        from Reactions left join Reaction_Icons on Reactions.reaction_icon_id = Reaction_Icons.reaction_icon_id
         `,);
     return result;
 }
@@ -18,11 +18,11 @@ export async function getReactionNameList() {
 
 export async function getReactions() {
     const [result] = await pool.query(`
-    Select Reactions2.reaction_id, Users2.full_name as 'user_id', Posts2.title as 'post_id', Reaction_Icons2.reaction_type as 'reaction_icon_id', Reactions2.date_reacted
-    from Reactions2 
-    left join Users2 on Reactions2.user_id = Users2.user_id
-    left join Posts2 on Reactions2.post_id = Posts2.post_id
-    left join Reaction_Icons2 on Reactions2.reaction_icon_id = Reaction_Icons2.reaction_icon_id;
+    Select Reactions.reaction_id, Users.full_name as 'user_id', Posts.title as 'post_id', Reaction_Icons.reaction_type as 'reaction_icon_id', Reactions.date_reacted
+    from Reactions
+    left join Users on Reactions.user_id = Users.user_id
+    left join Posts on Reactions.post_id = Posts.post_id
+    left join Reaction_Icons on Reactions.reaction_icon_id = Reaction_Icons.reaction_icon_id;
     
     `);
     return result;
@@ -54,7 +54,7 @@ export async function updateReaction(reaction_id, user_id, post_id, reaction_ico
     let result_set_header;
     try {
         result_set_header = await pool.query(`
-            update Reactions2
+            update Reactions
             set user_id = ?, post_id = ?, reaction_icon_id = ?
             where reaction_id = ?`,
             [user_id, post_id, reaction_icon_id, reaction_id],
@@ -87,7 +87,7 @@ export async function updateReaction(reaction_id, user_id, post_id, reaction_ico
 export async function deleteReaction(reaction_id) {
     let numberRecordsUpdated = 0
     let result_set_header = await pool.query(`
-        delete from Reactions2
+        delete from Reactions
         where reaction_id = ?`,
         [reaction_id],
     )
@@ -116,7 +116,7 @@ export async function addReaction(user_id, post_id, reaction_icon_id) {
 
     try {
         result_set_header = await pool.query(`
-        insert into Reactions2 (user_id, post_id, reaction_icon_id)
+        insert into Reactions (user_id, post_id, reaction_icon_id)
                 values(?, ?, ?)`, [user_id, post_id, reaction_icon_id],
         )
     } catch (error) {
