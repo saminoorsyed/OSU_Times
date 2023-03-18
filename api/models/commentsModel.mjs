@@ -45,16 +45,16 @@ export async function getCommentColumns() {
 //          {numUsersUpdated: 1, status: updated user}
 //          {numUsersUpdated: 0, status: failed to update user}
 
-export async function updateComment(comment_id, post_id, user_id, comment_text) {
+export async function updateComment(comment_id, post_id, user_id, comment_text, date_commented) {
     let numberRecordsUpdated = 0
     const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
     let result_set_header;
     try {
         result_set_header = await pool.query(`
             update Comments
-            set post_id = ?, user_id = ?, comment_text = ?
+            set post_id = ?, user_id = ?, comment_text = ?, date_commented = ?
             where comment_id = ?`,
-            [post_id, user_id, comment_text, comment_id],
+            [post_id, user_id, comment_text, comment_id, date_commented],
         )
     } catch (error) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
@@ -103,15 +103,15 @@ export async function deleteComment(comment_id) {
 //    {numUsersAdded: 0, status: not unique user}
 // otherwise throws error
 
-export async function addComment(post_id, user_id, comment_text) {
+export async function addComment(post_id, user_id, comment_text, date_commented) {
     const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
     let numberUserAdded;
     let result_set_header;
 
     try {
         result_set_header = await pool.query(`
-                insert into Comments(post_id, user_id, comment_text)
-                values(?, ?, ?)`, [post_id, user_id, comment_text],
+                insert into Comments(post_id, user_id, comment_text, date_commented)
+                values(?, ?, ?, ?)`, [post_id, user_id, comment_text, date_commented],
         )
     } catch (error) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
