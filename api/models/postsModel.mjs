@@ -101,7 +101,7 @@ export async function deletePost(post_id) {
 //    {numUsersAdded: 0, status: not unique user}
 // otherwise throws error
 
-export async function addPost(author_id, genre_id, title, post_text) {
+export async function addPost(author_id, genre_id, title, post_text, date_posted) {
     const CODE_UNIQUE_CONSTRAINT_FAILED = 1062;
     let numberPostsAdded;
     let result_set_header;
@@ -109,8 +109,8 @@ export async function addPost(author_id, genre_id, title, post_text) {
     console.log("Entering Model / Create Post")
     try {
         result_set_header = await pool.query(`
-        insert into Posts(author_id, genre_id, title, post_text)
-                values(?, ?, ?, ?)`, [author_id, genre_id, title, post_text],
+        insert into Posts(author_id, genre_id, title, post_text, date_posted)
+                values(?, ?, ?, ?, ?)`, [author_id, genre_id, title, post_text, date_posted],
         )
     } catch (error) {
         console.log(` ${author_id}, ${genre_id}, ${title}, ${post_text}  `)
