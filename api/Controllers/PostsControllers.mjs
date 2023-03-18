@@ -24,7 +24,7 @@ export const cAddPost = async (req, res, next) => {
     // console.log("Enter post method")   
     try {
         console.log("Enter try piece of post method")
-        result = await addPost(req.body.author_id, req.body.genre_id, req.body.title, req.body.post_text);
+        result = await addPost(req.body.author_id, req.body.genre_id, req.body.title, req.body.post_text, req.body.date_posted);
     } catch (error) {
         console.log("Enter catch error piece of post method")
         res.send({ status: "unknown error that wasn't handled" })
