@@ -7,9 +7,7 @@ import { pool } from './dbConnector.mjs';
 export async function getAuthorIDList() {
     const [result] = await pool.query(
         `Select author_id, full_name from Authors`);
-    let result_with_null = result;
-    result_with_null.push({ author_id: null, full_name: null })
-    return result_with_null;
+    return result;
 }
 
 
