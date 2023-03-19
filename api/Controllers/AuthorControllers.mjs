@@ -40,10 +40,20 @@ export const cAddAuthor = async (req, res, next) => {
 
 export const cUpdateAuthor = async (req, res, next) => {
     let result = await updateAuthor(req.params.id, req.body['Author Username'], req.body['Author Full Name'], req.body.email, req.body.admin_id, req.body.admin_action);
-    res.send(result);
+    if(result.numUsersUpdated === 0){
+        res.status(400).send(result.status);
+    } else {
+        res.status(200).send(result.status);
+
+    }
 }
 
 export const cDeleteAuthor = async (req, res, next) => {
     let result = await deleteAuthor(req.params.id);
-    res.json(result);
+    if(result.numberDeleted === 0){
+        res.status(400).send(result.status);
+    } else {
+        res.status(200).send(result.status);
+    }
+    
 }

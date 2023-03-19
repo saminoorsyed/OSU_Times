@@ -30,8 +30,14 @@ export const cAddGenre = async (req, res, next) => {
         res.send({ status: "unknown error that wasn't handled" })
         // res.send("Unable to create user. Check fields for uniqueness")
     }
+
+    if(result.numAdded === 0){
+        res.status(400).send(result.status)
+    } else {
+        res.status(200).send(result.status);
+    }
     console.log("Enter send final result piece of post method")
-    res.send(result);
+    
 }
 
 export const cUpdateGenre = async (req, res, next) => {
@@ -51,5 +57,5 @@ export const cDeleteGenre = async (req, res, next) => {
     if(result.numberDeleted === 0){
         statusCode = 400;
     }
-    res.status(statusCode).json(result);
+    res.status(statusCode).json(result.status);
 }

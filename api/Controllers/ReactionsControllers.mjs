@@ -35,7 +35,7 @@ export const cAddReaction = async (req, res, next) => {
     if(result.numAdded === 0){
         res.status(400).send(result.status);
     } else {
-        res.status(200).send(result);
+        res.status(200).send(result.status);
 
     }
 }
@@ -54,9 +54,9 @@ export const cUpdateReaction = async (req, res, next) => {
 export const cDeleteReaction = async (req, res, next) => {
     let result = await deleteReaction(req.params.id);
     if(result.numberDeleted === 0){
-        res.status(400).json(result);
+        res.status(400).json(result.status);
     } else {
-        res.json(result);
+        res.json(result.status);
     }
     
 }

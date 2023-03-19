@@ -30,8 +30,13 @@ export const cAddComment = async (req, res, next) => {
         res.send({ status: "unknown error that wasn't handled" })
         // res.send("Unable to create user. Check fields for uniqueness")
     }
+
+    if(result.numUsersAdded === 0){
+        res.status(400).send(result.status);
+    } else {
+        res.status(200).send(result.status);
+    }
     console.log("Enter send final result piece of post method")
-    res.send(result);
 }
 
 export const cUpdateComment = async (req, res, next) => {
@@ -40,7 +45,7 @@ export const cUpdateComment = async (req, res, next) => {
     if(result.numUpdated === 0){
         res.status(400).send(result.status)
     } else {
-        res.send(result);
+        res.status(200).send(result.status);
     }
 }
 
@@ -49,6 +54,6 @@ export const cDeleteComment = async (req, res, next) => {
     if(result.numberDeleted === 0){
         res.status(400).send(result.status);
     } else {
-        res.json(result);
+        res.status(200).send(result.status);
     }
 }

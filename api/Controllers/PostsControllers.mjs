@@ -34,7 +34,7 @@ export const cAddPost = async (req, res, next) => {
     if(result.numberPostsAdded === 0){
         res.status(400).send(result.status);
     } else {
-        res.status(200).send(result);
+        res.status(200).send(result.status);
     }
     
 }
@@ -52,9 +52,9 @@ export const cUpdatePost = async (req, res, next) => {
 export const cDeletePost = async (req, res, next) => {
     let result = await deletePost(req.params.id);
     if(result.numberDeleted === 0){
-        res.status(400).json(result);
+        res.status(400).json(result.status);
     } else {
-        res.status(200).json(result);
+        res.status(200).json(result.status);
     }
    
 }

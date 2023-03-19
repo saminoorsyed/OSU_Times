@@ -40,7 +40,7 @@ export const cAddAdministrator = async (req, res, next) => {
     if(result.numUsersAdded === 0){
         res.status(400).send(result.status);
     } else {
-        res.status(200).send(result);
+        res.status(200).send(result.status);
     }
     
 }
@@ -51,7 +51,7 @@ export const cUpdateAdministrator = async (req, res, next) => {
     if(result.numUpdated === 0){
         res.status(400).send(result.status);
     } else {
-        res.status(200).send(result);
+        res.status(200).send(result.status);
     }
     
     
@@ -60,10 +60,9 @@ export const cUpdateAdministrator = async (req, res, next) => {
 export const cDeleteAdministrator = async (req, res, next) => {
     let result = await deleteAdministrator(req.params.id);
     if(result.numberDeleted === 0){
-
         res.status(404).send("Bad input. No admin deleted")
     } else {
-        res.status(200).json(result);
+        res.status(200).json(result.status);
     }
 
     

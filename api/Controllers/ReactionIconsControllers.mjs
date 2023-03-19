@@ -36,7 +36,7 @@ export const cAddReactionIcon = async (req, res, next) => {
     if(result.numUsersAdded === 0){
         res.status(400).send(result.status);
     } else {
-        res.status(200).send(result);
+        res.status(200).send(result.status);
     }
     
 }
@@ -44,9 +44,9 @@ export const cAddReactionIcon = async (req, res, next) => {
 export const cUpdateReactionIcon = async (req, res, next) => {
     let result = await updateReactionIcon(req.params.id, req.body.reaction_type);
     if(result.numUsersUpdated === 0){
-        res.status(400).send(result);
+        res.status(400).send(result.status);
     } else {
-        res.status(200).send(result);
+        res.status(200).send(result.status);
     }
 }
 
@@ -56,7 +56,7 @@ export const cDeleteReactionIcon = async (req, res, next) => {
     if(result.numberDeleted === 0){
         res.status(400).send("Invalid reaction so can't delete")
     } else {
-        res.status(200).json(result);
+        res.status(200).json(result.status);
     }
     
 }
