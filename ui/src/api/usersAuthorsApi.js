@@ -31,7 +31,9 @@ export async function postObject(NewObject) {
                     'Content-Type': 'application/JSON',
                 },
             });
-        alert(`check that your entry is unique: error code ${response.status}`)
+        if (response.status === "400"){
+            alert(`check that your entry is unique: error code ${response.status}`)
+        }
     } catch (error) {
         alert(error.status)
     }
@@ -39,7 +41,7 @@ export async function postObject(NewObject) {
 
 export async function deleteObjects(id){
     try {
-        let response = await fetch(
+        await fetch(
             url+`usersauthors/${id}`,
             {method:"DELETE"});
     } catch (error) {

@@ -67,7 +67,8 @@ CREATE TABLE Users_Authors
         ON DELETE       CASCADE,
     CONSTRAINT          fk_Users_Authors_Authors
         FOREIGN KEY     (author_id)
-        REFERENCES      Authors(author_id),
+        REFERENCES      Authors(author_id)
+        ON DELETE       CASCADE,
     CONSTRAINT          UQ_Users_Authors_user_id_author_id
         UNIQUE          (user_id, author_id)
 ) ENGINE=INNODB;
@@ -88,10 +89,12 @@ CREATE TABLE Posts
     post_text           text NOT NULL,
     CONSTRAINT          FK_Posts_Genres
         FOREIGN KEY     (genre_id)
-        REFERENCES      Genres(genre_id),
+        REFERENCES      Genres(genre_id)
+        ON DELETE       CASCADE,
     CONSTRAINT          FK_Posts_Authors
         FOREIGN KEY     (author_id)
-        REFERENCES      Authors(author_id),
+        REFERENCES      Authors(author_id)
+        ON DELETE       CASCADE,
     CONSTRAINT          UQ_Posts_title
         UNIQUE          (title)
 ) ENGINE=INNODB;
