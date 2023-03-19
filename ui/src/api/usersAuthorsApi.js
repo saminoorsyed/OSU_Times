@@ -23,7 +23,7 @@ export async function getObjects (){
 
 export async function postObject(NewObject) {
     try {
-        const response = await fetch(url+`usersauthors/`,
+        let response = await fetch(url+`usersauthors/`,
             {
                 method:"POST", 
                 body: JSON.stringify(NewObject),
@@ -31,6 +31,7 @@ export async function postObject(NewObject) {
                     'Content-Type': 'application/JSON',
                 },
             });
+        alert(`check that your entry is unique: error code ${response.status}`)
     } catch (error) {
         alert(error.status)
     }
@@ -41,7 +42,6 @@ export async function deleteObjects(id){
         let response = await fetch(
             url+`usersauthors/${id}`,
             {method:"DELETE"});
-        let data = await response.json();
     } catch (error) {
         alert(error.status)
     }

@@ -31,6 +31,7 @@ export async function postObject(NewObject) {
                     'Content-Type': 'application/JSON',
                 },
             });
+        alert(`check that your entry is unique: error code ${response.status}`)
     } catch (error) {
         alert(error.message)
     }
