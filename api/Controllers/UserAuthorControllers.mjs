@@ -53,7 +53,7 @@ export const cDeleteUsersAuthors = async (req, res, next) => {
         if(result.numberDeleted === 0){
             res.status(400).send(result.status);
         } else {
-            res.json(result.status);
+            res.status(200).json(result.status);
         }
     }  catch(error){
         res.status(400).send("Error occured when trying to delete 'Users Authors'")

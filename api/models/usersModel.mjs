@@ -57,7 +57,7 @@ export async function updateUser(user_id, username, full_name, email) {
             return { numUsersUpdated: 0, status: "null user id# issue" };
         }
         console.log("(Model/User - Upcoming error")
-        return error
+        return { numUsersUpdated: 0, status: "Unknown error was thrown based on input" };
     }
 
     let numberRecordsUpdated = result_set_header[0].affectedRows;
@@ -112,12 +112,13 @@ export async function addUser(username, full_name, email) {
         )
     } catch (error) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
-            return { status: "not unique user" };
+            return { numberChanged: 0, status: "not unique user" };
         } else if (error.errno === CODE_NULL_ERROR) {
-            return { status: "null input error" }
+            return { numberChanged: 0, status: "null input error" }
+        } else {
+            return {numberChanged: 0, status: "Uncaught Error was thrown"}
         }
-        return error
     }
 
-    return { status: "user added" };
+    return { numberChanged: 1, status: "user added" };
 }

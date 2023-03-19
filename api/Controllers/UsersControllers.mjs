@@ -28,12 +28,18 @@ export const cAddUser = async (req, res, next) => {
         console.log("Enter catch error piece of post method")
         res.status(500).send({ status: "Issue occured when trying to add user. ", error })
     }
+
     console.log("Enter send final result piece of post method")
-    res.status(201).send(result);
+
+    if(result.numberChanged === 0){
+        res.status(400).send(result.status);
+    } else {
+        res.status(200).send(result.status);
+
+    }
 }
 
 export const cUpdateUser = async (req, res, next) => {
-    console.log("What is hapenning!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     let result;
     try {
         result = await updateUser(req.params.id, req.body.username, req.body.full_name, req.body.email);
@@ -46,7 +52,7 @@ export const cUpdateUser = async (req, res, next) => {
     } else {
         console.log(result);
         console.log("User created")
-        res.status(200).send(result);
+        res.status(200).send(result.status);
     }
     
 }
@@ -57,7 +63,7 @@ export const cDeleteUser = async (req, res, next) => {
         res.status(400).send("Unable to find user that you want to delete");
     } else {
         console.log(result);
-        res.json(result);
+        res.status(200).send(result.status);
     }
     
 }
