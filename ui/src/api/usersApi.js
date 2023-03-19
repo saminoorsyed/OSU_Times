@@ -7,7 +7,7 @@ export async function getObjectColumnNames () {
         const colNames = await response.json();
         return colNames
     } catch (error) {
-        console.error(error);
+        alert(error.message)
     }
 }
 
@@ -17,7 +17,7 @@ export async function getObjects (){
         const data = await response.json()
         return data
     } catch (error) {
-        console.error(error);
+        alert(error.message)
     }
 };
 
@@ -32,7 +32,7 @@ export async function postObject(NewObject) {
                 },
             });
     } catch (error) {
-        alert(`Failed to create user, status code = ${error.message}`)
+        alert(error.message)
     }
 }
 
@@ -42,8 +42,8 @@ export async function deleteObjects(id){
             url+`users/${id}`,
             {method:"DELETE"});
         let data = await response.json();
-        alert(data.status);
     } catch (error) {
+        alert(error.message)
     }
 }
 
@@ -57,5 +57,6 @@ export async function updateDatabaseObject(id, editObject){
             },
         });
     } catch (error) {
+        alert(error.message)
     }
 }

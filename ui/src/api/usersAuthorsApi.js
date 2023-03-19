@@ -7,7 +7,7 @@ export async function getObjectColumnNames () {
         const colNames = await response.json();
         return colNames
     } catch (error) {
-        console.error(error);
+        alert(error.status)
     }
 }
 
@@ -17,7 +17,7 @@ export async function getObjects (){
         const data = await response.json()
         return data
     } catch (error) {
-        console.error(error);
+        alert(error.status)
     }
 };
 
@@ -31,9 +31,8 @@ export async function postObject(NewObject) {
                     'Content-Type': 'application/JSON',
                 },
             });
-            alert(response.status);
     } catch (error) {
-        alert(`Failed to create user, status code = ${error.message}`)
+        alert(error.status)
     }
 }
 
@@ -43,8 +42,8 @@ export async function deleteObjects(id){
             url+`usersauthors/${id}`,
             {method:"DELETE"});
         let data = await response.json();
-        alert(data.status);
     } catch (error) {
+        alert(error.status)
     }
 }
 
@@ -57,9 +56,8 @@ export async function updateDatabaseObject(id, editObject){
                 'Content-Type': 'application/JSON',
             },
         });
-        let data = await response.json();
-        alert(data.status);
     } catch (error) {
+        alert(error.status)
     }
 }
 
@@ -70,7 +68,7 @@ export async function getIdObjectsUsers(){
         const namesList = namesObject.map(item => [item.full_name, item.user_id])
         return namesList
     } catch (error) {
-        console.error(error);
+        alert(error.status)
     }
 }
 
@@ -81,6 +79,6 @@ export async function getIdObjectsAuthors(){
         const namesList = namesObject.map(item => [item.full_name, item.author_id])
         return namesList
     } catch (error) {
-        console.error(error);
+        alert(error.status)
     }
 }

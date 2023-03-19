@@ -17,13 +17,13 @@ export async function getObjects (){
         const data = await response.json()
         return data
     } catch (error) {
-        console.error(error);
+        alert(error.message)
     }
 };
 
 export async function postObject(NewObject) {
     try {
-        const response = await fetch(url+`authors/`,
+        await fetch(url+`authors/`,
             {
                 method:"POST", 
                 body: JSON.stringify(NewObject),
@@ -31,9 +31,8 @@ export async function postObject(NewObject) {
                     'Content-Type': 'application/JSON',
                 },
             });
-            alert(response.status);
     } catch (error) {
-        alert(`Failed to create user, status code = ${error.message}`)
+        alert(error.message)
     }
 }
 
@@ -42,24 +41,22 @@ export async function deleteObjects(id){
         let response = await fetch(
             url+`authors/${id}`,
             {method:"DELETE"});
-        let data = await response.json();
-        alert(data.status);
     } catch (error) {
+        alert(error.message)
     }
 }
 
 export async function updateDatabaseObject(id, editObject){
     try {
-        const response = await fetch (url+`authors/${id}`, {
+        await fetch (url+`authors/${id}`, {
             method:"PUT", 
             body: JSON.stringify(editObject),
             headers: {
                 'Content-Type': 'application/JSON',
             },
         });
-        let data = await response.json();
-        alert(data.status);
     } catch (error) {
+        alert(error.message)
     }
 }
 
@@ -70,6 +67,6 @@ export async function getIdObjects(){
         const namesList = namesObject.map(item => [item.full_name, item.admin_id])
         return namesList
     } catch (error) {
-        console.error(error);
+        alert(error.message)
     }
 }

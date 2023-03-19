@@ -7,7 +7,7 @@ export async function getObjectColumnNames () {
         const colNames = await response.json();
         return colNames
     } catch (error) {
-        console.error(error);
+        alert(error.message)
     }
 }
 
@@ -17,13 +17,13 @@ export async function getObjects (){
         const data = await response.json()
         return data
     } catch (error) {
-        console.error(error);
+        alert(error.message)
     }
 };
 
 export async function postObject(NewObject) {
     try {
-        const response = await fetch(url+`administrators/`,
+        await fetch(url+`administrators/`,
             {
                 method:"POST", 
                 body: JSON.stringify(NewObject),
@@ -32,24 +32,23 @@ export async function postObject(NewObject) {
                 },
             });
     } catch (error) {
-        alert(`Failed to create user, status code = ${error.message}`)
+        alert(error.message)
     }
 }
 
 export async function deleteObjects(id){
     try {
-        let response = await fetch(
+        await fetch(
             url+`administrators/${id}`,
             {method:"DELETE"});
-        let data = await response.json();
-        alert(data.status);
     } catch (error) {
+        alert(error.message)
     }
 }
 
 export async function updateDatabaseObject(id, editObject){
     try {
-        const response = await fetch (url+`administrators/${id}`, {
+        await fetch (url+`administrators/${id}`, {
             method:"PUT", 
             body: JSON.stringify(editObject),
             headers: {
@@ -57,5 +56,6 @@ export async function updateDatabaseObject(id, editObject){
             },
         });
     } catch (error) {
+        alert(error.message)
     }
 }

@@ -62,11 +62,11 @@ function DBTableRow({dataObject, columns, idObjects, removeRow, updateDbObject})
                 <td>
                 
                 <div className="icons">
-                    <button>
-                        <MdOutlineClose style={{color: "red",fontWeight: "bold" }} onClick={ () =>  removeRow(dataObject[columns[0]]) }/>
+                    <button onClick={ () =>  removeRow(dataObject[columns[0]]) }>
+                        <MdOutlineClose style={{color: "red",fontWeight: "bold" }} />
                     </button>
-                    <button>
-                        <MdModeEditOutline style={{color: "red",fontWeight: "bold" }} onClick={ ()=> setEditClicked(!editClicked) }/>
+                    <button onClick={ ()=> setEditClicked(!editClicked) }>
+                        <MdModeEditOutline style={{color: "red",fontWeight: "bold" }}/>
                     </button>
                 </div>
                 </td>

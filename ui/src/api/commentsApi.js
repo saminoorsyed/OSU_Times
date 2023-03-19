@@ -7,7 +7,7 @@ export async function getObjectColumnNames () {
         const colNames = await response.json();
         return colNames
     } catch (error) {
-        console.error(error);
+        alert(error.message)
     }
 }
 
@@ -17,13 +17,13 @@ export async function getObjects (){
         const data = await response.json()
         return data
     } catch (error) {
-        console.error(error);
+        alert(error.message)
     }
 };
 
 export async function postObject(NewObject) {
     try {
-        const response = await fetch(url+`comments/`,
+        await fetch(url+`comments/`,
             {
                 method:"POST", 
                 body: JSON.stringify(NewObject),
@@ -31,9 +31,8 @@ export async function postObject(NewObject) {
                     'Content-Type': 'application/JSON',
                 },
             });
-            alert(response.status);
     } catch (error) {
-        alert(`Failed to create user, status code = ${error.message}`)
+        alert(error.message)
     }
 }
 
@@ -42,24 +41,22 @@ export async function deleteObjects(id){
         let response = await fetch(
             url+`comments/${id}`,
             {method:"DELETE"});
-        let data = await response.json();
-        alert(data.status);
     } catch (error) {
+        alert(error.message)
     }
 }
 
 export async function updateDatabaseObject(id, editObject){
     try {
-        const response = await fetch (url+`comments/${id}`, {
+        await fetch (url+`comments/${id}`, {
             method:"PUT", 
             body: JSON.stringify(editObject),
             headers: {
                 'Content-Type': 'application/JSON',
             },
         });
-        let data = await response.json();
-        alert(data.status);
     } catch (error) {
+        alert(error.message)
     }
 }
 
@@ -70,7 +67,7 @@ export async function getIdObjectsPosts(){
         const namesList = namesObject.map(item => [item.title, item.post_id])
         return namesList
     } catch (error) {
-        console.error(error);
+        alert(error.message)
     }
 }
 
@@ -81,6 +78,6 @@ export async function getIdObjectsUsers(){
         const namesList = namesObject.map(item => [item.full_name, item.user_id])
         return namesList
     } catch (error) {
-        console.error(error);
+        alert(error.message)
     }
 }
