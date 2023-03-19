@@ -44,7 +44,6 @@ export async function deleteObjects(id){
         let response = await fetch(
             url+`users/${id}`,
             {method:"DELETE"});
-        let data = await response.json();
     } catch (error) {
         alert(error.message)
     }
