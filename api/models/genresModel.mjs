@@ -118,7 +118,7 @@ export async function addGenre(genre_name) {
         )
     } catch (error) {
         if (error.errno === CODE_UNIQUE_CONSTRAINT_FAILED) {
-            return { numUsersAdded: 0, status: "not unique genre" };
+            return { numAdded: 0, status: "not unique genre" };
         }
         return error
     }
