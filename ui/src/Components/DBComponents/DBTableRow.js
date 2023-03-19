@@ -10,38 +10,43 @@ function DBTableRow({dataObject, columns, idObjects, removeRow, updateDbObject})
     const [editClicked, setEditClicked] = useState(false);
     const [editObject, setEditObject] = useState(dataObject);
 
-    // const findDefaultValues = ()=>{
-    //     Object.keys(dataObject).forEach((key, index)=>{
-    //         let defaultVal
-    //         console.log(key)
-    //         if (key.slice(-3) === "_id"){
-    //             console.log(typeof idObjects[key])
-    //             idObjects[key].forEach((idList, index)=>{
-    //                 if (idList[0] === dataObject[key]){
-    //                     defaultVal = idList[1]
-    //                 }
-    //             })
-    //             setEditObject({
-    //                 [key]: defaultVal
-    //             })
-    //         }
-    //     })
-    // }
+    // adjust id object in edit object to numbers to represent correct values
+    const setDefaultValues = ()=>{
+        if (Object.keys(idObjects).length === 0){
+            return;
+        }
+        Object.keys(dataObject).slice(1).forEach((key, index)=>{
+            let defaultVal
+            if (key.slice(-3) === "_id"){
+                idObjects[key].forEach((idList, index)=>{
+                    if (idList[0] === dataObject[key]){
+                        defaultVal = idList[1]
+                    }
+                })
+                setEditObject(editObject => ({
+                        ...editObject,
+                        [key]: defaultVal
+                    }));
 
-    // useEffect(() => {
-    //     findDefaultValues();
-    // }, [])
+            }
+        })
+    }
+
+    useEffect(() => {
+        setDefaultValues();
+    }, [])
     
     function handleSaveClick(e){
+        console.log(editObject)
         updateDbObject(editObject, columns)
         e.preventDefault()
     }
 
     function updateEditObject(e){
-        setEditObject({
+        setEditObject(editObject => ({
             ...editObject,
             [e.target.name]: e.target.value
-        })
+        }));
     }
 
     return(
