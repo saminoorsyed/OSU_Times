@@ -4,6 +4,7 @@
 
 ## Software Engineers
 ### Sami Syed
+### Jonathan Reimer
 
 
 ## GIF
